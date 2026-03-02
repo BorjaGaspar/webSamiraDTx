@@ -11,6 +11,7 @@ import json
 import whisper
 import os
 import tempfile
+from django.contrib.auth.models import User
 
 # --- CONFIGURACIÓN WHISPER ---
 MODELO_WHISPER = None
@@ -218,7 +219,7 @@ def jugar_encuentra_letra(request):
         'nivel_inicial': nivel_actual
     }
     # Ruta basada en tu captura: games/cognitivo/
-    return render(request, 'core/games/cognitivo/juego_encuentra_letra.html', context)
+    return render(request, 'core/games/cognitivo/atencion/juego_encuentra_letra.html', context)
 
 @login_required
 def jugar_prueba_voz(request):
@@ -229,6 +230,93 @@ def jugar_prueba_voz(request):
 # =========================================================
 # FUNCIONES API (GUARDADO Y WHISPER)
 # =========================================================
+def evaluar_ajuste_dinamico(perfil, nombre_juego):
+    """
+    Sistema Universal de Ajuste Dinámico de Dificultad (DDA).
+    Analiza las últimas 2 sesiones del dominio correspondiente al juego actual.
+    """
+    # 1. DICCIONARIO DE DOMINIOS (Aquí clasificamos los juegos)
+    JUEGOS_COGNITIVOS = ["Encuentra la Letra", "Calculadora", "Juego 1: Memoria", "Memoria MoCA"]
+    JUEGOS_LENGUAJE = ["Juego de Elsa", "Laboratorio Voz"]
+    JUEGOS_MOTORES = ["Prueba de Cámara"]
+    
+    dominio = None
+    nivel_actual = 1
+    lista_juegos_dominio = []
+    
+    # Detectamos a qué dominio pertenece el juego jugado
+    if nombre_juego in JUEGOS_COGNITIVOS:
+        dominio = "Cognitivo"
+        nivel_actual = perfil.nivel_cognitivo
+        lista_juegos_dominio = JUEGOS_COGNITIVOS
+    elif nombre_juego in JUEGOS_LENGUAJE:
+        dominio = "Lenguaje"
+        nivel_actual = perfil.nivel_lenguaje
+        lista_juegos_dominio = JUEGOS_LENGUAJE
+    elif nombre_juego in JUEGOS_MOTORES:
+        dominio = "Motor"
+        nivel_actual = perfil.nivel_motor
+        lista_juegos_dominio = JUEGOS_MOTORES
+        
+    # Si el juego no está registrado en ninguna lista, salimos por seguridad
+    if not dominio:
+        return
+        
+    # 2. Obtenemos las últimas 2 sesiones SOLO de ese dominio
+    ultimas_sesiones = SesionDeJuego.objects.filter(
+        paciente=perfil, 
+        juego__in=lista_juegos_dominio
+    ).order_by('-fecha')[:2]
+        
+    if len(ultimas_sesiones) < 2:
+        return
+        
+    s1 = ultimas_sesiones[0] # Última
+    s2 = ultimas_sesiones[1] # Penúltima
+    
+    if s1.dificultad_percibida is None or s2.dificultad_percibida is None:
+        return
+        
+    cambio_nivel = False
+    nuevo_nivel = nivel_actual
+    mensaje_nota = ""
+    
+    # --- REGLA DE ASCENSO ---
+    if (s1.puntos >= 800 and s2.puntos >= 800) and (s1.dificultad_percibida <= 2 and s2.dificultad_percibida <= 2):
+        if nivel_actual < 5:
+            nuevo_nivel = nivel_actual + 1
+            cambio_nivel = True
+            mensaje_nota = f"🤖 [SISTEMA DDA] Ascenso automático.\nEl paciente demuestra dominio en el área {dominio} (Nivel {nivel_actual}). Rendimiento > 800 pts y carga cognitiva baja en sesiones consecutivas. Se aumenta a Nivel {nuevo_nivel}."
+
+    # --- REGLA DE DESCENSO ---
+    elif (s1.puntos <= 300 and s2.puntos <= 300) or (s1.dificultad_percibida == 5 and s2.dificultad_percibida == 5):
+        if nivel_actual > 1:
+            nuevo_nivel = nivel_actual - 1
+            cambio_nivel = True
+            mensaje_nota = f"🤖 [SISTEMA DDA] Descenso preventivo.\nAlerta de fatiga en el área {dominio} (Nivel {nivel_actual}). Rendimiento deficiente o frustración reportada ('Muy Difícil'). Se reduce a Nivel {nuevo_nivel} para evitar abandono terapéutico."
+
+    # 3. Aplicar y guardar los cambios
+    if cambio_nivel:
+        # Asignar el nuevo nivel a la variable correcta de la base de datos
+        if dominio == "Cognitivo":
+            perfil.nivel_cognitivo = nuevo_nivel
+            perfil.nivel_asignado = nuevo_nivel # Actualizamos el global guiándonos por el cognitivo
+        elif dominio == "Lenguaje":
+            perfil.nivel_lenguaje = nuevo_nivel
+        elif dominio == "Motor":
+            perfil.nivel_motor = nuevo_nivel
+            
+        perfil.save()
+        
+        # Registrar en el Historial Clínico
+        try:
+            NotaEspecialista.objects.create(
+                paciente=perfil,
+                medico=perfil.medico_asignado,
+                texto=mensaje_nota
+            )
+        except Exception as e:
+            print("Error creando la nota DDA:", e)
 
 @csrf_exempt
 def guardar_progreso(request):
@@ -263,6 +351,10 @@ def guardar_progreso(request):
                 dificultad_percibida=dificultad,
                 estado_animo=animo
             )
+
+            # 2. EL ALGORITMO EVALÚA EL RENDIMIENTO Y AJUSTA EL NIVEL (NUEVO)
+            evaluar_ajuste_dinamico(perfil, juego_nombre)
+
             return JsonResponse({'status': 'ok'})
         except Exception as e:
             print(f"❌ Error guardando progreso: {e}")
@@ -277,7 +369,7 @@ def transcribir_audio(request):
         try:
             if MODELO_WHISPER is None:
                 print("⏳ Cargando modelo Whisper por primera vez...")
-                MODELO_WHISPER = whisper.load_model("small")
+                MODELO_WHISPER = whisper.load_model("tiny")
                 print("✅ Modelo cargado y listo.")
 
             archivo_audio = request.FILES['audio']

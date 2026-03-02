@@ -262,9 +262,7 @@
 
     function seleccionarDificultad(valor, btnElement) {
         dificultadSeleccionada = valor;
-        // Quitar la clase active a todos los botones de dificultad
         document.querySelectorAll('.btn-prom-dif').forEach(btn => btn.classList.remove('active'));
-        // Ponerla al que acabamos de clickar
         btnElement.classList.add('active');
         comprobarFormularioProm();
     }
@@ -277,7 +275,6 @@
     }
 
     function comprobarFormularioProm() {
-        // Solo activamos el botón de continuar si ha respondido a las dos preguntas
         if (dificultadSeleccionada !== null && animoSeleccionado !== null) {
             document.getElementById('btn-continuar-prom').disabled = false;
         }
@@ -406,20 +403,25 @@
             
             let tiempoUsado = (Date.now() - startTime) / 1000; 
             tiempoTotalAcumulado += tiempoUsado;
-
             timerEl.innerText = tiempoUsado.toFixed(1) + 's';
 
-            let puntosRonda = 100; 
-            let bonus = 0;
+            // --- NUEVA LÓGICA DE PUNTUACIÓN (Tiempo Únicamente) ---
+            let puntosRonda = 0;
+            
             if (tiempoUsado <= (tiempoMaximo / 2)) {
-                bonus = 100; 
-            } else if (tiempoUsado < tiempoMaximo) {
-                bonus = 200 * (1 - (tiempoUsado / tiempoMaximo));
+                // Zona de Seguridad: Obtiene los 200 puntos íntegros
+                puntosRonda = 200; 
+            } else {
+                // Zona de Decaimiento: Descenso lineal desde 200 hasta 0
+                puntosRonda = 400 * (1 - (tiempoUsado / tiempoMaximo));
             }
             
-            puntosRonda += Math.floor(Math.max(0, bonus));
+            // Redondeamos hacia abajo y evitamos que los puntos sean negativos si se pasa del tiempo máximo
+            puntosRonda = Math.floor(Math.max(0, puntosRonda));
+            
             puntosTotales += puntosRonda;
             scoreEl.innerText = puntosTotales;
+            // ------------------------------------------------------
 
             setTimeout(() => {
                 rondaActual++;
@@ -486,8 +488,8 @@
             puntos: puntos,
             tiempo: Math.round(tiempoTotalAcumulado),
             completado: true,
-            dificultad_percibida: dificultad, // <-- Añadido al paquete de envío
-            estado_animo: animo               // <-- Añadido al paquete de envío
+            dificultad_percibida: dificultad, 
+            estado_animo: animo               
         };
 
         fetch('/api/guardar-progreso/', {
