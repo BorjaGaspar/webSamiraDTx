@@ -4,63 +4,416 @@
 {% block main_class %}col-12 bg-light min-vh-100{% endblock %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container py-4 py-md-5">
     <div class="row justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-lg-10 col-xl-8">
             
-            <div class="text-center mb-5">
-                <h1 class="fw-bold text-success">Evaluación Inicial</h1>
-                <p class="lead text-muted">
-                    Antes de comenzar tu terapia, necesitamos calibrar el nivel de los ejercicios.
-                    <br>Por favor, completa este breve test cognitivo.
-                </p>
+            <div id="contenedor-progreso" class="mb-4 d-none">
+                <div class="d-flex justify-content-between align-items-end mb-2">
+                    <h5 class="fw-bold text-success mb-0" id="titulo-seccion">Preparación</h5>
+                    <span class="text-muted small fw-bold"><span id="paso-actual">0</span> / 11</span>
+                </div>
+                <div class="progress" style="height: 12px; border-radius: 10px; background-color: #e9ecef;">
+                    <div id="barra-progreso" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;"></div>
+                </div>
             </div>
 
-            <div class="card border-0 shadow-lg mb-5 overflow-hidden bg-black">
-                <div class="card-body p-0 d-flex align-items-center justify-content-center" style="height: 500px; background-color: #000;">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+                <div class="card-body p-4 p-md-5">
                     
-                    <div class="text-center text-white opacity-50">
-                        <i class="bi bi-controller display-1"></i>
-                        <h4 class="mt-3">Aquí se cargará el Test MoCA (Unity)</h4>
-                        <p>Esperando archivo del juego...</p>
+                    <div id="paso-0" class="paso-test animate__animated animate__fadeIn">
+                        <div class="text-center mb-4">
+                            <div class="bg-success-subtle rounded-circle d-inline-flex p-4 mb-3">
+                                <i class="bi bi-clipboard2-pulse text-success display-3"></i>
+                            </div>
+                            <h1 class="fw-bold text-dark">Evaluación Inicial (MoCA)</h1>
+                            
+                            <button onclick="leerTexto('Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. Asegúrate de estar en un lugar tranquilo, con el volumen activado y sin distracciones.')" class="btn btn-light rounded-circle shadow-sm my-3 btn-altavoz" style="width: 70px; height: 70px;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 2rem;"></i>
+                            </button>
+
+                            <p class="lead text-muted mt-2 px-md-4">
+                                Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. 
+                            </p>
+                            <p class="text-muted">Asegúrate de estar en un lugar tranquilo, con el volumen activado y sin distracciones.</p>
+                        </div>
+                        <div class="text-center mt-5">
+                            <button onclick="siguientePaso()" class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                Empezar Evaluación <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="paso-1" class="paso-test d-none animate__animated animate__fadeIn">
+                        
+                        <div id="paso-1-instrucciones" class="text-center py-3">
+                            
+                            <button onclick="leerTexto('En este primer ejercicio, verá varios círculos con números y letras. Su objetivo es unirlos en orden, alternando siempre entre un número y una letra. Por ejemplo, empezamos en el uno, luego vamos a la A, luego al dos, luego a la B, y así sucesivamente. Deberá continuar hasta llegar a la letra E. Pulse el botón verde para empezar cuando lo haya entendido.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            
+                            <h2 class="fw-bold mb-3 text-dark">1. Unir Puntos</h2>
+                            
+                            <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
+                                Vamos a trazar un camino <strong>alternando entre números y letras</strong>, siguiendo siempre el orden lógico.<br><br>
+                                Fíjese en este ejemplo:
+                                
+                                <div class="d-flex justify-content-center align-items-center gap-2 my-4 fw-bold flex-wrap" style="font-size: 1.8rem;">
+                                    <span class="circulo-ejemplo bg-primary text-white shadow-sm">1</span>
+                                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                                    <span class="circulo-ejemplo bg-warning text-dark shadow-sm">A</span>
+                                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                                    <span class="circulo-ejemplo bg-primary text-white shadow-sm">2</span>
+                                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                                    <span class="circulo-ejemplo bg-warning text-dark shadow-sm">B</span>
+                                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                                    <span class="text-muted fs-3">...</span>
+                                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                                    <span class="circulo-ejemplo bg-warning text-dark shadow-sm">E</span>
+                                </div>
+                                
+                                Deberá continuar este patrón hasta llegar a la letra <strong>E</strong>.
+                            </div>
+                            
+                            <button onclick="comenzarEjercicio1()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, Empezar Ejercicio
+                            </button>
+                        </div>
+
+                        <div id="paso-1-juego" class="d-none animate__animated animate__fadeIn">
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-4 px-2" style="max-width: 500px; margin: 0 auto;">
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark">Una los puntos</h4>
+                                    <p class="text-muted small mb-0">Alternando: 1 &rarr; A &rarr; 2 &rarr; B...</p>
+                                </div>
+                                <button onclick="leerTexto('Recuerde: uno, A, dos, B... hasta llegar a la letra E.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                    <i class="bi bi-volume-up-fill text-primary fs-4"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="position-relative mx-auto bg-white" style="width: 100%; max-width: 500px; aspect-ratio: 1/1; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);" id="contenedor-canvas">
+                                <canvas id="canvas-trazos" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1; pointer-events: none;"></canvas>
+                                <div id="puntos-interactivos" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 2;"></div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button onclick="reiniciarJuego1()" class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
+                                    <i class="bi bi-eraser-fill me-2"></i> Me he equivocado, empezar de cero
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="paso-2" class="paso-test d-none animate__animated animate__fadeIn">
+                        <h3 class="fw-bold mb-4">2. Habilidades Visuoconstructivas</h3>
+                        <p class="fs-5 text-muted">Aquí irá la pizarra (Canvas) para dibujar el cubo.</p>
+                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">ESPACIO PARA PIZARRA DEL CUBO</div>
+                    </div>
+
+                    <div id="paso-3" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">3. RELOJ</div></div>
+                    <div id="paso-4" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">4. ANIMALES</div></div>
+                    <div id="paso-5" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">5. MEMORIA INICIAL</div></div>
+                    <div id="paso-6" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">6. ATENCIÓN</div></div>
+                    <div id="paso-7" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div></div>
+                    <div id="paso-8" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div></div>
+                    <div id="paso-9" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">9. SIMILITUDES</div></div>
+                    <div id="paso-10" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">10. RECUERDO DIFERIDO</div></div>
+                    <div id="paso-11" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">11. ORIENTACIÓN</div></div>
+
+                    <div id="paso-12" class="paso-test d-none animate__animated animate__fadeIn text-center">
+                        <div class="spinner-border text-primary my-4" style="width: 4rem; height: 4rem;" role="status">
+                            <span class="visually-hidden">Procesando...</span>
+                        </div>
+                        <h3 class="fw-bold text-dark">Guardando Resultados...</h3>
+                        <p class="text-muted">El sistema está analizando tus respuestas.</p>
+                    </div>
+
+                    <div id="controles-navegacion" class="d-flex justify-content-between mt-5 pt-4 border-top d-none">
+                        <button onclick="pasoAnterior()" id="btn-atras" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold">
+                            <i class="bi bi-arrow-left me-2"></i> Anterior
+                        </button>
+                        <button onclick="siguientePaso()" id="btn-siguiente" class="btn btn-success px-5 py-2 rounded-pill fw-bold">
+                            Siguiente <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
                     </div>
 
                 </div>
             </div>
 
-            <div class="card border-warning border-2 bg-warning-subtle mb-5">
-                <div class="card-header bg-warning text-dark fw-bold">
-                    <i class="bi bi-cone-striped me-2"></i> ZONA DE PRUEBAS (Developer Mode)
-                </div>
-                <div class="card-body">
-                    <p class="small">Como no tenemos el juego real todavía, usa estos botones para <strong>simular</strong> que el paciente ha terminado el test con diferentes notas.</p>
-                    
-                    <form method="post" class="d-flex flex-wrap gap-2 justify-content-center">
-                        {% csrf_token %}
-                        <button type="submit" name="resultado_simulado" value="1" class="btn btn-outline-danger bg-white">
-                            Nivel 1 (Muy Bajo)
-                        </button>
-
-                        <button type="submit" name="resultado_simulado" value="2" class="btn btn-outline-warning bg-white">
-                            Nivel 2 (Bajo)
-                        </button>
-
-                        <button type="submit" name="resultado_simulado" value="3" class="btn btn-outline-primary bg-white">
-                            Nivel 3 (Medio)
-                        </button>
-
-                        <button type="submit" name="resultado_simulado" value="4" class="btn btn-outline-info bg-white">
-                            Nivel 4 (Alto)
-                        </button>
-
-                        <button type="submit" name="resultado_simulado" value="5" class="btn btn-outline-success bg-white">
-                            Nivel 5 (Experto)
-                        </button>
-                    </form>
+            <div class="mt-4 text-center">
+                <button class="btn btn-sm btn-outline-secondary opacity-50" type="button" data-bs-toggle="collapse" data-bs-target="#devMode">
+                    <i class="bi bi-bug"></i> Developer Bypass
+                </button>
+                <div class="collapse mt-2" id="devMode">
+                    <div class="card card-body bg-light border-0 shadow-sm">
+                        <form method="post" class="d-flex flex-wrap gap-2 justify-content-center">
+                            {% csrf_token %}
+                            <button type="submit" name="resultado_simulado" value="1" class="btn btn-sm btn-danger">Lvl 1</button>
+                            <button type="submit" name="resultado_simulado" value="2" class="btn btn-sm btn-warning">Lvl 2</button>
+                            <button type="submit" name="resultado_simulado" value="3" class="btn btn-sm btn-primary">Lvl 3</button>
+                            <button type="submit" name="resultado_simulado" value="4" class="btn btn-sm btn-info">Lvl 4</button>
+                            <button type="submit" name="resultado_simulado" value="5" class="btn btn-sm btn-success">Lvl 5</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+
+<style>
+    .btn-altavoz { transition: transform 0.1s ease, box-shadow 0.2s ease; }
+    .btn-altavoz:active { transform: scale(0.9); }
+    .btn-altavoz:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; }
+    .border-dashed { border-style: dashed !important; border-width: 2px !important; border-color: #dee2e6 !important; }
+    .paso-test { min-height: 40vh; display: flex; flex-direction: column; justify-content: center; }
+    
+    /* Círculos del ejemplo visual */
+    .circulo-ejemplo {
+        width: 60px; height: 60px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        border: 3px solid transparent;
+    }
+
+    /* Estilos para el Juego 1 (Círculos interactivos) */
+    .circulo-moca {
+        width: 45px; height: 45px;
+        background-color: white;
+        border: 3px solid #6c757d; /* Gris oscuro por defecto */
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: bold; font-size: 1.3rem; cursor: pointer;
+        position: absolute; transform: translate(-50%, -50%);
+        transition: all 0.2s ease;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        color: #495057;
+    }
+    .circulo-moca:hover { transform: translate(-50%, -50%) scale(1.15); border-color: #0d6efd; color: #0d6efd;}
+    .circulo-moca.seleccionado { background-color: #0d6efd; color: white; border-color: #0d6efd; box-shadow: 0 0 10px rgba(13,110,253,0.5);}
+</style>
+
+<script>
+    // --- MÓDULO DE ACCESIBILIDAD (ALTAVOZ) ---
+    function leerTexto(texto) {
+        window.speechSynthesis.cancel(); 
+        const utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'es-ES';
+        utterance.rate = 0.9; 
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // --- VARIABLES GLOBALES DEL TEST ---
+    let pasoActual = 0;
+    const totalPasos = 11;
+    
+    let datosMoCA = {
+        score_visuoespacial: 0,
+        score_identificacion: 0,
+        score_atencion: 0,
+        score_lenguaje: 0,
+        score_abstraccion: 0,
+        score_recuerdo: 0,
+        score_orientacion: 0,
+        dibujo_cubo_b64: null,
+        dibujo_reloj_b64: null
+    };
+
+    const nombresSecciones = [
+        "Introducción", "1. Alternancia Conceptual", "2. Cubo", "3. Reloj", 
+        "4. Identificación", "5. Memoria", "6. Atención", "7. Repetición", 
+        "8. Fluidez", "9. Abstracción", "10. Recuerdo Diferido", "11. Orientación"
+    ];
+
+    // --- FUNCIONES DE NAVEGACIÓN ---
+    function comenzarEjercicio1() {
+        window.speechSynthesis.cancel(); 
+        document.getElementById('paso-1-instrucciones').classList.add('d-none');
+        document.getElementById('paso-1-juego').classList.remove('d-none');
+        // Solo mostramos los botones de Siguiente/Anterior cuando el juego empieza de verdad
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        iniciarJuego1();
+    }
+
+    function siguientePaso() {
+        window.speechSynthesis.cancel(); 
+        
+        validarPasoActual();
+
+        document.getElementById(`paso-${pasoActual}`).classList.add('d-none');
+        pasoActual++;
+        document.getElementById(`paso-${pasoActual}`).classList.remove('d-none');
+        actualizarInterfaz();
+        
+        if (pasoActual === 12) {
+            document.getElementById('controles-navegacion').classList.add('d-none');
+            document.getElementById('contenedor-progreso').classList.add('d-none');
+            enviarResultadosAlServidor();
+        }
+    }
+
+    function pasoAnterior() {
+        window.speechSynthesis.cancel();
+        if (pasoActual > 1) {
+            document.getElementById(`paso-${pasoActual}`).classList.add('d-none');
+            pasoActual--;
+            document.getElementById(`paso-${pasoActual}`).classList.remove('d-none');
+            actualizarInterfaz();
+        }
+    }
+
+    function actualizarInterfaz() {
+        // Lógica para mostrar/ocultar contenedores principales
+        if (pasoActual > 0 && pasoActual <= totalPasos) {
+            document.getElementById('contenedor-progreso').classList.remove('d-none');
+            
+            // TRUCO UX: Si estamos en el paso 1, ocultamos los botones de abajo hasta que pase las instrucciones
+            if (pasoActual === 1) {
+                document.getElementById('controles-navegacion').classList.remove('d-flex');
+                document.getElementById('controles-navegacion').classList.add('d-none');
+                // Si vuelve hacia atrás y entra al paso 1, nos aseguramos de mostrar las instrucciones de nuevo
+                document.getElementById('paso-1-instrucciones').classList.remove('d-none');
+                document.getElementById('paso-1-juego').classList.add('d-none');
+            } else {
+                document.getElementById('controles-navegacion').classList.remove('d-none');
+                document.getElementById('controles-navegacion').classList.add('d-flex');
+            }
+        }
+
+        // Actualizar barra de progreso
+        if (pasoActual <= totalPasos) {
+            document.getElementById('paso-actual').innerText = pasoActual;
+            document.getElementById('titulo-seccion').innerText = nombresSecciones[pasoActual];
+            const porcentaje = (pasoActual / totalPasos) * 100;
+            document.getElementById('barra-progreso').style.width = `${porcentaje}%`;
+        }
+
+        // Estilo del botón Siguiente
+        const btnSiguiente = document.getElementById('btn-siguiente');
+        if (pasoActual === totalPasos) {
+            btnSiguiente.innerHTML = 'Finalizar y Guardar <i class="bi bi-check-circle-fill ms-2"></i>';
+            btnSiguiente.classList.replace('btn-success', 'btn-primary'); 
+        } else {
+            btnSiguiente.innerHTML = 'Siguiente <i class="bi bi-arrow-right ms-2"></i>';
+            btnSiguiente.classList.replace('btn-primary', 'btn-success');
+        }
+    }
+
+    // --- FUNCIÓN DE EVALUACIÓN CLÍNICA POR PASO ---
+    function validarPasoActual() {
+        if (pasoActual === 1) {
+            const secuenciaCorrecta = ["1", "A", "2", "B", "3", "C", "4", "D", "5", "E"];
+            let acierto = true;
+            
+            if (secuenciaPaciente.length !== secuenciaCorrecta.length) {
+                acierto = false;
+            } else {
+                for (let i = 0; i < secuenciaCorrecta.length; i++) {
+                    if (secuenciaPaciente[i] !== secuenciaCorrecta[i]) acierto = false;
+                }
+            }
+            
+            datosMoCA.score_visuoespacial = acierto ? 1 : 0;
+            console.log("Nota Juego 1:", acierto ? "1 Punto" : "0 Puntos");
+        }
+    }
+
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 1: ALTERNANCIA CONCEPTUAL (1-A-2-B)
+    // =========================================================
+    
+    const nodosJuego1 = [
+        { id: "1", x: 50, y: 70 }, { id: "2", x: 85, y: 55 }, { id: "3", x: 90, y: 85 },
+        { id: "4", x: 65, y: 80 }, { id: "5", x: 15, y: 40 },
+        { id: "A", x: 70, y: 20 }, { id: "B", x: 60, y: 45 }, { id: "C", x: 45, y: 90 },
+        { id: "D", x: 25, y: 75 }, { id: "E", x: 35, y: 25 }
+    ];
+
+    let secuenciaPaciente = [];
+    let lienzo, ctx;
+
+    function iniciarJuego1() {
+        const contenedor = document.getElementById('puntos-interactivos');
+        lienzo = document.getElementById('canvas-trazos');
+        ctx = lienzo.getContext('2d');
+        
+        ajustarCanvas();
+        window.addEventListener('resize', ajustarCanvas);
+
+        reiniciarJuego1();
+    }
+
+    function ajustarCanvas() {
+        if(lienzo && document.getElementById('paso-1-juego').classList.contains('d-none') === false) {
+            lienzo.width = lienzo.parentElement.clientWidth;
+            lienzo.height = lienzo.parentElement.clientHeight;
+            dibujarLineas(); 
+        }
+    }
+
+    function reiniciarJuego1() {
+        secuenciaPaciente = [];
+        const contenedor = document.getElementById('puntos-interactivos');
+        contenedor.innerHTML = '';
+        if(ctx) ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+
+        nodosJuego1.forEach(nodo => {
+            let btn = document.createElement('div');
+            btn.className = 'circulo-moca';
+            btn.innerText = nodo.id;
+            btn.style.left = `${nodo.x}%`;
+            btn.style.top = `${nodo.y}%`;
+            btn.dataset.id = nodo.id;
+            
+            btn.onclick = function() {
+                if (secuenciaPaciente.length > 0 && secuenciaPaciente[secuenciaPaciente.length - 1] === nodo.id) return;
+                
+                secuenciaPaciente.push(nodo.id);
+                btn.classList.add('seleccionado');
+                dibujarLineas();
+            };
+            
+            contenedor.appendChild(btn);
+        });
+    }
+
+    function dibujarLineas() {
+        if (!ctx || secuenciaPaciente.length < 2) return;
+        
+        ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#0d6efd"; // Línea azul vibrante
+        ctx.lineJoin = "round";
+
+        for (let i = 0; i < secuenciaPaciente.length; i++) {
+            let idActual = secuenciaPaciente[i];
+            let nodo = nodosJuego1.find(n => n.id === idActual);
+            
+            let pixelX = (nodo.x / 100) * lienzo.width;
+            let pixelY = (nodo.y / 100) * lienzo.height;
+
+            if (i === 0) {
+                ctx.moveTo(pixelX, pixelY);
+            } else {
+                ctx.lineTo(pixelX, pixelY);
+            }
+        }
+        ctx.stroke();
+    }
+
+
+    // --- ENVÍO FINAL AL BACKEND ---
+    function enviarResultadosAlServidor() {
+        console.log("JSON Final del MoCA:", datosMoCA);
+        setTimeout(() => {
+            let btnBypass = document.querySelector('button[name="resultado_simulado"][value="3"]');
+            if(btnBypass) btnBypass.click();
+        }, 2000);
+    }
+</script>
 {% endblock %}
