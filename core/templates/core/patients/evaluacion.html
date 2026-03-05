@@ -1,4 +1,5 @@
 {% extends 'core/layouts/base_private.html' %}
+{% load static %}
 {% block sidebar %}{% endblock %}
 
 {% block main_class %}col-12 bg-light min-vh-100{% endblock %}
@@ -28,7 +29,7 @@
                             </div>
                             <h1 class="fw-bold text-dark">Evaluación Inicial (MoCA)</h1>
                             
-                            <button onclick="leerTexto('Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. Asegúrate de estar en un lugar tranquilo, con el volumen activado y sin distracciones.')" class="btn btn-light rounded-circle shadow-sm my-3 btn-altavoz" style="width: 70px; height: 70px;">
+                            <button onclick="leerTexto('Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. Asegúrate de estar en un lugar tranquilo, con el volumen activado, y sin distracciones.')" class="btn btn-light rounded-circle shadow-sm my-3 btn-altavoz" style="width: 70px; height: 70px;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 2rem;"></i>
                             </button>
 
@@ -48,7 +49,7 @@
                         
                         <div id="paso-1-instrucciones" class="text-center py-3">
                             
-                            <button onclick="leerTexto('En este primer ejercicio, verá varios círculos con números y letras. Su objetivo es unirlos en orden, alternando siempre entre un número y una letra. Por ejemplo, empezamos en el uno, luego vamos a la A, luego al dos, luego a la B, y así sucesivamente. Deberá continuar hasta llegar a la letra E. Pulse el botón verde para empezar cuando lo haya entendido.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                            <button onclick="leerTexto('En este primer ejercicio, verá varios círculos con números y letras. Su objetivo es unirlos en orden, alternando siempre entre un número y una letra. Por ejemplo, empezamos en el uno, luego vamos a la, AA, luego al dos, luego a la B, y así sucesivamente. Deberá continuar hasta llegar a la letra, EE de elefante. Pulse el botón verde para empezar cuando lo haya entendido.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
                             
@@ -87,7 +88,7 @@
                                     <h4 class="fw-bold mb-0 text-dark">Una los puntos</h4>
                                     <p class="text-muted small mb-0">Alternando: 1 &rarr; A &rarr; 2 &rarr; B...</p>
                                 </div>
-                                <button onclick="leerTexto('Recuerde: uno, A, dos, B... hasta llegar a la letra E.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                <button onclick="leerTexto('Recuerde: uno, AA, dos, B... hasta llegar a la letra. EE de elefante.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
                                     <i class="bi bi-volume-up-fill text-primary fs-4"></i>
                                 </button>
                             </div>
@@ -106,13 +107,151 @@
                     </div>
 
                     <div id="paso-2" class="paso-test d-none animate__animated animate__fadeIn">
-                        <h3 class="fw-bold mb-4">2. Habilidades Visuoconstructivas</h3>
-                        <p class="fs-5 text-muted">Aquí irá la pizarra (Canvas) para dibujar el cubo.</p>
-                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">ESPACIO PARA PIZARRA DEL CUBO</div>
+                        
+                        <div id="paso-2-instrucciones" class="text-center py-3">
+                            <button onclick="leerTexto('A continuación, verá el dibujo de un cubo. Me gustaría que lo copiara en el espacio en blanco de la manera más precisa posible. Pulse empezar cuando esté listo.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            
+                            <h2 class="fw-bold mb-3 text-dark">2. Copiar el Cubo</h2>
+                            
+                            <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
+                                En la siguiente pantalla aparecerá una <strong>pizarra en blanco</strong> y un dibujo de ejemplo.<br><br>
+                                Utilice el ratón (o su dedo si está en un móvil/tablet) para <strong>copiar el dibujo</strong> con la mayor precisión que pueda.
+                            </div>
+                            
+                            <button onclick="comenzarEjercicio2()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-pencil-fill me-2"></i> Entendido, Empezar a Dibujar
+                            </button>
+                        </div>
+
+                        <div id="paso-2-juego" class="d-none animate__animated animate__fadeIn">
+                            <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark">Copie este dibujo</h4>
+                                    <p class="text-muted small mb-0">Dibuje en el recuadro blanco de abajo.</p>
+                                </div>
+                                <button onclick="leerTexto('Me gustaría que copiara este dibujo de la manera más precisa posible.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                    <i class="bi bi-volume-up-fill text-primary fs-4"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="text-center mb-3">
+                                <div class="d-inline-flex justify-content-center align-items-center bg-light border rounded" style="width: 120px; height: 120px; position: relative;">
+                                   <div style="width: 50px; height: 50px; border: 2px solid #212529; position: absolute; top: 20px; left: 20px;"></div>
+                                   <div style="width: 50px; height: 50px; border: 2px solid #212529; position: absolute; top: 45px; left: 45px;"></div>
+                                   <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                                       <line x1="20" y1="20" x2="45" y2="45" stroke="#212529" stroke-width="2"/>
+                                       <line x1="70" y1="20" x2="95" y2="45" stroke="#212529" stroke-width="2"/>
+                                       <line x1="20" y1="70" x2="45" y2="95" stroke="#212529" stroke-width="2"/>
+                                       <line x1="70" y1="70" x2="95" y2="95" stroke="#212529" stroke-width="2"/>
+                                   </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="position-relative mx-auto bg-white" style="width: 100%; max-width: 500px; height: 300px; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);" id="contenedor-canvas-cubo">
+                                <canvas id="canvas-cubo" class="w-100 h-100 rounded-4" style="cursor: crosshair;"></canvas>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <button onclick="limpiarCanvasCubo()" class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
+                                    <i class="bi bi-eraser-fill me-2"></i> Borrar y empezar de nuevo
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="paso-3" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">3. RELOJ</div></div>
-                    <div id="paso-4" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">4. ANIMALES</div></div>
+                    <div id="paso-3" class="paso-test d-none animate__animated animate__fadeIn">
+                        
+                        <div id="paso-3-instrucciones" class="text-center py-3">
+                            <button onclick="leerTexto('A continuación, me gustaría que dibujara un reloj. Incluya todos los números y dibújelo señalando las once y diez minutos. Pulse empezar cuando esté listo.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            
+                            <h2 class="fw-bold mb-3 text-dark">3. Dibujar un Reloj</h2>
+                            
+                            <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
+                                En la siguiente pantalla aparecerá una <strong>pizarra en blanco</strong>.<br><br>
+                                Dibuje un reloj. Incluya <strong>todos los números</strong> y dibújelo señalando las <strong>11 y 10 minutos</strong>.
+                            </div>
+                            
+                            <button onclick="comenzarEjercicio3()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-pencil-fill me-2"></i> Entendido, Empezar a Dibujar
+                            </button>
+                        </div>
+
+                        <div id="paso-3-juego" class="d-none animate__animated animate__fadeIn">
+                            <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark">Dibuje un reloj</h4>
+                                    <p class="text-muted small mb-0">Incluya todos los números y marque las 11:10.</p>
+                                </div>
+                                <button onclick="leerTexto('Dibuje un reloj. Incluya todos los números y dibújelo señalando las once y diez minutos.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                    <i class="bi bi-volume-up-fill text-primary fs-4"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="position-relative mx-auto bg-white mt-3" style="width: 100%; max-width: 500px; height: 350px; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);" id="contenedor-canvas-reloj">
+                                <canvas id="canvas-reloj" class="w-100 h-100 rounded-4" style="cursor: crosshair;"></canvas>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <button onclick="limpiarCanvasReloj()" class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
+                                    <i class="bi bi-eraser-fill me-2"></i> Borrar y empezar de nuevo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="paso-4" class="paso-test d-none animate__animated animate__fadeIn">
+                        
+                        <div id="paso-4-instrucciones" class="text-center py-3">
+                            <button onclick="leerTexto('A continuación, le mostraré las imágenes de tres animales, uno por uno. Escriba el nombre de cada animal en el recuadro que aparecerá debajo de la foto. Pulse el botón azul para empezar.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            
+                            <h2 class="fw-bold mb-3 text-dark">4. Identificación de Animales</h2>
+                            
+                            <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
+                                Le mostraremos <strong>tres animales</strong> de uno en uno.<br><br>
+                                Su tarea es mirar la imagen y <strong>escribir el nombre</strong> del animal en el recuadro correspondiente.
+                            </div>
+                            
+                            <button onclick="comenzarEjercicio4()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-eye-fill me-2"></i> Entendido, Empezar a Identificar
+                            </button>
+                        </div>
+
+                        <div id="paso-4-juego" class="d-none animate__animated animate__fadeIn text-center">
+                            <div class="d-flex justify-content-between align-items-center mb-4 px-2" style="max-width: 500px; margin: 0 auto;">
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark text-start">¿Qué animal es este?</h4>
+                                </div>
+                                <button onclick="leerTexto('Dígame el nombre de este animal, escribiéndolo en el recuadro inferior.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                    <i class="bi bi-volume-up-fill text-primary fs-4"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <img id="img-animal" src="" alt="Animal a identificar" class="img-fluid rounded-4 shadow-sm border border-2" style="max-height: 250px; width: auto; object-fit: contain; background-color: white; padding: 10px;" onerror="this.src='https://via.placeholder.com/300?text=Falta+Imagen'">
+                            </div>
+
+                            <div class="mx-auto" style="max-width: 400px;">
+                                <input type="text" id="input-animal" class="form-control form-control-lg text-center fw-bold text-primary shadow-sm mb-4" style="font-size: 1.8rem; border-width: 3px;" placeholder="Escriba aquí..." autocomplete="off">
+                                
+                                <button id="btn-siguiente-animal" onclick="siguienteAnimal()" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold">
+                                    Siguiente Animal <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="paso-4-completado" class="d-none animate__animated animate__fadeIn text-center py-5">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+                            <h2 class="fw-bold mt-3 text-dark">¡Imágenes completadas!</h2>
+                            <p class="text-muted fs-5">Puede continuar con el siguiente paso.</p>
+                        </div>
+                    </div>
+
                     <div id="paso-5" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">5. MEMORIA INICIAL</div></div>
                     <div id="paso-6" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">6. ATENCIÓN</div></div>
                     <div id="paso-7" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div></div>
@@ -170,7 +309,6 @@
     .border-dashed { border-style: dashed !important; border-width: 2px !important; border-color: #dee2e6 !important; }
     .paso-test { min-height: 40vh; display: flex; flex-direction: column; justify-content: center; }
     
-    /* Círculos del ejemplo visual */
     .circulo-ejemplo {
         width: 60px; height: 60px;
         border-radius: 50%;
@@ -178,11 +316,10 @@
         border: 3px solid transparent;
     }
 
-    /* Estilos para el Juego 1 (Círculos interactivos) */
     .circulo-moca {
         width: 45px; height: 45px;
         background-color: white;
-        border: 3px solid #6c757d; /* Gris oscuro por defecto */
+        border: 3px solid #6c757d; 
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         font-weight: bold; font-size: 1.3rem; cursor: pointer;
@@ -201,7 +338,7 @@
         window.speechSynthesis.cancel(); 
         const utterance = new SpeechSynthesisUtterance(texto);
         utterance.lang = 'es-ES';
-        utterance.rate = 0.9; 
+        utterance.rate = 1.0; 
         window.speechSynthesis.speak(utterance);
     }
 
@@ -232,10 +369,41 @@
         window.speechSynthesis.cancel(); 
         document.getElementById('paso-1-instrucciones').classList.add('d-none');
         document.getElementById('paso-1-juego').classList.remove('d-none');
-        // Solo mostramos los botones de Siguiente/Anterior cuando el juego empieza de verdad
         document.getElementById('controles-navegacion').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.add('d-flex');
         iniciarJuego1();
+    }
+
+    function comenzarEjercicio2() {
+        window.speechSynthesis.cancel(); 
+        document.getElementById('paso-2-instrucciones').classList.add('d-none');
+        document.getElementById('paso-2-juego').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        iniciarCanvasCubo();
+    }
+
+    function comenzarEjercicio3() {
+        window.speechSynthesis.cancel(); 
+        document.getElementById('paso-3-instrucciones').classList.add('d-none');
+        document.getElementById('paso-3-juego').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        iniciarCanvasReloj();
+    }
+
+    function comenzarEjercicio4() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-4-instrucciones').classList.add('d-none');
+        document.getElementById('paso-4-juego').classList.remove('d-none');
+        
+        // Ocultamos la navegación global para que no se salte los animales
+        document.getElementById('controles-navegacion').classList.remove('d-flex');
+        document.getElementById('controles-navegacion').classList.add('d-none');
+        
+        animalActualIndex = 0;
+        respuestasPaciente = [];
+        cargarAnimalEnPantalla();
     }
 
     function siguientePaso() {
@@ -266,24 +434,26 @@
     }
 
     function actualizarInterfaz() {
-        // Lógica para mostrar/ocultar contenedores principales
         if (pasoActual > 0 && pasoActual <= totalPasos) {
             document.getElementById('contenedor-progreso').classList.remove('d-none');
             
-            // TRUCO UX: Si estamos en el paso 1, ocultamos los botones de abajo hasta que pase las instrucciones
-            if (pasoActual === 1) {
+            // Ocultar controles durante pantallas de instrucciones o minijuegos internos
+            if (pasoActual === 1 || pasoActual === 2 || pasoActual === 3 || pasoActual === 4) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
-                // Si vuelve hacia atrás y entra al paso 1, nos aseguramos de mostrar las instrucciones de nuevo
-                document.getElementById('paso-1-instrucciones').classList.remove('d-none');
-                document.getElementById('paso-1-juego').classList.add('d-none');
+                
+                // Mostrar siempre instrucciones y resetear el juego al volver atrás
+                document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
+                document.getElementById(`paso-${pasoActual}-juego`).classList.add('d-none');
+                if (pasoActual === 4) {
+                     document.getElementById('paso-4-completado').classList.add('d-none');
+                }
             } else {
                 document.getElementById('controles-navegacion').classList.remove('d-none');
                 document.getElementById('controles-navegacion').classList.add('d-flex');
             }
         }
 
-        // Actualizar barra de progreso
         if (pasoActual <= totalPasos) {
             document.getElementById('paso-actual').innerText = pasoActual;
             document.getElementById('titulo-seccion').innerText = nombresSecciones[pasoActual];
@@ -291,7 +461,6 @@
             document.getElementById('barra-progreso').style.width = `${porcentaje}%`;
         }
 
-        // Estilo del botón Siguiente
         const btnSiguiente = document.getElementById('btn-siguiente');
         if (pasoActual === totalPasos) {
             btnSiguiente.innerHTML = 'Finalizar y Guardar <i class="bi bi-check-circle-fill ms-2"></i>';
@@ -319,11 +488,46 @@
             datosMoCA.score_visuoespacial = acierto ? 1 : 0;
             console.log("Nota Juego 1:", acierto ? "1 Punto" : "0 Puntos");
         }
+        
+        if (pasoActual === 2) {
+            if (lienzoCubo) {
+                datosMoCA.dibujo_cubo_b64 = lienzoCubo.toDataURL('image/png');
+                console.log("Dibujo del Cubo guardado.");
+            }
+        }
+
+        if (pasoActual === 3) {
+            if (lienzoReloj) {
+                datosMoCA.dibujo_reloj_b64 = lienzoReloj.toDataURL('image/png');
+                console.log("Dibujo del Reloj guardado.");
+            }
+        }
+
+        if (pasoActual === 4) {
+            let puntosAnimales = 0;
+            
+            for (let i = 0; i < listaAnimales.length; i++) {
+                let respuesta = respuestasPaciente[i];
+                
+                if (respuesta) {
+                    let respuestaLimpia = respuesta.toLowerCase()
+                                                   .normalize("NFD")
+                                                   .replace(/[\u0300-\u036f]/g, "");
+                    
+                    if (listaAnimales[i].correctas.includes(respuestaLimpia)) {
+                        puntosAnimales++;
+                    }
+                }
+            }
+            
+            datosMoCA.score_identificacion = puntosAnimales;
+            console.log("Nota Juego 4:", puntosAnimales, "Puntos (Respuestas:", respuestasPaciente, ")");
+        }
     }
 
 
     // =========================================================
-    // LÓGICA DEL JUEGO 1: ALTERNANCIA CONCEPTUAL (1-A-2-B)
+    // LÓGICA DEL JUEGO 1: ALTERNANCIA CONCEPTUAL
     // =========================================================
     
     const nodosJuego1 = [
@@ -387,7 +591,7 @@
         ctx.clearRect(0, 0, lienzo.width, lienzo.height);
         ctx.beginPath();
         ctx.lineWidth = 4;
-        ctx.strokeStyle = "#0d6efd"; // Línea azul vibrante
+        ctx.strokeStyle = "#0d6efd";
         ctx.lineJoin = "round";
 
         for (let i = 0; i < secuenciaPaciente.length; i++) {
@@ -406,6 +610,210 @@
         ctx.stroke();
     }
 
+    // =========================================================
+    // LÓGICA DEL JUEGO 2: DIBUJAR EL CUBO
+    // =========================================================
+    
+    let lienzoCubo, ctxCubo;
+    let dibujando = false;
+
+    function iniciarCanvasCubo() {
+        lienzoCubo = document.getElementById('canvas-cubo');
+        ctxCubo = lienzoCubo.getContext('2d');
+        
+        function redimensionarCubo() {
+            if(lienzoCubo && document.getElementById('paso-2-juego').classList.contains('d-none') === false) {
+                let tempImg = new Image();
+                tempImg.src = lienzoCubo.toDataURL();
+                
+                lienzoCubo.width = lienzoCubo.parentElement.clientWidth;
+                lienzoCubo.height = lienzoCubo.parentElement.clientHeight;
+                
+                ctxCubo.lineWidth = 4;
+                ctxCubo.lineCap = 'round';
+                ctxCubo.strokeStyle = '#212529'; 
+                
+                tempImg.onload = () => ctxCubo.drawImage(tempImg, 0, 0);
+            }
+        }
+        
+        redimensionarCubo();
+        window.addEventListener('resize', redimensionarCubo);
+
+        lienzoCubo.addEventListener('mousedown', iniciarTrazo);
+        lienzoCubo.addEventListener('mousemove', dibujar);
+        lienzoCubo.addEventListener('mouseup', detenerTrazo);
+        lienzoCubo.addEventListener('mouseout', detenerTrazo);
+
+        lienzoCubo.addEventListener('touchstart', iniciarTrazo, {passive: false});
+        lienzoCubo.addEventListener('touchmove', dibujar, {passive: false});
+        lienzoCubo.addEventListener('touchend', detenerTrazo);
+    }
+
+    function iniciarTrazo(e) {
+        e.preventDefault(); 
+        dibujando = true;
+        ctxCubo.beginPath();
+        let pos = obtenerPosicion(e, lienzoCubo);
+        ctxCubo.moveTo(pos.x, pos.y);
+    }
+
+    function dibujar(e) {
+        if (!dibujando) return;
+        e.preventDefault();
+        let pos = obtenerPosicion(e, lienzoCubo);
+        ctxCubo.lineTo(pos.x, pos.y);
+        ctxCubo.stroke();
+    }
+
+    function detenerTrazo() {
+        dibujando = false;
+        ctxCubo.closePath();
+    }
+
+    function obtenerPosicion(evt, canvas) {
+        let rect = canvas.getBoundingClientRect();
+        let clientX = evt.clientX;
+        let clientY = evt.clientY;
+
+        if (evt.touches && evt.touches.length > 0) {
+            clientX = evt.touches[0].clientX;
+            clientY = evt.touches[0].clientY;
+        }
+
+        return {
+            x: (clientX - rect.left) * (canvas.width / rect.width),
+            y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+    }
+
+    function limpiarCanvasCubo() {
+        if(ctxCubo) ctxCubo.clearRect(0, 0, lienzoCubo.width, lienzoCubo.height);
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 3: DIBUJAR EL RELOJ
+    // =========================================================
+
+    let lienzoReloj, ctxReloj;
+    let dibujandoReloj = false;
+
+    function iniciarCanvasReloj() {
+        lienzoReloj = document.getElementById('canvas-reloj');
+        ctxReloj = lienzoReloj.getContext('2d');
+        
+        function redimensionarReloj() {
+            if(lienzoReloj && document.getElementById('paso-3-juego').classList.contains('d-none') === false) {
+                let tempImg = new Image();
+                tempImg.src = lienzoReloj.toDataURL();
+                
+                lienzoReloj.width = lienzoReloj.parentElement.clientWidth;
+                lienzoReloj.height = lienzoReloj.parentElement.clientHeight;
+                
+                ctxReloj.lineWidth = 4;
+                ctxReloj.lineCap = 'round';
+                ctxReloj.strokeStyle = '#212529'; 
+                
+                tempImg.onload = () => ctxReloj.drawImage(tempImg, 0, 0);
+            }
+        }
+        
+        redimensionarReloj();
+        window.addEventListener('resize', redimensionarReloj);
+
+        lienzoReloj.addEventListener('mousedown', iniciarTrazoReloj);
+        lienzoReloj.addEventListener('mousemove', dibujarReloj);
+        lienzoReloj.addEventListener('mouseup', detenerTrazoReloj);
+        lienzoReloj.addEventListener('mouseout', detenerTrazoReloj);
+
+        lienzoReloj.addEventListener('touchstart', iniciarTrazoReloj, {passive: false});
+        lienzoReloj.addEventListener('touchmove', dibujarReloj, {passive: false});
+        lienzoReloj.addEventListener('touchend', detenerTrazoReloj);
+    }
+
+    function iniciarTrazoReloj(e) {
+        e.preventDefault(); 
+        dibujandoReloj = true;
+        ctxReloj.beginPath();
+        let pos = obtenerPosicion(e, lienzoReloj);
+        ctxReloj.moveTo(pos.x, pos.y);
+    }
+
+    function dibujarReloj(e) {
+        if (!dibujandoReloj) return;
+        e.preventDefault();
+        let pos = obtenerPosicion(e, lienzoReloj);
+        ctxReloj.lineTo(pos.x, pos.y);
+        ctxReloj.stroke();
+    }
+
+    function detenerTrazoReloj() {
+        dibujandoReloj = false;
+        ctxReloj.closePath();
+    }
+
+    function limpiarCanvasReloj() {
+        if(ctxReloj) ctxReloj.clearRect(0, 0, lienzoReloj.width, lienzoReloj.height);
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 4: IDENTIFICACIÓN DE ANIMALES
+    // =========================================================
+
+    let animalActualIndex = 0;
+    let respuestasPaciente = [];
+    
+    // Nombres de archivo actualizados a tus especificaciones exactas
+    const listaAnimales = [
+        { id: 'leon', src: '{% static "core/images/moca/LeonMOCA.JPG" %}', correctas: ['leon','leona'] },
+        { id: 'rinoceronte', src: '{% static "core/images/moca/RinoceronteMOCA.JPG" %}', correctas: ['rinoceronte', 'rino'] },
+        { id: 'camello', src: '{% static "core/images/moca/CamelloMOCA.JPG" %}', correctas: ['camello', 'dromedario'] }
+    ];
+
+    function cargarAnimalEnPantalla() {
+        document.getElementById('img-animal').src = listaAnimales[animalActualIndex].src;
+        
+        let inputEl = document.getElementById('input-animal');
+        inputEl.value = '';
+        
+        // Timeout para asegurar que el DOM ha cargado la vista antes del focus (útil en móviles)
+        setTimeout(() => inputEl.focus(), 100);
+
+        const btnSiguiente = document.getElementById('btn-siguiente-animal');
+        if (animalActualIndex === listaAnimales.length - 1) {
+            btnSiguiente.innerHTML = 'Terminar Ejercicio <i class="bi bi-check2-circle ms-2"></i>';
+            btnSiguiente.classList.replace('btn-primary', 'btn-success');
+        } else {
+            btnSiguiente.innerHTML = 'Siguiente Animal <i class="bi bi-arrow-right ms-2"></i>';
+            btnSiguiente.classList.replace('btn-success', 'btn-primary');
+        }
+    }
+
+    function siguienteAnimal() {
+        let textoEscrito = document.getElementById('input-animal').value.trim();
+        respuestasPaciente.push(textoEscrito);
+
+        if (animalActualIndex < listaAnimales.length - 1) {
+            animalActualIndex++;
+            cargarAnimalEnPantalla();
+        } else {
+            document.getElementById('paso-4-juego').classList.add('d-none');
+            document.getElementById('paso-4-completado').classList.remove('d-none');
+            
+            document.getElementById('controles-navegacion').classList.remove('d-none');
+            document.getElementById('controles-navegacion').classList.add('d-flex');
+        }
+    }
+    
+    // Permitir avanzar pulsando la tecla "Enter"
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("input-animal").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                siguienteAnimal();
+            }
+        });
+    });
 
     // --- ENVÍO FINAL AL BACKEND ---
     function enviarResultadosAlServidor() {

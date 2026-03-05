@@ -154,10 +154,6 @@ def juegos(request):
     return render(request, 'core/juegos.html')
 
 @login_required
-def jugar(request):
-    return render(request, 'core/jugar.html')
-
-@login_required
 def sala_evaluacion(request):
     perfil, created = PerfilPaciente.objects.get_or_create(usuario=request.user)
     if request.method == 'POST':
@@ -197,6 +193,10 @@ def jugar_elsa(request):
 def jugar_calculadora(request):
     # Ruta basada en tu captura: games/moca/
     return render(request, 'core/games/moca/juego_calculadora.html')
+
+@login_required
+def jugar_identificacion_elsa_unity(request):
+    return render(request, 'core/games/moca/IdentificacionElsaUnity.html')
 
 # --- JUEGOS MOTORES ---
 @login_required
@@ -286,14 +286,14 @@ def evaluar_ajuste_dinamico(perfil, nombre_juego):
         if nivel_actual < 5:
             nuevo_nivel = nivel_actual + 1
             cambio_nivel = True
-            mensaje_nota = f"🤖 [SISTEMA DDA] Ascenso automático.\nEl paciente demuestra dominio en el área {dominio} (Nivel {nivel_actual}). Rendimiento > 800 pts y carga cognitiva baja en sesiones consecutivas. Se aumenta a Nivel {nuevo_nivel}."
+            mensaje_nota = f" [SISTEMA DDA] Ascenso automático.\nEl paciente demuestra dominio en el área {dominio} (Nivel {nivel_actual}). Rendimiento > 800 pts y carga cognitiva baja en sesiones consecutivas. Se aumenta a Nivel {nuevo_nivel}."
 
     # --- REGLA DE DESCENSO ---
     elif (s1.puntos <= 300 and s2.puntos <= 300) or (s1.dificultad_percibida == 5 and s2.dificultad_percibida == 5):
         if nivel_actual > 1:
             nuevo_nivel = nivel_actual - 1
             cambio_nivel = True
-            mensaje_nota = f"🤖 [SISTEMA DDA] Descenso preventivo.\nAlerta de fatiga en el área {dominio} (Nivel {nivel_actual}). Rendimiento deficiente o frustración reportada ('Muy Difícil'). Se reduce a Nivel {nuevo_nivel} para evitar abandono terapéutico."
+            mensaje_nota = f" [SISTEMA DDA] Descenso preventivo.\nAlerta de fatiga en el área {dominio} (Nivel {nivel_actual}). Rendimiento deficiente o frustración reportada ('Muy Difícil'). Se reduce a Nivel {nuevo_nivel} para evitar abandono terapéutico."
 
     # 3. Aplicar y guardar los cambios
     if cambio_nivel:
@@ -357,7 +357,7 @@ def guardar_progreso(request):
 
             return JsonResponse({'status': 'ok'})
         except Exception as e:
-            print(f"❌ Error guardando progreso: {e}")
+            print(f" Error guardando progreso: {e}")
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     return JsonResponse({'status': 'error'}, status=400)
 
@@ -368,9 +368,9 @@ def transcribir_audio(request):
     if request.method == 'POST' and request.FILES.get('audio'):
         try:
             if MODELO_WHISPER is None:
-                print("⏳ Cargando modelo Whisper por primera vez...")
+                print(" Cargando modelo Whisper por primera vez...")
                 MODELO_WHISPER = whisper.load_model("tiny")
-                print("✅ Modelo cargado y listo.")
+                print(" Modelo cargado y listo.")
 
             archivo_audio = request.FILES['audio']
             
@@ -384,11 +384,11 @@ def transcribir_audio(request):
             
             os.remove(ruta_temporal)
             
-            print(f"🎤 Whisper escuchó: {texto_detectado}")
+            print(f" Whisper escuchó: {texto_detectado}")
             return JsonResponse({'texto_transcrito': texto_detectado})
 
         except Exception as e:
-            print(f"❌ Error al transcribir: {e}")
+            print(f" Error al transcribir: {e}")
             return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'No se recibió audio'}, status=400)
