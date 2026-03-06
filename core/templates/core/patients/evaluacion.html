@@ -8,58 +8,71 @@
 <div class="container py-4 py-md-5">
     <div class="row justify-content-center">
         <div class="col-lg-10 col-xl-8">
-            
+
             <div id="contenedor-progreso" class="mb-4 d-none">
                 <div class="d-flex justify-content-between align-items-end mb-2">
                     <h5 class="fw-bold text-success mb-0" id="titulo-seccion">Preparación</h5>
                     <span class="text-muted small fw-bold"><span id="paso-actual">0</span> / 11</span>
                 </div>
                 <div class="progress" style="height: 12px; border-radius: 10px; background-color: #e9ecef;">
-                    <div id="barra-progreso" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;"></div>
+                    <div id="barra-progreso" class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                        role="progressbar" style="width: 0%;"></div>
                 </div>
             </div>
 
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
                 <div class="card-body p-4 p-md-5">
-                    
+
                     <div id="paso-0" class="paso-test animate__animated animate__fadeIn">
                         <div class="text-center mb-4">
                             <div class="bg-success-subtle rounded-circle d-inline-flex p-4 mb-3">
                                 <i class="bi bi-clipboard2-pulse text-success display-3"></i>
                             </div>
                             <h1 class="fw-bold text-dark">Evaluación Inicial (MoCA)</h1>
-                            
-                            <button onclick="leerTexto('Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. Asegúrate de estar en un lugar tranquilo, con el volumen activado, y sin distracciones.')" class="btn btn-light rounded-circle shadow-sm my-3 btn-altavoz" style="width: 70px; height: 70px;">
+
+                            <button
+                                onclick="leerTexto('Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. Asegúrate de estar en un lugar tranquilo, con el volumen activado, y sin distracciones.')"
+                                class="btn btn-light rounded-circle shadow-sm my-3 btn-altavoz"
+                                style="width: 70px; height: 70px;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 2rem;"></i>
                             </button>
 
                             <p class="lead text-muted mt-2 px-md-4">
-                                Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de 10 minutos. 
+                                Antes de comenzar tu terapia personalizada, necesitamos realizar una breve evaluación de
+                                10 minutos.
                             </p>
-                            <p class="text-muted">Asegúrate de estar en un lugar tranquilo, con el volumen activado y sin distracciones.</p>
+                            <p class="text-muted">Asegúrate de estar en un lugar tranquilo, con el volumen activado y
+                                sin distracciones.</p>
                         </div>
                         <div class="text-center mt-5">
-                            <button onclick="siguientePaso()" class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                            <button onclick="siguientePaso()"
+                                class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 Empezar Evaluación <i class="bi bi-arrow-right ms-2"></i>
                             </button>
                         </div>
                     </div>
 
                     <div id="paso-1" class="paso-test d-none animate__animated animate__fadeIn">
-                        
+
                         <div id="paso-1-instrucciones" class="text-center py-3">
-                            
-                            <button onclick="leerTexto('En este primer ejercicio, verá varios círculos con números y letras. Su objetivo es unirlos en orden, alternando siempre entre un número y una letra. Por ejemplo, empezamos en el uno, luego vamos a la, AA, luego al dos, luego a la B, y así sucesivamente. Deberá continuar hasta llegar a la letra, EE de elefante. Pulse el botón verde para empezar cuando lo haya entendido.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+
+                            <button
+                                onclick="leerTexto('En este primer ejercicio, verá varios círculos con números y letras. Su objetivo es unirlos en orden, alternando siempre entre un número y una letra. Por ejemplo, empezamos en el uno, luego vamos a la, AA, luego al dos, luego a la B, y así sucesivamente. Deberá continuar hasta llegar a la letra, EE de elefante. Pulse el botón verde para empezar cuando lo haya entendido.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
-                            
+
                             <h2 class="fw-bold mb-3 text-dark">1. Unir Puntos</h2>
-                            
+
                             <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
-                                Vamos a trazar un camino <strong>alternando entre números y letras</strong>, siguiendo siempre el orden lógico.<br><br>
+                                Vamos a trazar un camino <strong>alternando entre números y letras</strong>, siguiendo
+                                siempre el orden lógico.<br><br>
                                 Fíjese en este ejemplo:
-                                
-                                <div class="d-flex justify-content-center align-items-center gap-2 my-4 fw-bold flex-wrap" style="font-size: 1.8rem;">
+
+                                <div class="d-flex justify-content-center align-items-center gap-2 my-4 fw-bold flex-wrap"
+                                    style="font-size: 1.8rem;">
                                     <span class="circulo-ejemplo bg-primary text-white shadow-sm">1</span>
                                     <i class="bi bi-arrow-right text-muted fs-3"></i>
                                     <span class="circulo-ejemplo bg-warning text-dark shadow-sm">A</span>
@@ -72,34 +85,45 @@
                                     <i class="bi bi-arrow-right text-muted fs-3"></i>
                                     <span class="circulo-ejemplo bg-warning text-dark shadow-sm">E</span>
                                 </div>
-                                
+
                                 Deberá continuar este patrón hasta llegar a la letra <strong>E</strong>.
                             </div>
-                            
-                            <button onclick="comenzarEjercicio1()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+
+                            <button onclick="comenzarEjercicio1()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-check-circle-fill me-2"></i> Entendido, Empezar Ejercicio
                             </button>
                         </div>
 
                         <div id="paso-1-juego" class="d-none animate__animated animate__fadeIn">
-                            
-                            <div class="d-flex justify-content-between align-items-center mb-4 px-2" style="max-width: 500px; margin: 0 auto;">
+
+                            <div class="d-flex justify-content-between align-items-center mb-4 px-2"
+                                style="max-width: 500px; margin: 0 auto;">
                                 <div>
                                     <h4 class="fw-bold mb-0 text-dark">Una los puntos</h4>
                                     <p class="text-muted small mb-0">Alternando: 1 &rarr; A &rarr; 2 &rarr; B...</p>
                                 </div>
-                                <button onclick="leerTexto('Recuerde: uno, AA, dos, B... hasta llegar a la letra. EE de elefante.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                <button
+                                    onclick="leerTexto('Recuerde: uno, AA, dos, B... hasta llegar a la letra. EE de elefante.')"
+                                    class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0"
+                                    style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
                                     <i class="bi bi-volume-up-fill text-primary fs-4"></i>
                                 </button>
                             </div>
-                            
-                            <div class="position-relative mx-auto bg-white" style="width: 100%; max-width: 500px; aspect-ratio: 1/1; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);" id="contenedor-canvas">
-                                <canvas id="canvas-trazos" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1; pointer-events: none;"></canvas>
-                                <div id="puntos-interactivos" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 2;"></div>
+
+                            <div class="position-relative mx-auto bg-white"
+                                style="width: 100%; max-width: 500px; aspect-ratio: 1/1; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);"
+                                id="contenedor-canvas">
+                                <canvas id="canvas-trazos" class="position-absolute top-0 start-0 w-100 h-100"
+                                    style="z-index: 1; pointer-events: none;"></canvas>
+                                <div id="puntos-interactivos" class="position-absolute top-0 start-0 w-100 h-100"
+                                    style="z-index: 2;"></div>
                             </div>
 
                             <div class="text-center mt-4">
-                                <button onclick="reiniciarJuego1()" class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
+                                <button onclick="reiniciarJuego1()"
+                                    class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
                                     <i class="bi bi-eraser-fill me-2"></i> Me he equivocado, empezar de cero
                                 </button>
                             </div>
@@ -107,20 +131,27 @@
                     </div>
 
                     <div id="paso-2" class="paso-test d-none animate__animated animate__fadeIn">
-                        
+
                         <div id="paso-2-instrucciones" class="text-center py-3">
-                            <button onclick="leerTexto('A continuación, verá el dibujo de un cubo. Me gustaría que lo copiara en el espacio en blanco de la manera más precisa posible. Pulse empezar cuando esté listo.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                            <button
+                                onclick="leerTexto('A continuación, verá el dibujo de un cubo. Me gustaría que lo copiara en el espacio en blanco de la manera más precisa posible. Pulse empezar cuando esté listo.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
-                            
+
                             <h2 class="fw-bold mb-3 text-dark">2. Copiar el Cubo</h2>
-                            
+
                             <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
-                                En la siguiente pantalla aparecerá una <strong>pizarra en blanco</strong> y un dibujo de ejemplo.<br><br>
-                                Utilice el ratón (o su dedo si está en un móvil/tablet) para <strong>copiar el dibujo</strong> con la mayor precisión que pueda.
+                                En la siguiente pantalla aparecerá una <strong>pizarra en blanco</strong> y un dibujo de
+                                ejemplo.<br><br>
+                                Utilice el ratón (o su dedo si está en un móvil/tablet) para <strong>copiar el
+                                    dibujo</strong> con la mayor precisión que pueda.
                             </div>
-                            
-                            <button onclick="comenzarEjercicio2()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+
+                            <button onclick="comenzarEjercicio2()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-pencil-fill me-2"></i> Entendido, Empezar a Dibujar
                             </button>
                         </div>
@@ -131,30 +162,43 @@
                                     <h4 class="fw-bold mb-0 text-dark">Copie este dibujo</h4>
                                     <p class="text-muted small mb-0">Dibuje en el recuadro blanco de abajo.</p>
                                 </div>
-                                <button onclick="leerTexto('Me gustaría que copiara este dibujo de la manera más precisa posible.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                <button
+                                    onclick="leerTexto('Me gustaría que copiara este dibujo de la manera más precisa posible.')"
+                                    class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0"
+                                    style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
                                     <i class="bi bi-volume-up-fill text-primary fs-4"></i>
                                 </button>
                             </div>
-                            
+
                             <div class="text-center mb-3">
-                                <div class="d-inline-flex justify-content-center align-items-center bg-light border rounded" style="width: 120px; height: 120px; position: relative;">
-                                   <div style="width: 50px; height: 50px; border: 2px solid #212529; position: absolute; top: 20px; left: 20px;"></div>
-                                   <div style="width: 50px; height: 50px; border: 2px solid #212529; position: absolute; top: 45px; left: 45px;"></div>
-                                   <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
-                                       <line x1="20" y1="20" x2="45" y2="45" stroke="#212529" stroke-width="2"/>
-                                       <line x1="70" y1="20" x2="95" y2="45" stroke="#212529" stroke-width="2"/>
-                                       <line x1="20" y1="70" x2="45" y2="95" stroke="#212529" stroke-width="2"/>
-                                       <line x1="70" y1="70" x2="95" y2="95" stroke="#212529" stroke-width="2"/>
-                                   </svg>
+                                <div class="d-inline-flex justify-content-center align-items-center bg-light border rounded"
+                                    style="width: 120px; height: 120px; position: relative;">
+                                    <div
+                                        style="width: 50px; height: 50px; border: 2px solid #212529; position: absolute; top: 20px; left: 20px;">
+                                    </div>
+                                    <div
+                                        style="width: 50px; height: 50px; border: 2px solid #212529; position: absolute; top: 45px; left: 45px;">
+                                    </div>
+                                    <svg
+                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                                        <line x1="20" y1="20" x2="45" y2="45" stroke="#212529" stroke-width="2" />
+                                        <line x1="70" y1="20" x2="95" y2="45" stroke="#212529" stroke-width="2" />
+                                        <line x1="20" y1="70" x2="45" y2="95" stroke="#212529" stroke-width="2" />
+                                        <line x1="70" y1="70" x2="95" y2="95" stroke="#212529" stroke-width="2" />
+                                    </svg>
                                 </div>
                             </div>
-                            
-                            <div class="position-relative mx-auto bg-white" style="width: 100%; max-width: 500px; height: 300px; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);" id="contenedor-canvas-cubo">
-                                <canvas id="canvas-cubo" class="w-100 h-100 rounded-4" style="cursor: crosshair;"></canvas>
+
+                            <div class="position-relative mx-auto bg-white"
+                                style="width: 100%; max-width: 500px; height: 300px; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);"
+                                id="contenedor-canvas-cubo">
+                                <canvas id="canvas-cubo" class="w-100 h-100 rounded-4"
+                                    style="cursor: crosshair;"></canvas>
                             </div>
 
                             <div class="text-center mt-3">
-                                <button onclick="limpiarCanvasCubo()" class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
+                                <button onclick="limpiarCanvasCubo()"
+                                    class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
                                     <i class="bi bi-eraser-fill me-2"></i> Borrar y empezar de nuevo
                                 </button>
                             </div>
@@ -162,20 +206,26 @@
                     </div>
 
                     <div id="paso-3" class="paso-test d-none animate__animated animate__fadeIn">
-                        
+
                         <div id="paso-3-instrucciones" class="text-center py-3">
-                            <button onclick="leerTexto('A continuación, me gustaría que dibujara un reloj. Incluya todos los números y dibújelo señalando las once y diez minutos. Pulse empezar cuando esté listo.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                            <button
+                                onclick="leerTexto('A continuación, me gustaría que dibujara un reloj. Incluya todos los números y dibújelo señalando las once y diez minutos. Pulse empezar cuando esté listo.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
-                            
+
                             <h2 class="fw-bold mb-3 text-dark">3. Dibujar un Reloj</h2>
-                            
+
                             <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
                                 En la siguiente pantalla aparecerá una <strong>pizarra en blanco</strong>.<br><br>
-                                Dibuje un reloj. Incluya <strong>todos los números</strong> y dibújelo señalando las <strong>11 y 10 minutos</strong>.
+                                Dibuje un reloj. Incluya <strong>todos los números</strong> y dibújelo señalando las
+                                <strong>11 y 10 minutos</strong>.
                             </div>
-                            
-                            <button onclick="comenzarEjercicio3()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+
+                            <button onclick="comenzarEjercicio3()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-pencil-fill me-2"></i> Entendido, Empezar a Dibujar
                             </button>
                         </div>
@@ -186,17 +236,24 @@
                                     <h4 class="fw-bold mb-0 text-dark">Dibuje un reloj</h4>
                                     <p class="text-muted small mb-0">Incluya todos los números y marque las 11:10.</p>
                                 </div>
-                                <button onclick="leerTexto('Dibuje un reloj. Incluya todos los números y dibújelo señalando las once y diez minutos.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                <button
+                                    onclick="leerTexto('Dibuje un reloj. Incluya todos los números y dibújelo señalando las once y diez minutos.')"
+                                    class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0"
+                                    style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
                                     <i class="bi bi-volume-up-fill text-primary fs-4"></i>
                                 </button>
                             </div>
-                            
-                            <div class="position-relative mx-auto bg-white mt-3" style="width: 100%; max-width: 500px; height: 350px; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);" id="contenedor-canvas-reloj">
-                                <canvas id="canvas-reloj" class="w-100 h-100 rounded-4" style="cursor: crosshair;"></canvas>
+
+                            <div class="position-relative mx-auto bg-white mt-3"
+                                style="width: 100%; max-width: 500px; height: 350px; border: 3px solid #dee2e6; border-radius: 16px; touch-action: none; box-shadow: inset 0 0 20px rgba(0,0,0,0.03);"
+                                id="contenedor-canvas-reloj">
+                                <canvas id="canvas-reloj" class="w-100 h-100 rounded-4"
+                                    style="cursor: crosshair;"></canvas>
                             </div>
 
                             <div class="text-center mt-3">
-                                <button onclick="limpiarCanvasReloj()" class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
+                                <button onclick="limpiarCanvasReloj()"
+                                    class="btn btn-outline-danger rounded-pill px-4 fw-bold shadow-sm">
                                     <i class="bi bi-eraser-fill me-2"></i> Borrar y empezar de nuevo
                                 </button>
                             </div>
@@ -204,42 +261,59 @@
                     </div>
 
                     <div id="paso-4" class="paso-test d-none animate__animated animate__fadeIn">
-                        
+
                         <div id="paso-4-instrucciones" class="text-center py-3">
-                            <button onclick="leerTexto('A continuación, le mostraré las imágenes de tres animales, uno por uno. Escriba el nombre de cada animal en el recuadro que aparecerá debajo de la foto. Pulse el botón azul para empezar.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                            <button
+                                onclick="leerTexto('A continuación, le mostraré las imágenes de tres animales, uno por uno. Escriba el nombre de cada animal en el recuadro que aparecerá debajo de la foto. Pulse el botón azul para empezar.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
-                            
+
                             <h2 class="fw-bold mb-3 text-dark">4. Identificación de Animales</h2>
-                            
+
                             <div class="fs-5 text-muted mb-5 px-md-4" style="line-height: 1.6;">
                                 Le mostraremos <strong>tres animales</strong> de uno en uno.<br><br>
-                                Su tarea es mirar la imagen y <strong>escribir el nombre</strong> del animal en el recuadro correspondiente.
+                                Su tarea es mirar la imagen y <strong>escribir el nombre</strong> del animal en el
+                                recuadro correspondiente.
                             </div>
-                            
-                            <button onclick="comenzarEjercicio4()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+
+                            <button onclick="comenzarEjercicio4()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-eye-fill me-2"></i> Entendido, Empezar a Identificar
                             </button>
                         </div>
 
                         <div id="paso-4-juego" class="d-none animate__animated animate__fadeIn text-center">
-                            <div class="d-flex justify-content-between align-items-center mb-4 px-2" style="max-width: 500px; margin: 0 auto;">
+                            <div class="d-flex justify-content-between align-items-center mb-4 px-2"
+                                style="max-width: 500px; margin: 0 auto;">
                                 <div>
                                     <h4 class="fw-bold mb-0 text-dark text-start">¿Qué animal es este?</h4>
                                 </div>
-                                <button onclick="leerTexto('Dígame el nombre de este animal, escribiéndolo en el recuadro inferior.')" class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0" style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
+                                <button
+                                    onclick="leerTexto('Dígame el nombre de este animal, escribiéndolo en el recuadro inferior.')"
+                                    class="btn btn-light rounded-circle shadow-sm btn-altavoz flex-shrink-0"
+                                    style="width: 55px; height: 55px; border: 2px solid #e9ecef;">
                                     <i class="bi bi-volume-up-fill text-primary fs-4"></i>
                                 </button>
                             </div>
-                            
+
                             <div class="mb-4">
-                                <img id="img-animal" src="" alt="Animal a identificar" class="img-fluid rounded-4 shadow-sm border border-2" style="max-height: 250px; width: auto; object-fit: contain; background-color: white; padding: 10px;" onerror="this.src='https://via.placeholder.com/300?text=Falta+Imagen'">
+                                <img id="img-animal" src="" alt="Animal a identificar"
+                                    class="img-fluid rounded-4 shadow-sm border border-2"
+                                    style="max-height: 250px; width: auto; object-fit: contain; background-color: white; padding: 10px;"
+                                    onerror="this.src='https://via.placeholder.com/300?text=Falta+Imagen'">
                             </div>
 
                             <div class="mx-auto" style="max-width: 400px;">
-                                <input type="text" id="input-animal" class="form-control form-control-lg text-center fw-bold text-primary shadow-sm mb-4" style="font-size: 1.8rem; border-width: 3px;" placeholder="Escriba aquí..." autocomplete="off">
-                                
-                                <button id="btn-siguiente-animal" onclick="siguienteAnimal()" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold">
+                                <input type="text" id="input-animal"
+                                    class="form-control form-control-lg text-center fw-bold text-primary shadow-sm mb-4"
+                                    style="font-size: 1.8rem; border-width: 3px;" placeholder="Escriba aquí..."
+                                    autocomplete="off">
+
+                                <button id="btn-siguiente-animal" onclick="siguienteAnimal()"
+                                    class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold">
                                     Siguiente Animal <i class="bi bi-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -252,199 +326,355 @@
                         </div>
                     </div>
 
-                   <div id="paso-5" class="paso-test d-none animate__animated animate__fadeIn">
-                        
+                    <div id="paso-5" class="paso-test d-none animate__animated animate__fadeIn">
+
                         <div id="paso-5-instrucciones" class="text-center py-3">
-                            <button onclick="leerTexto('Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, le pediré que me diga todas las palabras que pueda recordar. No importa el orden en el que me las diga. Pulse el botón azul cuando esté listo para escuchar.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                            <button
+                                onclick="leerTexto('Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, le pediré que me diga todas las palabras que pueda recordar. No importa el orden en el que me las diga. Pulse el botón azul cuando esté listo para escuchar.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
-                            
+
                             <h2 class="fw-bold mb-3 text-dark">5. Prueba de Memoria</h2>
-                            
+
                             <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
                                 Esta es una prueba de memoria auditiva.<br><br>
-                                Al pulsar el botón, <strong>escuchará y verá una lista de 5 palabras</strong>. Preste mucha atención e intente recordarlas, porque se las pediremos más adelante.
+                                Al pulsar el botón, <strong>escuchará y verá una lista de 5 palabras</strong>. Preste
+                                mucha atención e intente recordarlas, porque se las pediremos más adelante.
                             </div>
 
-                            <audio id="audio-palabras-r1" src="{% static 'core/audio/moca_palabras.m4a' %}" preload="auto"></audio>
-                            
-                            <button onclick="comenzarEjercicio5()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                            <audio id="audio-palabras-r1" src="{% static 'core/audio/moca_palabras.m4a' %}"
+                                preload="auto"></audio>
+
+                            <button onclick="comenzarEjercicio5()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-earbuds me-2"></i> Estoy listo, reproducir palabras
                             </button>
                         </div>
 
-                       <div id="paso-5-juego" class="d-none animate__animated animate__fadeIn text-center">
-                            
+                        <div id="paso-5-juego" class="d-none animate__animated animate__fadeIn text-center">
+
                             <h4 id="memoria-titulo" class="fw-bold mb-4 text-dark">Escuche y lea con atención:</h4>
-                            
+
                             <div class="d-flex justify-content-center gap-3 my-5 flex-wrap">
-                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-1">ROSTRO</div>
-                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-2">SEDA</div>
-                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-3">TEMPLO</div>
-                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-4">CLAVEL</div>
-                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-5">ROJO</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary"
+                                    style="width: 140px; font-size: 1.5rem;" id="palabra-1">ROSTRO</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary"
+                                    style="width: 140px; font-size: 1.5rem;" id="palabra-2">SEDA</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary"
+                                    style="width: 140px; font-size: 1.5rem;" id="palabra-3">TEMPLO</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary"
+                                    style="width: 140px; font-size: 1.5rem;" id="palabra-4">CLAVEL</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary"
+                                    style="width: 140px; font-size: 1.5rem;" id="palabra-5">ROJO</div>
                             </div>
 
                             <div id="btn-mostrar-micro" class="mt-4 d-none">
-                                <button onclick="activarMicrofonoMemoria()" class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm mb-4">
+                                <button onclick="activarMicrofonoMemoria()"
+                                    class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm mb-4">
                                     <i class="bi bi-mic"></i> Ya he escuchado las palabras (Activar Micrófono)
                                 </button>
                             </div>
 
                             <div id="controles-micro-memoria" class="d-none mt-4">
-                                <p class="fs-4 text-dark mb-3 fw-bold" id="texto-instruccion-hablar">Dígame todas las palabras que pueda recordar (no importa el orden).</p>
-                                
-                                <button id="btn-grabar-memoria" class="btn btn-danger rounded-circle shadow p-4 mb-3" onclick="toggleGrabacionMemoria()">
+                                <p class="fs-4 text-dark mb-3 fw-bold" id="texto-instruccion-hablar">Dígame todas las
+                                    palabras que pueda recordar (no importa el orden).</p>
+
+                                <button id="btn-grabar-memoria" class="btn btn-danger rounded-circle shadow p-4 mb-3"
+                                    onclick="toggleGrabacionMemoria()">
                                     <i class="bi bi-mic-fill text-white" style="font-size: 3.5rem;"></i>
                                 </button>
-                                <p class="text-danger fs-5 fw-bold" id="texto-mantener-pulsado">Pulse una vez para empezar a hablar</p>
-                                
+                                <p class="text-danger fs-5 fw-bold" id="texto-mantener-pulsado">Pulse una vez para
+                                    empezar a hablar</p>
+
                                 <div id="spinner-whisper-memoria" class="d-none my-3">
-                                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+                                    <div class="spinner-border text-primary" role="status"
+                                        style="width: 3rem; height: 3rem;"></div>
                                     <p class="text-muted mt-2 fw-bold">Analizando su voz con IA...</p>
                                 </div>
 
-                                <div id="resultado-memoria" class="mt-3 p-3 bg-success-subtle border border-success rounded text-start d-none mx-auto" style="max-width: 600px;">
-                                    <span class="text-success small fw-bold"><i class="bi bi-check-circle-fill"></i> El sistema ha detectado:</span>
+                                <div id="resultado-memoria"
+                                    class="mt-3 p-3 bg-success-subtle border border-success rounded text-start d-none mx-auto"
+                                    style="max-width: 600px;">
+                                    <span class="text-success small fw-bold"><i class="bi bi-check-circle-fill"></i> El
+                                        sistema ha detectado:</span>
                                     <p id="texto-transcrito-memoria" class="fw-bold mb-0 text-dark fs-5 mt-1"></p>
                                 </div>
 
-                                <button id="btn-avanzar-ronda" onclick="avanzarRondaMemoria()" class="btn btn-primary btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
+                                <button id="btn-avanzar-ronda" onclick="avanzarRondaMemoria()"
+                                    class="btn btn-primary btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
                                     Continuar <i class="bi bi-arrow-right ms-2"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div id="paso-5-ronda2-instrucciones" class="text-center py-3 d-none animate__animated animate__fadeIn">
-                            <button onclick="leerTexto('Ahora le voy a leer la misma lista de palabras una vez más. Intente acordarse del mayor número posible de palabras, incluyendo las que repitió en la primera ronda. Pulse para reproducir de nuevo.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                        <div id="paso-5-ronda2-instrucciones"
+                            class="text-center py-3 d-none animate__animated animate__fadeIn">
+                            <button
+                                onclick="leerTexto('Ahora le voy a leer la misma lista de palabras una vez más. Intente acordarse del mayor número posible de palabras, incluyendo las que repitió en la primera ronda. Pulse para reproducir de nuevo.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
-                            
+
                             <h2 class="fw-bold mb-3 text-dark">Ronda 2</h2>
                             <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
                                 Vamos a repetir el proceso una vez más para afianzar el recuerdo.<br>
-                                Intente acordarse del <strong>mayor número posible</strong>, incluyendo las que ya dijo antes.
+                                Intente acordarse del <strong>mayor número posible</strong>, incluyendo las que ya dijo
+                                antes.
                             </div>
-                            <button onclick="iniciarRonda2Memoria()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                            <button onclick="iniciarRonda2Memoria()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-play-fill me-2"></i> Escuchar de nuevo
                             </button>
                         </div>
                         <div id="paso-5-completado" class="d-none animate__animated animate__fadeIn text-center py-5">
                             <i class="bi bi-info-circle-fill text-info" style="font-size: 5rem;"></i>
                             <h2 class="fw-bold mt-3 text-dark">¡Lo estás haciendo genial!</h2>
-                            
-                            <div class="alert alert-info d-inline-block text-start mt-3 shadow-sm border-info" style="max-width: 550px;">
-                                <p class="fs-4 mb-0 text-dark"><i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i> <strong>Importante:</strong> Intente no olvidar estas palabras. Le volveré a preguntar por ellas al final de la evaluación.</p>
+
+                            <div class="alert alert-info d-inline-block text-start mt-3 shadow-sm border-info"
+                                style="max-width: 550px;">
+                                <p class="fs-4 mb-0 text-dark"><i
+                                        class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
+                                    <strong>Importante:</strong> Intente no olvidar estas palabras. Le volveré a
+                                    preguntar por ellas al final de la evaluación.
+                                </p>
                             </div>
-                            
+
                             <div class="mt-5">
-                                <button onclick="finalizarPaso5()" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold">
+                                <button onclick="finalizarPaso5()"
+                                    class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold">
                                     Entendido, Continuar <i class="bi bi-arrow-right ms-2"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    
-                   <div id="paso-6" class="paso-test d-none animate__animated animate__fadeIn">
-                        
+
+                    <div id="paso-6" class="paso-test d-none animate__animated animate__fadeIn">
+
                         <div id="paso-6-instrucciones-dir" class="text-center py-3">
-                            <button onclick="leerTexto('Le voy a leer una serie de números y, cuando haya terminado, deberá repetirlos en el mismo orden en el que yo los he dicho.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                            <button
+                                onclick="leerTexto('Le voy a leer una serie de números y, cuando haya terminado, deberá repetirlos en el mismo orden en el que yo los he dicho.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
                             <h2 class="fw-bold mb-3 text-dark">6.1 Atención: Números (Mismo Orden)</h2>
                             <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
                                 Le voy a leer una serie de <strong>5 números</strong>.<br><br>
-                                Escuche con atención. Cuando termine, use el teclado de la pantalla para escribirlos <strong>en el mismo orden</strong> en el que los ha escuchado.
+                                Escuche con atención. Cuando termine, use el teclado de la pantalla para escribirlos
+                                <strong>en el mismo orden</strong> en el que los ha escuchado.
                             </div>
-                            <button onclick="comenzarAtencionDirecto()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                            <button onclick="comenzarAtencionDirecto()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
                             </button>
                         </div>
 
                         <div id="paso-6-juego-dir" class="d-none animate__animated animate__fadeIn text-center">
                             <h4 class="fw-bold mb-4 text-dark">Escuche los números:</h4>
-                            
-                            <button id="btn-play-num-dir" onclick="reproducirNumerosDirecto()" class="btn btn-warning rounded-circle shadow p-4 mb-4">
+
+                            <button id="btn-play-num-dir" onclick="reproducirNumerosDirecto()"
+                                class="btn btn-warning rounded-circle shadow p-4 mb-4">
                                 <i class="bi bi-play-fill text-dark" style="font-size: 3.5rem;"></i>
                             </button>
-                            <p id="texto-estado-dir" class="text-muted fs-5 fw-bold">Pulse para escuchar la secuencia</p>
+                            <p id="texto-estado-dir" class="text-muted fs-5 fw-bold">Pulse para escuchar la secuencia
+                            </p>
 
                             <div id="controles-input-dir" class="d-none mt-2 mx-auto">
                                 <p class="text-primary fw-bold mb-2 fs-5">Escriba en el MISMO ORDEN:</p>
-                                
-                                <div id="display-numeros-dir" class="bg-light border border-2 border-primary rounded-3 py-3 mb-3 mx-auto text-primary fw-bold" style="font-size: 3rem; letter-spacing: 15px; max-width: 350px;">
+
+                                <div id="display-numeros-dir"
+                                    class="bg-light border border-2 border-primary rounded-3 py-3 mb-3 mx-auto text-primary fw-bold"
+                                    style="font-size: 3rem; letter-spacing: 15px; max-width: 350px;">
                                     _ _ _ _ _
                                 </div>
-                                
+
                                 <div class="row g-2 justify-content-center mx-auto" style="max-width: 300px;">
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(1, 'dir')">1</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(2, 'dir')">2</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(3, 'dir')">3</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(4, 'dir')">4</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(5, 'dir')">5</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(6, 'dir')">6</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(7, 'dir')">7</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(8, 'dir')">8</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(9, 'dir')">9</button></div>
-                                    <div class="col-4"><button class="btn btn-danger w-100 fs-3 py-3 shadow-sm" onclick="borrarTecla('dir')"><i class="bi bi-backspace-fill"></i></button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(0, 'dir')">0</button></div>
-                                    <div class="col-4"><button class="btn btn-success w-100 fs-2 py-3 shadow-sm" onclick="validarYPasarAInverso()"><i class="bi bi-check-lg"></i></button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(1, 'dir')">1</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(2, 'dir')">2</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(3, 'dir')">3</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(4, 'dir')">4</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(5, 'dir')">5</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(6, 'dir')">6</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(7, 'dir')">7</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(8, 'dir')">8</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(9, 'dir')">9</button></div>
+                                    <div class="col-4"><button class="btn btn-danger w-100 fs-3 py-3 shadow-sm"
+                                            onclick="borrarTecla('dir')"><i class="bi bi-backspace-fill"></i></button>
+                                    </div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(0, 'dir')">0</button></div>
+                                    <div class="col-4"><button class="btn btn-success w-100 fs-2 py-3 shadow-sm"
+                                            onclick="validarYPasarAInverso()"><i class="bi bi-check-lg"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="paso-6-instrucciones-inv" class="d-none text-center py-3 animate__animated animate__fadeIn">
-                            <button onclick="leerTexto('Le voy a leer otra serie de números y, cuando haya terminado, deberá repetirlos hacia atrás.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                        <div id="paso-6-instrucciones-inv"
+                            class="d-none text-center py-3 animate__animated animate__fadeIn">
+                            <button
+                                onclick="leerTexto('Le voy a leer otra serie de números y, cuando haya terminado, deberá repetirlos hacia atrás.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
                                 <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
                             </button>
                             <h2 class="fw-bold mb-3 text-dark">6.2 Atención: Números (Hacia Atrás)</h2>
                             <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
                                 Ahora le leeré una serie de <strong>3 números</strong>.<br><br>
-                                Esta vez, deberá escribirlos <strong>HACIA ATRÁS</strong> (en el orden inverso al que los escuchó).
+                                Esta vez, deberá escribirlos <strong>HACIA ATRÁS</strong> (en el orden inverso al que
+                                los escuchó).
                             </div>
-                            <button onclick="comenzarAtencionInverso()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                            <button onclick="comenzarAtencionInverso()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
                                 <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
                             </button>
                         </div>
 
                         <div id="paso-6-juego-inv" class="d-none animate__animated animate__fadeIn text-center">
                             <h4 class="fw-bold mb-4 text-dark">Escuche los números:</h4>
-                            
-                            <button id="btn-play-num-inv" onclick="reproducirNumerosInverso()" class="btn btn-warning rounded-circle shadow p-4 mb-4">
+
+                            <button id="btn-play-num-inv" onclick="reproducirNumerosInverso()"
+                                class="btn btn-warning rounded-circle shadow p-4 mb-4">
                                 <i class="bi bi-play-fill text-dark" style="font-size: 3.5rem;"></i>
                             </button>
-                            <p id="texto-estado-inv" class="text-muted fs-5 fw-bold">Pulse para escuchar la secuencia</p>
+                            <p id="texto-estado-inv" class="text-muted fs-5 fw-bold">Pulse para escuchar la secuencia
+                            </p>
 
                             <div id="controles-input-inv" class="d-none mt-2 mx-auto">
                                 <p class="text-danger fw-bold mb-2 fs-5">Escriba los números HACIA ATRÁS:</p>
-                                
-                                <div id="display-numeros-inv" class="bg-light border border-2 border-danger rounded-3 py-3 mb-3 mx-auto text-danger fw-bold" style="font-size: 3rem; letter-spacing: 15px; max-width: 250px;">
+
+                                <div id="display-numeros-inv"
+                                    class="bg-light border border-2 border-danger rounded-3 py-3 mb-3 mx-auto text-danger fw-bold"
+                                    style="font-size: 3rem; letter-spacing: 15px; max-width: 250px;">
                                     _ _ _
                                 </div>
-                                
+
                                 <div class="row g-2 justify-content-center mx-auto" style="max-width: 300px;">
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(1, 'inv')">1</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(2, 'inv')">2</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(3, 'inv')">3</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(4, 'inv')">4</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(5, 'inv')">5</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(6, 'inv')">6</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(7, 'inv')">7</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(8, 'inv')">8</button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(9, 'inv')">9</button></div>
-                                    <div class="col-4"><button class="btn btn-danger w-100 fs-3 py-3 shadow-sm" onclick="borrarTecla('inv')"><i class="bi bi-backspace-fill"></i></button></div>
-                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(0, 'inv')">0</button></div>
-                                    <div class="col-4"><button class="btn btn-success w-100 fs-2 py-3 shadow-sm" onclick="finalizarNumeros()"><i class="bi bi-check-lg"></i></button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(1, 'inv')">1</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(2, 'inv')">2</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(3, 'inv')">3</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(4, 'inv')">4</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(5, 'inv')">5</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(6, 'inv')">6</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(7, 'inv')">7</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(8, 'inv')">8</button></div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(9, 'inv')">9</button></div>
+                                    <div class="col-4"><button class="btn btn-danger w-100 fs-3 py-3 shadow-sm"
+                                            onclick="borrarTecla('inv')"><i class="bi bi-backspace-fill"></i></button>
+                                    </div>
+                                    <div class="col-4"><button
+                                            class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm"
+                                            onclick="pulsarTecla(0, 'inv')">0</button></div>
+                                    <div class="col-4"><button class="btn btn-success w-100 fs-2 py-3 shadow-sm"
+                                            onclick="finalizarNumeros()"><i class="bi bi-check-lg"></i></button></div>
                                 </div>
                             </div>
                         </div>
+                        <div id="paso-6-instrucciones-letras"
+                            class="d-none text-center py-3 animate__animated animate__fadeIn">
+                            <button
+                                onclick="leerTexto('Voy a leerle una serie de letras. Cada vez que diga la letra, AA, pulse el botón rojo. Cuando diga una letra que no sea la, AA, no pulse nada.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">6.2 Atención: Vigilancia (Letra A)</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
+                                Verá y escuchará una serie de letras.<br><br>
+                                Cada vez que aparezca la letra <strong>A</strong>, debe pulsar el botón rojo lo más
+                                rápido que pueda.<br>Si aparece otra letra, <strong>no haga nada</strong>.
+                            </div>
+                            <button onclick="comenzarAtencionLetras()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
+                            </button>
+                        </div>
+
+                        <div id="paso-6-juego-letras" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="fw-bold mb-4 text-dark">Atento a la pantalla:</h4>
+
+                            <div id="display-letra"
+                                class="bg-light border border-3 border-dark rounded-4 d-flex align-items-center justify-content-center mx-auto shadow-sm transition-all"
+                                style="width: 150px; height: 150px; font-size: 6rem; font-weight: bold; color: #212529;">
+                                ?
+                            </div>
+
+                            <div class="mt-5 mx-auto" style="max-width: 400px;">
+                                <button id="btn-pulsar-a" onclick="pulsarLetraA()"
+                                    class="btn btn-danger btn-lg w-100 rounded-pill py-4 shadow fw-bold disabled"
+                                    style="font-size: 1.5rem; transition: transform 0.1s;">
+                                    ¡ES LA LETRA "A"!
+                                </button>
+                            </div>
+
+                            <button id="btn-continuar-letras" onclick="finalizarLetras()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
+                                Continuar <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <div id="paso-7" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div></div>
-                    <div id="paso-8" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div></div>
-                    <div id="paso-9" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">9. SIMILITUDES</div></div>
-                    <div id="paso-10" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">10. RECUERDO DIFERIDO</div></div>
-                    <div id="paso-11" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">11. ORIENTACIÓN</div></div>
+                    <div id="paso-7" class="paso-test d-none">
+                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div>
+                    </div>
+                    <div id="paso-8" class="paso-test d-none">
+                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div>
+                    </div>
+                    <div id="paso-9" class="paso-test d-none">
+                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">9. SIMILITUDES</div>
+                    </div>
+                    <div id="paso-10" class="paso-test d-none">
+                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">10. RECUERDO DIFERIDO
+                        </div>
+                    </div>
+                    <div id="paso-11" class="paso-test d-none">
+                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">11. ORIENTACIÓN</div>
+                    </div>
 
                     <div id="paso-12" class="paso-test d-none animate__animated animate__fadeIn text-center">
                         <div class="spinner-border text-primary my-4" style="width: 4rem; height: 4rem;" role="status">
@@ -455,10 +685,12 @@
                     </div>
 
                     <div id="controles-navegacion" class="d-flex justify-content-between mt-5 pt-4 border-top d-none">
-                        <button onclick="pasoAnterior()" id="btn-atras" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold">
+                        <button onclick="pasoAnterior()" id="btn-atras"
+                            class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold">
                             <i class="bi bi-arrow-left me-2"></i> Anterior
                         </button>
-                        <button onclick="siguientePaso()" id="btn-siguiente" class="btn btn-success px-5 py-2 rounded-pill fw-bold">
+                        <button onclick="siguientePaso()" id="btn-siguiente"
+                            class="btn btn-success px-5 py-2 rounded-pill fw-bold">
                             Siguiente <i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     </div>
@@ -467,19 +699,45 @@
             </div>
 
             <div class="mt-4 text-center">
-                <button class="btn btn-sm btn-outline-secondary opacity-50" type="button" data-bs-toggle="collapse" data-bs-target="#devMode">
+                <button class="btn btn-sm btn-outline-secondary opacity-50" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#devMode">
                     <i class="bi bi-bug"></i> Developer Bypass
                 </button>
                 <div class="collapse mt-2" id="devMode">
                     <div class="card card-body bg-light border-0 shadow-sm">
-                        <form method="post" class="d-flex flex-wrap gap-2 justify-content-center">
+                        <form method="post" class="d-flex flex-wrap gap-2 justify-content-center mb-2">
                             {% csrf_token %}
-                            <button type="submit" name="resultado_simulado" value="1" class="btn btn-sm btn-danger">Lvl 1</button>
-                            <button type="submit" name="resultado_simulado" value="2" class="btn btn-sm btn-warning">Lvl 2</button>
-                            <button type="submit" name="resultado_simulado" value="3" class="btn btn-sm btn-primary">Lvl 3</button>
-                            <button type="submit" name="resultado_simulado" value="4" class="btn btn-sm btn-info">Lvl 4</button>
-                            <button type="submit" name="resultado_simulado" value="5" class="btn btn-sm btn-success">Lvl 5</button>
+                            <button type="submit" name="resultado_simulado" value="1" class="btn btn-sm btn-danger">Lvl
+                                1</button>
+                            <button type="submit" name="resultado_simulado" value="2" class="btn btn-sm btn-warning">Lvl
+                                2</button>
+                            <button type="submit" name="resultado_simulado" value="3" class="btn btn-sm btn-primary">Lvl
+                                3</button>
+                            <button type="submit" name="resultado_simulado" value="4" class="btn btn-sm btn-info">Lvl
+                                4</button>
+                            <button type="submit" name="resultado_simulado" value="5" class="btn btn-sm btn-success">Lvl
+                                5</button>
                         </form>
+                        <hr class="my-2 border-secondary opacity-25">
+                        <div class="d-flex gap-2 justify-content-center align-items-center">
+                            <span class="text-muted small fw-bold"><i class="bi bi-fast-forward-fill"></i> Salto
+                                rápido:</span>
+                            <select id="dev-salto-paso" class="form-select form-select-sm" style="width: auto;">
+                                <option value="1">1. Alternancia</option>
+                                <option value="2">2. Cubo</option>
+                                <option value="3">3. Reloj</option>
+                                <option value="4">4. Identificación</option>
+                                <option value="5">5. Memoria</option>
+                                <option value="6">6. Atención</option>
+                                <option value="7">7. Repetición</option>
+                                <option value="8">8. Fluidez</option>
+                                <option value="9">9. Abstracción</option>
+                                <option value="10">10. Recuerdo</option>
+                                <option value="11">11. Orientación</option>
+                            </select>
+                            <button type="button" class="btn btn-sm btn-dark fw-bold px-3"
+                                onclick="saltarPaso()">Ir</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -489,56 +747,111 @@
 </div>
 
 <style>
-    .btn-altavoz { transition: transform 0.1s ease, box-shadow 0.2s ease; }
-    .btn-altavoz:active { transform: scale(0.9); }
-    .btn-altavoz:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; }
-    .border-dashed { border-style: dashed !important; border-width: 2px !important; border-color: #dee2e6 !important; }
-    .paso-test { min-height: 40vh; display: flex; flex-direction: column; justify-content: center; }
-    
+    .btn-altavoz {
+        transition: transform 0.1s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-altavoz:active {
+        transform: scale(0.9);
+    }
+
+    .btn-altavoz:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .border-dashed {
+        border-style: dashed !important;
+        border-width: 2px !important;
+        border-color: #dee2e6 !important;
+    }
+
+    .paso-test {
+        min-height: 40vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .circulo-ejemplo {
-        width: 60px; height: 60px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: 3px solid transparent;
     }
 
     .circulo-moca {
-        width: 45px; height: 45px;
+        width: 45px;
+        height: 45px;
         background-color: white;
-        border: 3px solid #6c757d; 
+        border: 3px solid #6c757d;
         border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-weight: bold; font-size: 1.3rem; cursor: pointer;
-        position: absolute; transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.3rem;
+        cursor: pointer;
+        position: absolute;
+        transform: translate(-50%, -50%);
         transition: all 0.2s ease;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         color: #495057;
     }
-    .circulo-moca:hover { transform: translate(-50%, -50%) scale(1.15); border-color: #0d6efd; color: #0d6efd;}
-    .circulo-moca.seleccionado { background-color: #0d6efd; color: white; border-color: #0d6efd; box-shadow: 0 0 10px rgba(13,110,253,0.5);}
+
+    .circulo-moca:hover {
+        transform: translate(-50%, -50%) scale(1.15);
+        border-color: #0d6efd;
+        color: #0d6efd;
+    }
+
+    .circulo-moca.seleccionado {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+    }
+
     /* Animación del botón de grabar */
     @keyframes pulse-rojo {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(220, 53, 69, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+        }
+
+        70% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 20px rgba(220, 53, 69, 0);
+        }
+
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+        }
     }
-    .grabando { animation: pulse-rojo 1.5s infinite; background-color: #bb2d3b !important; }
+
+    .grabando {
+        animation: pulse-rojo 1.5s infinite;
+        background-color: #bb2d3b !important;
+    }
 </style>
 
 <script>
     // --- MÓDULO DE ACCESIBILIDAD (ALTAVOZ) ---
     function leerTexto(texto) {
-        window.speechSynthesis.cancel(); 
+        window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(texto);
         utterance.lang = 'es-ES';
-        utterance.rate = 1.0; 
+        utterance.rate = 1.0;
         window.speechSynthesis.speak(utterance);
     }
 
     // --- VARIABLES GLOBALES DEL TEST ---
     let pasoActual = 0;
     const totalPasos = 11;
-    
+
     let datosMoCA = {
         score_visuoespacial: 0,
         score_identificacion: 0,
@@ -552,18 +865,44 @@
         memoria_intento1: 0,
         memoria_intento2: 0,
         atencion_numeros_dir: 0,
-        atencion_numeros_inv: 0
+        atencion_numeros_inv: 0,
+        atencion_letras_errores: 0,
+        atencion_letras_score: 0
     };
 
     const nombresSecciones = [
-        "Introducción", "1. Alternancia Conceptual", "2. Cubo", "3. Reloj", 
-        "4. Identificación", "5. Memoria", "6. Atención", "7. Repetición", 
+        "Introducción", "1. Alternancia Conceptual", "2. Cubo", "3. Reloj",
+        "4. Identificación", "5. Memoria", "6. Atención", "7. Repetición",
         "8. Fluidez", "9. Abstracción", "10. Recuerdo Diferido", "11. Orientación"
     ];
 
     // --- FUNCIONES DE NAVEGACIÓN ---
+    function saltarPaso() {
+        let salto = parseInt(document.getElementById('dev-salto-paso').value);
+        window.speechSynthesis.cancel();
+
+        // Ocultar pantalla actual
+        if (pasoActual === 0) {
+            let pantallaInicio = document.getElementById('pantalla-inicio');
+            let contenedorProgreso = document.getElementById('contenedor-progreso');
+            let controlesNavegacion = document.getElementById('controles-navegacion');
+
+            if (pantallaInicio) pantallaInicio.classList.add('d-none');
+            if (contenedorProgreso) contenedorProgreso.classList.remove('d-none');
+            if (controlesNavegacion) controlesNavegacion.classList.remove('d-none');
+        } else {
+            let pasoOcultar = document.getElementById(`paso-${pasoActual}`);
+            if (pasoOcultar) pasoOcultar.classList.add('d-none');
+        }
+
+        // Asignar e inicializar nuevo paso
+        pasoActual = salto;
+        document.getElementById(`paso-${pasoActual}`).classList.remove('d-none');
+        actualizarInterfaz();
+        console.log(`[DevBypass] Saltando guiado al paso ${salto}`);
+    }
     function comenzarEjercicio1() {
-        window.speechSynthesis.cancel(); 
+        window.speechSynthesis.cancel();
         document.getElementById('paso-1-instrucciones').classList.add('d-none');
         document.getElementById('paso-1-juego').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.remove('d-none');
@@ -572,7 +911,7 @@
     }
 
     function comenzarEjercicio2() {
-        window.speechSynthesis.cancel(); 
+        window.speechSynthesis.cancel();
         document.getElementById('paso-2-instrucciones').classList.add('d-none');
         document.getElementById('paso-2-juego').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.remove('d-none');
@@ -581,7 +920,7 @@
     }
 
     function comenzarEjercicio3() {
-        window.speechSynthesis.cancel(); 
+        window.speechSynthesis.cancel();
         document.getElementById('paso-3-instrucciones').classList.add('d-none');
         document.getElementById('paso-3-juego').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.remove('d-none');
@@ -593,26 +932,26 @@
         window.speechSynthesis.cancel();
         document.getElementById('paso-4-instrucciones').classList.add('d-none');
         document.getElementById('paso-4-juego').classList.remove('d-none');
-        
+
         // Ocultamos la navegación global para que no se salte los animales
         document.getElementById('controles-navegacion').classList.remove('d-flex');
         document.getElementById('controles-navegacion').classList.add('d-none');
-        
+
         animalActualIndex = 0;
         respuestasPaciente = [];
         cargarAnimalEnPantalla();
     }
 
     function siguientePaso() {
-        window.speechSynthesis.cancel(); 
-        
+        window.speechSynthesis.cancel();
+
         validarPasoActual();
 
         document.getElementById(`paso-${pasoActual}`).classList.add('d-none');
         pasoActual++;
         document.getElementById(`paso-${pasoActual}`).classList.remove('d-none');
         actualizarInterfaz();
-        
+
         if (pasoActual === 12) {
             document.getElementById('controles-navegacion').classList.add('d-none');
             document.getElementById('contenedor-progreso').classList.add('d-none');
@@ -633,30 +972,32 @@
     function actualizarInterfaz() {
         if (pasoActual > 0 && pasoActual <= totalPasos) {
             document.getElementById('contenedor-progreso').classList.remove('d-none');
-            
+
             // CAMBIO 1: Ampliamos el rango para ocultar los botones de navegación hasta el paso 6
             if (pasoActual >= 1 && pasoActual <= 6) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
-                
+
                 // CAMBIO 2: Si estamos en el paso 6, lo reseteamos manualmente por sus 4 pantallas
                 if (pasoActual === 6) {
                     document.getElementById('paso-6-instrucciones-dir').classList.remove('d-none');
                     document.getElementById('paso-6-juego-dir').classList.add('d-none');
                     document.getElementById('paso-6-instrucciones-inv').classList.add('d-none');
                     document.getElementById('paso-6-juego-inv').classList.add('d-none');
+                    document.getElementById('paso-6-instrucciones-letras').classList.add('d-none');
+                    document.getElementById('paso-6-juego-letras').classList.add('d-none');
                 } else {
                     // Para los pasos del 1 al 5, mantenemos tu lógica automática
                     document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
                     document.getElementById(`paso-${pasoActual}-juego`).classList.add('d-none');
                 }
-                
+
                 // Excepciones de pantallas de completado
                 if (pasoActual === 4) document.getElementById('paso-4-completado').classList.add('d-none');
                 if (pasoActual === 5) {
                     document.getElementById('paso-5-ronda2-instrucciones').classList.add('d-none');
                     let compl5 = document.getElementById('paso-5-completado');
-                    if(compl5) compl5.classList.add('d-none');
+                    if (compl5) compl5.classList.add('d-none');
                 }
             } else {
                 document.getElementById('controles-navegacion').classList.remove('d-none');
@@ -674,7 +1015,7 @@
         const btnSiguiente = document.getElementById('btn-siguiente');
         if (pasoActual === totalPasos) {
             btnSiguiente.innerHTML = 'Finalizar y Guardar <i class="bi bi-check-circle-fill ms-2"></i>';
-            btnSiguiente.classList.replace('btn-success', 'btn-primary'); 
+            btnSiguiente.classList.replace('btn-success', 'btn-primary');
         } else {
             btnSiguiente.innerHTML = 'Siguiente <i class="bi bi-arrow-right ms-2"></i>';
             btnSiguiente.classList.replace('btn-primary', 'btn-success');
@@ -683,10 +1024,10 @@
 
     // --- FUNCIÓN DE EVALUACIÓN CLÍNICA POR PASO ---
     function validarPasoActual() {
+        // PASO 1: Unir puntos (Alternancia)
         if (pasoActual === 1) {
             const secuenciaCorrecta = ["1", "A", "2", "B", "3", "C", "4", "D", "5", "E"];
             let acierto = true;
-            
             if (secuenciaPaciente.length !== secuenciaCorrecta.length) {
                 acierto = false;
             } else {
@@ -694,44 +1035,64 @@
                     if (secuenciaPaciente[i] !== secuenciaCorrecta[i]) acierto = false;
                 }
             }
-            
             datosMoCA.score_visuoespacial = acierto ? 1 : 0;
             console.log("Nota Juego 1:", acierto ? "1 Punto" : "0 Puntos");
         }
-        
+
+        // PASO 2: Dibujo del Cubo (Base64 para revisión médica)
         if (pasoActual === 2) {
             if (lienzoCubo) {
                 datosMoCA.dibujo_cubo_b64 = lienzoCubo.toDataURL('image/png');
-                console.log("Dibujo del Cubo guardado.");
+                console.log("Dibujo del Cubo guardado en memoria.");
             }
         }
 
+        // PASO 3: Dibujo del Reloj (Base64 para revisión médica)
         if (pasoActual === 3) {
             if (lienzoReloj) {
                 datosMoCA.dibujo_reloj_b64 = lienzoReloj.toDataURL('image/png');
-                console.log("Dibujo del Reloj guardado.");
+                console.log("Dibujo del Reloj guardado en memoria.");
             }
         }
 
+        // PASO 4: Identificación de Animales
         if (pasoActual === 4) {
             let puntosAnimales = 0;
-            
             for (let i = 0; i < listaAnimales.length; i++) {
                 let respuesta = respuestasPaciente[i];
-                
                 if (respuesta) {
                     let respuestaLimpia = respuesta.toLowerCase()
-                                                   .normalize("NFD")
-                                                   .replace(/[\u0300-\u036f]/g, "");
-                    
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "");
                     if (listaAnimales[i].correctas.includes(respuestaLimpia)) {
                         puntosAnimales++;
                     }
                 }
             }
-            
             datosMoCA.score_identificacion = puntosAnimales;
-            console.log("Nota Juego 4:", puntosAnimales, "Puntos (Respuestas:", respuestasPaciente, ")");
+            console.log("Nota Juego 4:", puntosAnimales, "Puntos.");
+        }
+
+        // PASO 5: Memoria (Codificación)
+        if (pasoActual === 5) {
+            // Los puntos de memoria NO se suman aquí (se suman en el paso 10: Recuerdo Diferido)
+            // Aquí solo registramos en el log que la codificación terminó
+            console.log("Fase de Memoria (Codificación) completada.");
+            console.log("Aciertos Ronda 1:", datosMoCA.memoria_intento1);
+            console.log("Aciertos Ronda 2:", datosMoCA.memoria_intento2);
+        }
+
+        // PASO 6: Atención (Números y Letras)
+        if (pasoActual === 6) {
+            // Consolidamos la puntuación de atención que llevamos hasta ahora:
+            // 1pto números directo + 1pto números inverso + 1pto letras
+            // (Nota: faltan las restas, que las sumaremos en la siguiente sub-parte)
+            datosMoCA.score_atencion = (datosMoCA.atencion_numeros_dir || 0) +
+                (datosMoCA.atencion_numeros_inv || 0) +
+                (datosMoCA.atencion_letras_score || 0);
+
+            console.log("--- PUNTUACIÓN ATENCIÓN (PARCIAL) ---");
+            console.log("Total Atención:", datosMoCA.score_atencion, "/ 3 puntos posibles hasta ahora.");
         }
     }
 
@@ -739,7 +1100,7 @@
     // =========================================================
     // LÓGICA DEL JUEGO 1: ALTERNANCIA CONCEPTUAL
     // =========================================================
-    
+
     const nodosJuego1 = [
         { id: "1", x: 50, y: 70 }, { id: "2", x: 85, y: 55 }, { id: "3", x: 90, y: 85 },
         { id: "4", x: 65, y: 80 }, { id: "5", x: 15, y: 40 },
@@ -754,7 +1115,7 @@
         const contenedor = document.getElementById('puntos-interactivos');
         lienzo = document.getElementById('canvas-trazos');
         ctx = lienzo.getContext('2d');
-        
+
         ajustarCanvas();
         window.addEventListener('resize', ajustarCanvas);
 
@@ -762,10 +1123,10 @@
     }
 
     function ajustarCanvas() {
-        if(lienzo && document.getElementById('paso-1-juego').classList.contains('d-none') === false) {
+        if (lienzo && document.getElementById('paso-1-juego').classList.contains('d-none') === false) {
             lienzo.width = lienzo.parentElement.clientWidth;
             lienzo.height = lienzo.parentElement.clientHeight;
-            dibujarLineas(); 
+            dibujarLineas();
         }
     }
 
@@ -773,7 +1134,7 @@
         secuenciaPaciente = [];
         const contenedor = document.getElementById('puntos-interactivos');
         contenedor.innerHTML = '';
-        if(ctx) ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+        if (ctx) ctx.clearRect(0, 0, lienzo.width, lienzo.height);
 
         nodosJuego1.forEach(nodo => {
             let btn = document.createElement('div');
@@ -782,22 +1143,22 @@
             btn.style.left = `${nodo.x}%`;
             btn.style.top = `${nodo.y}%`;
             btn.dataset.id = nodo.id;
-            
-            btn.onclick = function() {
+
+            btn.onclick = function () {
                 if (secuenciaPaciente.length > 0 && secuenciaPaciente[secuenciaPaciente.length - 1] === nodo.id) return;
-                
+
                 secuenciaPaciente.push(nodo.id);
                 btn.classList.add('seleccionado');
                 dibujarLineas();
             };
-            
+
             contenedor.appendChild(btn);
         });
     }
 
     function dibujarLineas() {
         if (!ctx || secuenciaPaciente.length < 2) return;
-        
+
         ctx.clearRect(0, 0, lienzo.width, lienzo.height);
         ctx.beginPath();
         ctx.lineWidth = 4;
@@ -807,7 +1168,7 @@
         for (let i = 0; i < secuenciaPaciente.length; i++) {
             let idActual = secuenciaPaciente[i];
             let nodo = nodosJuego1.find(n => n.id === idActual);
-            
+
             let pixelX = (nodo.x / 100) * lienzo.width;
             let pixelY = (nodo.y / 100) * lienzo.height;
 
@@ -823,30 +1184,30 @@
     // =========================================================
     // LÓGICA DEL JUEGO 2: DIBUJAR EL CUBO
     // =========================================================
-    
+
     let lienzoCubo, ctxCubo;
     let dibujando = false;
 
     function iniciarCanvasCubo() {
         lienzoCubo = document.getElementById('canvas-cubo');
         ctxCubo = lienzoCubo.getContext('2d');
-        
+
         function redimensionarCubo() {
-            if(lienzoCubo && document.getElementById('paso-2-juego').classList.contains('d-none') === false) {
+            if (lienzoCubo && document.getElementById('paso-2-juego').classList.contains('d-none') === false) {
                 let tempImg = new Image();
                 tempImg.src = lienzoCubo.toDataURL();
-                
+
                 lienzoCubo.width = lienzoCubo.parentElement.clientWidth;
                 lienzoCubo.height = lienzoCubo.parentElement.clientHeight;
-                
+
                 ctxCubo.lineWidth = 4;
                 ctxCubo.lineCap = 'round';
-                ctxCubo.strokeStyle = '#212529'; 
-                
+                ctxCubo.strokeStyle = '#212529';
+
                 tempImg.onload = () => ctxCubo.drawImage(tempImg, 0, 0);
             }
         }
-        
+
         redimensionarCubo();
         window.addEventListener('resize', redimensionarCubo);
 
@@ -855,13 +1216,13 @@
         lienzoCubo.addEventListener('mouseup', detenerTrazo);
         lienzoCubo.addEventListener('mouseout', detenerTrazo);
 
-        lienzoCubo.addEventListener('touchstart', iniciarTrazo, {passive: false});
-        lienzoCubo.addEventListener('touchmove', dibujar, {passive: false});
+        lienzoCubo.addEventListener('touchstart', iniciarTrazo, { passive: false });
+        lienzoCubo.addEventListener('touchmove', dibujar, { passive: false });
         lienzoCubo.addEventListener('touchend', detenerTrazo);
     }
 
     function iniciarTrazo(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         dibujando = true;
         ctxCubo.beginPath();
         let pos = obtenerPosicion(e, lienzoCubo);
@@ -898,7 +1259,7 @@
     }
 
     function limpiarCanvasCubo() {
-        if(ctxCubo) ctxCubo.clearRect(0, 0, lienzoCubo.width, lienzoCubo.height);
+        if (ctxCubo) ctxCubo.clearRect(0, 0, lienzoCubo.width, lienzoCubo.height);
     }
 
     // =========================================================
@@ -911,23 +1272,23 @@
     function iniciarCanvasReloj() {
         lienzoReloj = document.getElementById('canvas-reloj');
         ctxReloj = lienzoReloj.getContext('2d');
-        
+
         function redimensionarReloj() {
-            if(lienzoReloj && document.getElementById('paso-3-juego').classList.contains('d-none') === false) {
+            if (lienzoReloj && document.getElementById('paso-3-juego').classList.contains('d-none') === false) {
                 let tempImg = new Image();
                 tempImg.src = lienzoReloj.toDataURL();
-                
+
                 lienzoReloj.width = lienzoReloj.parentElement.clientWidth;
                 lienzoReloj.height = lienzoReloj.parentElement.clientHeight;
-                
+
                 ctxReloj.lineWidth = 4;
                 ctxReloj.lineCap = 'round';
-                ctxReloj.strokeStyle = '#212529'; 
-                
+                ctxReloj.strokeStyle = '#212529';
+
                 tempImg.onload = () => ctxReloj.drawImage(tempImg, 0, 0);
             }
         }
-        
+
         redimensionarReloj();
         window.addEventListener('resize', redimensionarReloj);
 
@@ -936,13 +1297,13 @@
         lienzoReloj.addEventListener('mouseup', detenerTrazoReloj);
         lienzoReloj.addEventListener('mouseout', detenerTrazoReloj);
 
-        lienzoReloj.addEventListener('touchstart', iniciarTrazoReloj, {passive: false});
-        lienzoReloj.addEventListener('touchmove', dibujarReloj, {passive: false});
+        lienzoReloj.addEventListener('touchstart', iniciarTrazoReloj, { passive: false });
+        lienzoReloj.addEventListener('touchmove', dibujarReloj, { passive: false });
         lienzoReloj.addEventListener('touchend', detenerTrazoReloj);
     }
 
     function iniciarTrazoReloj(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         dibujandoReloj = true;
         ctxReloj.beginPath();
         let pos = obtenerPosicion(e, lienzoReloj);
@@ -963,7 +1324,7 @@
     }
 
     function limpiarCanvasReloj() {
-        if(ctxReloj) ctxReloj.clearRect(0, 0, lienzoReloj.width, lienzoReloj.height);
+        if (ctxReloj) ctxReloj.clearRect(0, 0, lienzoReloj.width, lienzoReloj.height);
     }
 
     // =========================================================
@@ -972,20 +1333,20 @@
 
     let animalActualIndex = 0;
     let respuestasPaciente = [];
-    
+
     // Nombres de archivo actualizados a tus especificaciones exactas
     const listaAnimales = [
-        { id: 'leon', src: '{% static "core/images/moca/LeonMOCA.JPG" %}', correctas: ['leon','leona'] },
+        { id: 'leon', src: '{% static "core/images/moca/LeonMOCA.JPG" %}', correctas: ['leon', 'leona'] },
         { id: 'rinoceronte', src: '{% static "core/images/moca/RinoceronteMOCA.JPG" %}', correctas: ['rinoceronte', 'rino'] },
         { id: 'camello', src: '{% static "core/images/moca/CamelloMOCA.JPG" %}', correctas: ['camello', 'dromedario'] }
     ];
 
     function cargarAnimalEnPantalla() {
         document.getElementById('img-animal').src = listaAnimales[animalActualIndex].src;
-        
+
         let inputEl = document.getElementById('input-animal');
         inputEl.value = '';
-        
+
         // Timeout para asegurar que el DOM ha cargado la vista antes del focus (útil en móviles)
         setTimeout(() => inputEl.focus(), 100);
 
@@ -1009,20 +1370,20 @@
         } else {
             document.getElementById('paso-4-juego').classList.add('d-none');
             document.getElementById('paso-4-completado').classList.remove('d-none');
-            
+
             document.getElementById('controles-navegacion').classList.remove('d-none');
             document.getElementById('controles-navegacion').classList.add('d-flex');
         }
     }
-    
+
     // =========================================================
     // LÓGICA DEL JUEGO 5: PRUEBA DE MEMORIA (WHISPER)
     // =========================================================
-    
+
     let rondaMemoriaActual = 1;
     let grabadoraMemoria;
     let fragmentosAudioMemoria = [];
-    
+
     // Diccionario de tolerancia fonética (Fuzzy Matching manual para Whisper)
     const diccionarioTolerancia = {
         "rostro": ["rostro", "ostro", "rastro", "vostro", "lostro"],
@@ -1038,30 +1399,30 @@
         document.getElementById('paso-5-juego').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.remove('d-flex');
         document.getElementById('controles-navegacion').classList.add('d-none');
-        
+
         // UI: Ocultar resultado anterior y mostrar palabras
         document.getElementById('resultado-memoria').classList.add('d-none');
         document.getElementById('btn-avanzar-ronda').classList.add('d-none');
-        
-        for(let i=1; i<=5; i++) {
+
+        for (let i = 1; i <= 5; i++) {
             let caja = document.getElementById(`palabra-${i}`);
-            caja.innerText = Object.keys(diccionarioTolerancia)[i-1].toUpperCase();
+            caja.innerText = Object.keys(diccionarioTolerancia)[i - 1].toUpperCase();
             caja.classList.remove('text-dark', 'border-dark');
             caja.classList.add('text-primary', 'border-primary');
         }
-        
+
         // Ocultar micro 
         document.getElementById('controles-micro-memoria').classList.add('d-none');
         let btnManual = document.getElementById('btn-mostrar-micro');
-        if(btnManual) btnManual.classList.add('d-none');
-        
+        if (btnManual) btnManual.classList.add('d-none');
+
         // --- LA MAGIA PARA QUE SUENE DOS VECES (Bugfix HTML5 Audio) ---
         let audioEl = document.getElementById('audio-palabras-r1');
         audioEl.pause(); // Por si acaso se quedó pillado
-        audioEl.currentTime = 0; 
+        audioEl.currentTime = 0;
         audioEl.load(); // CRÍTICO: Obliga al navegador a resetear el archivo .m4a
-        
-        audioEl.onended = function() {
+
+        audioEl.onended = function () {
             activarMicrofonoMemoria();
         };
 
@@ -1071,31 +1432,31 @@
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
                     console.log("Audio bloqueado por el navegador:", error);
-                    if(btnManual) btnManual.classList.remove('d-none');
+                    if (btnManual) btnManual.classList.remove('d-none');
                 });
             }
         }, 500);
-        
+
         // FALLBACK CLÍNICO: Si a los 10 segundos no salta, forzamos el botón manual
         setTimeout(() => {
             if (document.getElementById('controles-micro-memoria').classList.contains('d-none')) {
-                if(btnManual) btnManual.classList.remove('d-none');
+                if (btnManual) btnManual.classList.remove('d-none');
             }
         }, 10000);
     }
 
     function activarMicrofonoMemoria() {
         let btnManual = document.getElementById('btn-mostrar-micro');
-        if(btnManual) btnManual.classList.add('d-none');
+        if (btnManual) btnManual.classList.add('d-none');
 
         // Cambiar a interrogaciones grises
-        for(let i=1; i<=5; i++) {
+        for (let i = 1; i <= 5; i++) {
             let caja = document.getElementById(`palabra-${i}`);
             caja.innerText = "?";
             caja.classList.remove('text-primary', 'border-primary');
             caja.classList.add('text-dark', 'border-dark');
         }
-        
+
         // Mostrar micrófono
         document.getElementById('controles-micro-memoria').classList.remove('d-none');
         document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
@@ -1134,7 +1495,7 @@
 
                 document.getElementById('btn-grabar-memoria').classList.remove('grabando');
                 document.getElementById('texto-mantener-pulsado').innerText = "Procesando audio, por favor espere...";
-                
+
                 document.getElementById('btn-grabar-memoria').disabled = true;
                 document.getElementById('spinner-whisper-memoria').classList.remove('d-none');
             }
@@ -1150,49 +1511,49 @@
             method: 'POST',
             body: formData,
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Whisper detectó:", data.texto_transcrito); 
-            
-            document.getElementById('spinner-whisper-memoria').classList.add('d-none');
-            document.getElementById('texto-mantener-pulsado').innerText = "Voz procesada.";
-            
-            if (data.texto_transcrito && data.texto_transcrito.trim() !== "") {
-                // Evaluamos internamente pero NO se lo enseñamos al paciente
-                let aciertos = evaluarPalabrasMemoria(data.texto_transcrito.toLowerCase());
-                
-                if (rondaMemoriaActual === 1) datosMoCA.memoria_intento1 = aciertos;
-                if (rondaMemoriaActual === 2) datosMoCA.memoria_intento2 = aciertos;
+            .then(response => response.json())
+            .then(data => {
+                console.log("Whisper detectó:", data.texto_transcrito);
 
-                console.log(`Ronda ${rondaMemoriaActual}: ${aciertos} aciertos guardados.`);
+                document.getElementById('spinner-whisper-memoria').classList.add('d-none');
+                document.getElementById('texto-mantener-pulsado').innerText = "Voz procesada.";
 
-                // Ocultar botón de grabar y mostrar botón de continuar
-                document.getElementById('btn-grabar-memoria').disabled = true;
-                document.getElementById('btn-avanzar-ronda').classList.remove('d-none');
-                
-                // Efecto visual amigable sin decirle qué ha fallado
-                document.getElementById('texto-mantener-pulsado').innerHTML = "<span class='text-success'><i class='bi bi-check-circle-fill'></i> Respuestas guardadas.</span> Puede continuar.";
+                if (data.texto_transcrito && data.texto_transcrito.trim() !== "") {
+                    // Evaluamos internamente pero NO se lo enseñamos al paciente
+                    let aciertos = evaluarPalabrasMemoria(data.texto_transcrito.toLowerCase());
 
-            } else {
-                alert("Whisper no ha detectado palabras claras. Por favor, vuelva a pulsar y hable más cerca del micrófono.");
+                    if (rondaMemoriaActual === 1) datosMoCA.memoria_intento1 = aciertos;
+                    if (rondaMemoriaActual === 2) datosMoCA.memoria_intento2 = aciertos;
+
+                    console.log(`Ronda ${rondaMemoriaActual}: ${aciertos} aciertos guardados.`);
+
+                    // Ocultar botón de grabar y mostrar botón de continuar
+                    document.getElementById('btn-grabar-memoria').disabled = true;
+                    document.getElementById('btn-avanzar-ronda').classList.remove('d-none');
+
+                    // Efecto visual amigable sin decirle qué ha fallado
+                    document.getElementById('texto-mantener-pulsado').innerHTML = "<span class='text-success'><i class='bi bi-check-circle-fill'></i> Respuestas guardadas.</span> Puede continuar.";
+
+                } else {
+                    alert("Whisper no ha detectado palabras claras. Por favor, vuelva a pulsar y hable más cerca del micrófono.");
+                    document.getElementById('btn-grabar-memoria').disabled = false;
+                    document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
+                }
+            })
+            .catch(error => {
+                console.error('Error Whisper:', error);
+                alert("Hubo un error de conexión al transcribir. Inténtelo de nuevo.");
+                document.getElementById('spinner-whisper-memoria').classList.add('d-none');
                 document.getElementById('btn-grabar-memoria').disabled = false;
                 document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
-            }
-        })
-        .catch(error => {
-            console.error('Error Whisper:', error);
-            alert("Hubo un error de conexión al transcribir. Inténtelo de nuevo.");
-            document.getElementById('spinner-whisper-memoria').classList.add('d-none');
-            document.getElementById('btn-grabar-memoria').disabled = false;
-            document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
-        });
+            });
     }
 
     function evaluarPalabrasMemoria(textoHablado) {
         // Limpieza profunda: quita acentos y signos de puntuación extraños
         let textoLimpio = textoHablado.normalize("NFD").replace(/[\u0300-\u036f.,;!?]/g, "");
         let aciertos = 0;
-        
+
         // Iteramos sobre las claves del diccionario ("rostro", "seda"...)
         for (const [palabraCorrecta, posiblesErrores] of Object.entries(diccionarioTolerancia)) {
             // Buscamos si ALGUNO de los posibles errores fonéticos está en la frase
@@ -1232,32 +1593,223 @@
 
     function iniciarRonda2Memoria() {
         document.getElementById('paso-5-ronda2-instrucciones').classList.add('d-none');
-        comenzarEjercicio5(); 
+        comenzarEjercicio5();
+    }
+
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 6: ATENCIÓN (NÚMEROS Y LETRA A)
+    // =========================================================
+
+    let secuenciaIngresadaDir = "";
+    let secuenciaIngresadaInv = "";
+
+    // Función auxiliar clínica: ritmo exacto de 1 segundo (Protocolo MoCA)
+    function leerSecuenciaMetronomo(arrayNumeros, callbackTerminar) {
+        window.speechSynthesis.cancel();
+        let indice = 0;
+
+        function hablarSiguiente() {
+            if (indice < arrayNumeros.length) {
+                let utterance = new SpeechSynthesisUtterance(arrayNumeros[indice].toString());
+                utterance.lang = 'es-ES';
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+                indice++;
+                setTimeout(hablarSiguiente, 1000);
+            } else {
+                setTimeout(callbackTerminar, 500);
+            }
+        }
+        hablarSiguiente();
+    }
+
+    function comenzarAtencionDirecto() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-6-instrucciones-dir').classList.add('d-none');
+        document.getElementById('paso-6-juego-dir').classList.remove('d-none');
+        secuenciaIngresadaDir = "";
+        actualizarPantallaTeclado('dir');
+        document.getElementById('controles-input-dir').classList.add('d-none');
+        document.getElementById('btn-play-num-dir').classList.remove('d-none');
+        document.getElementById('texto-estado-dir').innerText = "Pulse para escuchar la secuencia";
     }
 
     function reproducirNumerosDirecto() {
-    let btnPlay = document.getElementById('btn-play-num-dir');
-    let txtEstado = document.getElementById('texto-estado-dir');
+        let btnPlay = document.getElementById('btn-play-num-dir');
+        let txtEstado = document.getElementById('texto-estado-dir');
+        btnPlay.classList.add('d-none');
+        txtEstado.innerHTML = "<span class='text-primary spinner-grow spinner-grow-sm me-2'></span> Escuche atentamente...";
 
-    // 1. Ocultamos el botón y mostramos el mensaje
-    btnPlay.classList.add('d-none');
-    txtEstado.innerHTML = "<span class='text-primary spinner-grow spinner-grow-sm me-2'></span> Prepárese... escuche atentamente.";
-
-    // 2. EL TRUCO: Retrasamos la ejecución de la voz 1.5 segundos (1500 milisegundos)
-    setTimeout(function() {
-        
-        // 3. Ahora sí, usamos el TTS para decir: 2, 1, 8, 5, 4
-        leerSecuenciaMetronomo([2, 1, 8, 5, 4], function() {
+        leerSecuenciaMetronomo([2, 1, 8, 5, 4], function () {
             txtEstado.innerText = "";
             document.getElementById('controles-input-dir').classList.remove('d-none');
         });
+    }
 
-    }, 1500); 
-}
-    
+    // --- FUNCIONES DEL TECLADO VIRTUAL ---
+    function pulsarTecla(num, fase) {
+        if (fase === 'dir' && secuenciaIngresadaDir.length < 5) {
+            secuenciaIngresadaDir += num.toString();
+            actualizarPantallaTeclado('dir');
+        } else if (fase === 'inv' && secuenciaIngresadaInv.length < 3) {
+            secuenciaIngresadaInv += num.toString();
+            actualizarPantallaTeclado('inv');
+        }
+    }
+
+    function borrarTecla(fase) {
+        if (fase === 'dir') {
+            secuenciaIngresadaDir = secuenciaIngresadaDir.slice(0, -1);
+            actualizarPantallaTeclado('dir');
+        } else {
+            secuenciaIngresadaInv = secuenciaIngresadaInv.slice(0, -1);
+            actualizarPantallaTeclado('inv');
+        }
+    }
+
+    function actualizarPantallaTeclado(fase) {
+        if (fase === 'dir') {
+            let huecos = secuenciaIngresadaDir.padEnd(5, "_");
+            document.getElementById('display-numeros-dir').innerText = huecos.split('').join(' ');
+        } else {
+            let huecos = secuenciaIngresadaInv.padEnd(3, "_");
+            document.getElementById('display-numeros-inv').innerText = huecos.split('').join(' ');
+        }
+    }
+
+    function validarYPasarAInverso() {
+        if (secuenciaIngresadaDir.length < 5) {
+            alert("Por favor, introduzca los 5 números antes de continuar.");
+            return;
+        }
+        datosMoCA.atencion_numeros_dir = (secuenciaIngresadaDir === "21854") ? 1 : 0;
+        document.getElementById('paso-6-juego-dir').classList.add('d-none');
+        document.getElementById('paso-6-instrucciones-inv').classList.remove('d-none');
+    }
+
+    function comenzarAtencionInverso() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-6-instrucciones-inv').classList.add('d-none');
+        document.getElementById('paso-6-juego-inv').classList.remove('d-none');
+        secuenciaIngresadaInv = "";
+        actualizarPantallaTeclado('inv');
+        document.getElementById('controles-input-inv').classList.add('d-none');
+        document.getElementById('btn-play-num-inv').classList.remove('d-none');
+        document.getElementById('texto-estado-inv').innerText = "Pulse para escuchar la secuencia";
+    }
+
+    function reproducirNumerosInverso() {
+        let btnPlay = document.getElementById('btn-play-num-inv');
+        let txtEstado = document.getElementById('texto-estado-inv');
+        btnPlay.classList.add('d-none');
+        txtEstado.innerHTML = "<span class='text-danger spinner-grow spinner-grow-sm me-2'></span> Escuche atentamente...";
+
+        leerSecuenciaMetronomo([7, 4, 2], function () {
+            txtEstado.innerText = "";
+            document.getElementById('controles-input-inv').classList.remove('d-none');
+        });
+    }
+
+    function finalizarNumeros() {
+        if (secuenciaIngresadaInv.length < 3) {
+            alert("Por favor, introduzca los 3 números antes de terminar.");
+            return;
+        }
+        datosMoCA.atencion_numeros_inv = (secuenciaIngresadaInv === "247") ? 1 : 0;
+        document.getElementById('paso-6-juego-inv').classList.add('d-none');
+        document.getElementById('paso-6-instrucciones-letras').classList.remove('d-none');
+    }
+
+    // --- LÓGICA 6.2: VIGILANCIA (LETRA A) ---
+    const secuenciaLetras = ["F", "B", "A", "C", "M", "N", "A", "A", "J", "K", "L", "B", "A", "F", "A", "K", "D", "E", "A", "A", "A", "J", "A", "M", "O", "F", "A", "A", "B"];
+    let indiceLetraActual = 0;
+    let erroresLetras = 0;
+    let intervaloLetras;
+    let tiempoAparicionA = 0;
+    let aPendiente = false;
+    let aPulsada = false;
+
+    function comenzarAtencionLetras() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-6-instrucciones-letras').classList.add('d-none');
+        document.getElementById('paso-6-juego-letras').classList.remove('d-none');
+        indiceLetraActual = 0; erroresLetras = 0; aPendiente = false;
+        document.getElementById('btn-pulsar-a').classList.remove('disabled');
+        document.getElementById('display-letra').innerText = "3";
+        setTimeout(() => document.getElementById('display-letra').innerText = "2", 1000);
+        setTimeout(() => document.getElementById('display-letra').innerText = "1", 2000);
+        setTimeout(() => {
+            siguienteLetra();
+            intervaloLetras = setInterval(siguienteLetra, 1000);
+        }, 3000);
+    }
+
+    function siguienteLetra() {
+        if (indiceLetraActual >= secuenciaLetras.length) {
+            clearInterval(intervaloLetras);
+            setTimeout(() => {
+                document.getElementById('display-letra').innerText = "FIN";
+                document.getElementById('btn-pulsar-a').classList.add('disabled');
+                document.getElementById('btn-continuar-letras').classList.remove('d-none');
+            }, 1500);
+            return;
+        }
+        let letra = secuenciaLetras[indiceLetraActual];
+        let display = document.getElementById('display-letra');
+        display.style.opacity = 0;
+        setTimeout(() => { display.innerText = letra; display.style.opacity = 1; }, 100);
+
+        if (letra === "A") {
+            tiempoAparicionA = Date.now();
+            aPendiente = true; aPulsada = false;
+            setTimeout(() => {
+                if (aPendiente && !aPulsada) { erroresLetras++; aPendiente = false; }
+            }, 1500);
+        }
+        indiceLetraActual++;
+    }
+
+    function pulsarLetraA() {
+        let btn = document.getElementById('btn-pulsar-a');
+        if (btn.classList.contains('disabled')) return;
+
+        // --- Sonido de Feedback (Beep) ---
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(600, ctx.currentTime); // Tono agradable
+            gain.gain.setValueAtTime(0.2, ctx.currentTime);     // Volumen al 20%
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.1);
+        } catch (e) { }
+
+        btn.style.transform = "scale(0.95)";
+        setTimeout(() => btn.style.transform = "scale(1)", 100);
+        let tiempoActual = Date.now();
+        if (aPendiente && !aPulsada && (tiempoActual - tiempoAparicionA <= 1500)) {
+            aPulsada = true; aPendiente = false;
+        } else {
+            erroresLetras++;
+        }
+    }
+
+    function finalizarLetras() {
+        datosMoCA.atencion_letras_errores = erroresLetras;
+        datosMoCA.atencion_letras_score = (erroresLetras <= 1) ? 1 : 0;
+        datosMoCA.score_atencion = datosMoCA.atencion_numeros_dir + datosMoCA.atencion_numeros_inv + datosMoCA.atencion_letras_score;
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        siguientePaso();
+    }
+
     // Permitir avanzar pulsando la tecla "Enter"
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("input-animal").addEventListener("keypress", function(event) {
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("input-animal").addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 siguienteAnimal();
@@ -1270,7 +1822,7 @@
         console.log("JSON Final del MoCA:", datosMoCA);
         setTimeout(() => {
             let btnBypass = document.querySelector('button[name="resultado_simulado"][value="3"]');
-            if(btnBypass) btnBypass.click();
+            if (btnBypass) btnBypass.click();
         }, 2000);
     }
 </script>
