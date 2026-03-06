@@ -344,7 +344,102 @@
                             </div>
                         </div>
                     </div>
-                    <div id="paso-6" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">6. ATENCIÓN</div></div>
+                    
+                   <div id="paso-6" class="paso-test d-none animate__animated animate__fadeIn">
+                        
+                        <div id="paso-6-instrucciones-dir" class="text-center py-3">
+                            <button onclick="leerTexto('Le voy a leer una serie de números y, cuando haya terminado, deberá repetirlos en el mismo orden en el que yo los he dicho.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">6.1 Atención: Números (Mismo Orden)</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
+                                Le voy a leer una serie de <strong>5 números</strong>.<br><br>
+                                Escuche con atención. Cuando termine, use el teclado de la pantalla para escribirlos <strong>en el mismo orden</strong> en el que los ha escuchado.
+                            </div>
+                            <button onclick="comenzarAtencionDirecto()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
+                            </button>
+                        </div>
+
+                        <div id="paso-6-juego-dir" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="fw-bold mb-4 text-dark">Escuche los números:</h4>
+                            
+                            <button id="btn-play-num-dir" onclick="reproducirNumerosDirecto()" class="btn btn-warning rounded-circle shadow p-4 mb-4">
+                                <i class="bi bi-play-fill text-dark" style="font-size: 3.5rem;"></i>
+                            </button>
+                            <p id="texto-estado-dir" class="text-muted fs-5 fw-bold">Pulse para escuchar la secuencia</p>
+
+                            <div id="controles-input-dir" class="d-none mt-2 mx-auto">
+                                <p class="text-primary fw-bold mb-2 fs-5">Escriba en el MISMO ORDEN:</p>
+                                
+                                <div id="display-numeros-dir" class="bg-light border border-2 border-primary rounded-3 py-3 mb-3 mx-auto text-primary fw-bold" style="font-size: 3rem; letter-spacing: 15px; max-width: 350px;">
+                                    _ _ _ _ _
+                                </div>
+                                
+                                <div class="row g-2 justify-content-center mx-auto" style="max-width: 300px;">
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(1, 'dir')">1</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(2, 'dir')">2</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(3, 'dir')">3</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(4, 'dir')">4</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(5, 'dir')">5</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(6, 'dir')">6</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(7, 'dir')">7</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(8, 'dir')">8</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(9, 'dir')">9</button></div>
+                                    <div class="col-4"><button class="btn btn-danger w-100 fs-3 py-3 shadow-sm" onclick="borrarTecla('dir')"><i class="bi bi-backspace-fill"></i></button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(0, 'dir')">0</button></div>
+                                    <div class="col-4"><button class="btn btn-success w-100 fs-2 py-3 shadow-sm" onclick="validarYPasarAInverso()"><i class="bi bi-check-lg"></i></button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="paso-6-instrucciones-inv" class="d-none text-center py-3 animate__animated animate__fadeIn">
+                            <button onclick="leerTexto('Le voy a leer otra serie de números y, cuando haya terminado, deberá repetirlos hacia atrás.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">6.2 Atención: Números (Hacia Atrás)</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
+                                Ahora le leeré una serie de <strong>3 números</strong>.<br><br>
+                                Esta vez, deberá escribirlos <strong>HACIA ATRÁS</strong> (en el orden inverso al que los escuchó).
+                            </div>
+                            <button onclick="comenzarAtencionInverso()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
+                            </button>
+                        </div>
+
+                        <div id="paso-6-juego-inv" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="fw-bold mb-4 text-dark">Escuche los números:</h4>
+                            
+                            <button id="btn-play-num-inv" onclick="reproducirNumerosInverso()" class="btn btn-warning rounded-circle shadow p-4 mb-4">
+                                <i class="bi bi-play-fill text-dark" style="font-size: 3.5rem;"></i>
+                            </button>
+                            <p id="texto-estado-inv" class="text-muted fs-5 fw-bold">Pulse para escuchar la secuencia</p>
+
+                            <div id="controles-input-inv" class="d-none mt-2 mx-auto">
+                                <p class="text-danger fw-bold mb-2 fs-5">Escriba los números HACIA ATRÁS:</p>
+                                
+                                <div id="display-numeros-inv" class="bg-light border border-2 border-danger rounded-3 py-3 mb-3 mx-auto text-danger fw-bold" style="font-size: 3rem; letter-spacing: 15px; max-width: 250px;">
+                                    _ _ _
+                                </div>
+                                
+                                <div class="row g-2 justify-content-center mx-auto" style="max-width: 300px;">
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(1, 'inv')">1</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(2, 'inv')">2</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(3, 'inv')">3</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(4, 'inv')">4</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(5, 'inv')">5</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(6, 'inv')">6</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(7, 'inv')">7</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(8, 'inv')">8</button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(9, 'inv')">9</button></div>
+                                    <div class="col-4"><button class="btn btn-danger w-100 fs-3 py-3 shadow-sm" onclick="borrarTecla('inv')"><i class="bi bi-backspace-fill"></i></button></div>
+                                    <div class="col-4"><button class="btn btn-outline-dark w-100 fs-2 py-3 fw-bold shadow-sm" onclick="pulsarTecla(0, 'inv')">0</button></div>
+                                    <div class="col-4"><button class="btn btn-success w-100 fs-2 py-3 shadow-sm" onclick="finalizarNumeros()"><i class="bi bi-check-lg"></i></button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="paso-7" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div></div>
                     <div id="paso-8" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div></div>
                     <div id="paso-9" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">9. SIMILITUDES</div></div>
@@ -455,7 +550,9 @@
         dibujo_cubo_b64: null,
         dibujo_reloj_b64: null,
         memoria_intento1: 0,
-        memoria_intento2: 0
+        memoria_intento2: 0,
+        atencion_numeros_dir: 0,
+        atencion_numeros_inv: 0
     };
 
     const nombresSecciones = [
@@ -537,20 +634,29 @@
         if (pasoActual > 0 && pasoActual <= totalPasos) {
             document.getElementById('contenedor-progreso').classList.remove('d-none');
             
-            // Ocultar controles durante pantallas de instrucciones o minijuegos internos
-            if (pasoActual >= 1 && pasoActual <= 5) {
+            // CAMBIO 1: Ampliamos el rango para ocultar los botones de navegación hasta el paso 6
+            if (pasoActual >= 1 && pasoActual <= 6) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
                 
-                // Mostrar siempre instrucciones y resetear el juego al volver atrás
-                document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
-                document.getElementById(`paso-${pasoActual}-juego`).classList.add('d-none');
+                // CAMBIO 2: Si estamos en el paso 6, lo reseteamos manualmente por sus 4 pantallas
+                if (pasoActual === 6) {
+                    document.getElementById('paso-6-instrucciones-dir').classList.remove('d-none');
+                    document.getElementById('paso-6-juego-dir').classList.add('d-none');
+                    document.getElementById('paso-6-instrucciones-inv').classList.add('d-none');
+                    document.getElementById('paso-6-juego-inv').classList.add('d-none');
+                } else {
+                    // Para los pasos del 1 al 5, mantenemos tu lógica automática
+                    document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
+                    document.getElementById(`paso-${pasoActual}-juego`).classList.add('d-none');
+                }
                 
+                // Excepciones de pantallas de completado
                 if (pasoActual === 4) document.getElementById('paso-4-completado').classList.add('d-none');
                 if (pasoActual === 5) {
                     document.getElementById('paso-5-ronda2-instrucciones').classList.add('d-none');
                     let compl5 = document.getElementById('paso-5-completado');
-                     if(compl5) compl5.classList.add('d-none');
+                    if(compl5) compl5.classList.add('d-none');
                 }
             } else {
                 document.getElementById('controles-navegacion').classList.remove('d-none');
@@ -1128,6 +1234,26 @@
         document.getElementById('paso-5-ronda2-instrucciones').classList.add('d-none');
         comenzarEjercicio5(); 
     }
+
+    function reproducirNumerosDirecto() {
+    let btnPlay = document.getElementById('btn-play-num-dir');
+    let txtEstado = document.getElementById('texto-estado-dir');
+
+    // 1. Ocultamos el botón y mostramos el mensaje
+    btnPlay.classList.add('d-none');
+    txtEstado.innerHTML = "<span class='text-primary spinner-grow spinner-grow-sm me-2'></span> Prepárese... escuche atentamente.";
+
+    // 2. EL TRUCO: Retrasamos la ejecución de la voz 1.5 segundos (1500 milisegundos)
+    setTimeout(function() {
+        
+        // 3. Ahora sí, usamos el TTS para decir: 2, 1, 8, 5, 4
+        leerSecuenciaMetronomo([2, 1, 8, 5, 4], function() {
+            txtEstado.innerText = "";
+            document.getElementById('controles-input-dir').classList.remove('d-none');
+        });
+
+    }, 1500); 
+}
     
     // Permitir avanzar pulsando la tecla "Enter"
     document.addEventListener("DOMContentLoaded", function() {
