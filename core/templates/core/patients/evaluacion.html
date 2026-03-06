@@ -252,7 +252,98 @@
                         </div>
                     </div>
 
-                    <div id="paso-5" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">5. MEMORIA INICIAL</div></div>
+                   <div id="paso-5" class="paso-test d-none animate__animated animate__fadeIn">
+                        
+                        <div id="paso-5-instrucciones" class="text-center py-3">
+                            <button onclick="leerTexto('Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, le pediré que me diga todas las palabras que pueda recordar. No importa el orden en el que me las diga. Pulse el botón azul cuando esté listo para escuchar.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            
+                            <h2 class="fw-bold mb-3 text-dark">5. Prueba de Memoria</h2>
+                            
+                            <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
+                                Esta es una prueba de memoria auditiva.<br><br>
+                                Al pulsar el botón, <strong>escuchará y verá una lista de 5 palabras</strong>. Preste mucha atención e intente recordarlas, porque se las pediremos más adelante.
+                            </div>
+
+                            <audio id="audio-palabras-r1" src="{% static 'core/audio/moca_palabras.m4a' %}" preload="auto"></audio>
+                            
+                            <button onclick="comenzarEjercicio5()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-earbuds me-2"></i> Estoy listo, reproducir palabras
+                            </button>
+                        </div>
+
+                       <div id="paso-5-juego" class="d-none animate__animated animate__fadeIn text-center">
+                            
+                            <h4 id="memoria-titulo" class="fw-bold mb-4 text-dark">Escuche y lea con atención:</h4>
+                            
+                            <div class="d-flex justify-content-center gap-3 my-5 flex-wrap">
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-1">ROSTRO</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-2">SEDA</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-3">TEMPLO</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-4">CLAVEL</div>
+                                <div class="palabra-box border border-2 border-primary rounded-3 p-3 shadow-sm bg-light fw-bold text-primary" style="width: 140px; font-size: 1.5rem;" id="palabra-5">ROJO</div>
+                            </div>
+
+                            <div id="btn-mostrar-micro" class="mt-4 d-none">
+                                <button onclick="activarMicrofonoMemoria()" class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm mb-4">
+                                    <i class="bi bi-mic"></i> Ya he escuchado las palabras (Activar Micrófono)
+                                </button>
+                            </div>
+
+                            <div id="controles-micro-memoria" class="d-none mt-4">
+                                <p class="fs-4 text-dark mb-3 fw-bold" id="texto-instruccion-hablar">Dígame todas las palabras que pueda recordar (no importa el orden).</p>
+                                
+                                <button id="btn-grabar-memoria" class="btn btn-danger rounded-circle shadow p-4 mb-3" onclick="toggleGrabacionMemoria()">
+                                    <i class="bi bi-mic-fill text-white" style="font-size: 3.5rem;"></i>
+                                </button>
+                                <p class="text-danger fs-5 fw-bold" id="texto-mantener-pulsado">Pulse una vez para empezar a hablar</p>
+                                
+                                <div id="spinner-whisper-memoria" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+                                    <p class="text-muted mt-2 fw-bold">Analizando su voz con IA...</p>
+                                </div>
+
+                                <div id="resultado-memoria" class="mt-3 p-3 bg-success-subtle border border-success rounded text-start d-none mx-auto" style="max-width: 600px;">
+                                    <span class="text-success small fw-bold"><i class="bi bi-check-circle-fill"></i> El sistema ha detectado:</span>
+                                    <p id="texto-transcrito-memoria" class="fw-bold mb-0 text-dark fs-5 mt-1"></p>
+                                </div>
+
+                                <button id="btn-avanzar-ronda" onclick="avanzarRondaMemoria()" class="btn btn-primary btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
+                                    Continuar <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="paso-5-ronda2-instrucciones" class="text-center py-3 d-none animate__animated animate__fadeIn">
+                            <button onclick="leerTexto('Ahora le voy a leer la misma lista de palabras una vez más. Intente acordarse del mayor número posible de palabras, incluyendo las que repitió en la primera ronda. Pulse para reproducir de nuevo.')" class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz" style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            
+                            <h2 class="fw-bold mb-3 text-dark">Ronda 2</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
+                                Vamos a repetir el proceso una vez más para afianzar el recuerdo.<br>
+                                Intente acordarse del <strong>mayor número posible</strong>, incluyendo las que ya dijo antes.
+                            </div>
+                            <button onclick="iniciarRonda2Memoria()" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm" style="font-size: 1.2rem;">
+                                <i class="bi bi-play-fill me-2"></i> Escuchar de nuevo
+                            </button>
+                        </div>
+                        <div id="paso-5-completado" class="d-none animate__animated animate__fadeIn text-center py-5">
+                            <i class="bi bi-info-circle-fill text-info" style="font-size: 5rem;"></i>
+                            <h2 class="fw-bold mt-3 text-dark">¡Lo estás haciendo genial!</h2>
+                            
+                            <div class="alert alert-info d-inline-block text-start mt-3 shadow-sm border-info" style="max-width: 550px;">
+                                <p class="fs-4 mb-0 text-dark"><i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i> <strong>Importante:</strong> Intente no olvidar estas palabras. Le volveré a preguntar por ellas al final de la evaluación.</p>
+                            </div>
+                            
+                            <div class="mt-5">
+                                <button onclick="finalizarPaso5()" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm fw-bold">
+                                    Entendido, Continuar <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div id="paso-6" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">6. ATENCIÓN</div></div>
                     <div id="paso-7" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div></div>
                     <div id="paso-8" class="paso-test d-none"><div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div></div>
@@ -330,6 +421,13 @@
     }
     .circulo-moca:hover { transform: translate(-50%, -50%) scale(1.15); border-color: #0d6efd; color: #0d6efd;}
     .circulo-moca.seleccionado { background-color: #0d6efd; color: white; border-color: #0d6efd; box-shadow: 0 0 10px rgba(13,110,253,0.5);}
+    /* Animación del botón de grabar */
+    @keyframes pulse-rojo {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(220, 53, 69, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+    .grabando { animation: pulse-rojo 1.5s infinite; background-color: #bb2d3b !important; }
 </style>
 
 <script>
@@ -355,7 +453,9 @@
         score_recuerdo: 0,
         score_orientacion: 0,
         dibujo_cubo_b64: null,
-        dibujo_reloj_b64: null
+        dibujo_reloj_b64: null,
+        memoria_intento1: 0,
+        memoria_intento2: 0
     };
 
     const nombresSecciones = [
@@ -438,15 +538,19 @@
             document.getElementById('contenedor-progreso').classList.remove('d-none');
             
             // Ocultar controles durante pantallas de instrucciones o minijuegos internos
-            if (pasoActual === 1 || pasoActual === 2 || pasoActual === 3 || pasoActual === 4) {
+            if (pasoActual >= 1 && pasoActual <= 5) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
                 
                 // Mostrar siempre instrucciones y resetear el juego al volver atrás
                 document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
                 document.getElementById(`paso-${pasoActual}-juego`).classList.add('d-none');
-                if (pasoActual === 4) {
-                     document.getElementById('paso-4-completado').classList.add('d-none');
+                
+                if (pasoActual === 4) document.getElementById('paso-4-completado').classList.add('d-none');
+                if (pasoActual === 5) {
+                    document.getElementById('paso-5-ronda2-instrucciones').classList.add('d-none');
+                    let compl5 = document.getElementById('paso-5-completado');
+                     if(compl5) compl5.classList.add('d-none');
                 }
             } else {
                 document.getElementById('controles-navegacion').classList.remove('d-none');
@@ -803,6 +907,226 @@
             document.getElementById('controles-navegacion').classList.remove('d-none');
             document.getElementById('controles-navegacion').classList.add('d-flex');
         }
+    }
+    
+    // =========================================================
+    // LÓGICA DEL JUEGO 5: PRUEBA DE MEMORIA (WHISPER)
+    // =========================================================
+    
+    let rondaMemoriaActual = 1;
+    let grabadoraMemoria;
+    let fragmentosAudioMemoria = [];
+    
+    // Diccionario de tolerancia fonética (Fuzzy Matching manual para Whisper)
+    const diccionarioTolerancia = {
+        "rostro": ["rostro", "ostro", "rastro", "vostro", "lostro"],
+        "seda": ["seda", "ceda", "se da", "ce da", "cena"],
+        "templo": ["templo", "ejemplo", "tiempo", "tiemplo"],
+        "clavel": ["clavel", "clave el", "clave", "clabel", "flavel"],
+        "rojo": ["rojo", "cojo", "ojo", "flojo", "roja"]
+    };
+
+    function comenzarEjercicio5() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-5-instrucciones').classList.add('d-none');
+        document.getElementById('paso-5-juego').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.remove('d-flex');
+        document.getElementById('controles-navegacion').classList.add('d-none');
+        
+        // UI: Ocultar resultado anterior y mostrar palabras
+        document.getElementById('resultado-memoria').classList.add('d-none');
+        document.getElementById('btn-avanzar-ronda').classList.add('d-none');
+        
+        for(let i=1; i<=5; i++) {
+            let caja = document.getElementById(`palabra-${i}`);
+            caja.innerText = Object.keys(diccionarioTolerancia)[i-1].toUpperCase();
+            caja.classList.remove('text-dark', 'border-dark');
+            caja.classList.add('text-primary', 'border-primary');
+        }
+        
+        // Ocultar micro 
+        document.getElementById('controles-micro-memoria').classList.add('d-none');
+        let btnManual = document.getElementById('btn-mostrar-micro');
+        if(btnManual) btnManual.classList.add('d-none');
+        
+        // --- LA MAGIA PARA QUE SUENE DOS VECES (Bugfix HTML5 Audio) ---
+        let audioEl = document.getElementById('audio-palabras-r1');
+        audioEl.pause(); // Por si acaso se quedó pillado
+        audioEl.currentTime = 0; 
+        audioEl.load(); // CRÍTICO: Obliga al navegador a resetear el archivo .m4a
+        
+        audioEl.onended = function() {
+            activarMicrofonoMemoria();
+        };
+
+        // Le damos 500 milisegundos al navegador para que respire y cargue el audio en RAM
+        setTimeout(() => {
+            let playPromise = audioEl.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Audio bloqueado por el navegador:", error);
+                    if(btnManual) btnManual.classList.remove('d-none');
+                });
+            }
+        }, 500);
+        
+        // FALLBACK CLÍNICO: Si a los 10 segundos no salta, forzamos el botón manual
+        setTimeout(() => {
+            if (document.getElementById('controles-micro-memoria').classList.contains('d-none')) {
+                if(btnManual) btnManual.classList.remove('d-none');
+            }
+        }, 10000);
+    }
+
+    function activarMicrofonoMemoria() {
+        let btnManual = document.getElementById('btn-mostrar-micro');
+        if(btnManual) btnManual.classList.add('d-none');
+
+        // Cambiar a interrogaciones grises
+        for(let i=1; i<=5; i++) {
+            let caja = document.getElementById(`palabra-${i}`);
+            caja.innerText = "?";
+            caja.classList.remove('text-primary', 'border-primary');
+            caja.classList.add('text-dark', 'border-dark');
+        }
+        
+        // Mostrar micrófono
+        document.getElementById('controles-micro-memoria').classList.remove('d-none');
+        document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
+        document.getElementById('btn-grabar-memoria').disabled = false;
+        document.getElementById('btn-grabar-memoria').classList.remove('grabando');
+        estaGrabando = false;
+    }
+
+    // --- GESTIÓN DEL MICRÓFONO Y WHISPER ---
+    let estaGrabando = false;
+
+    async function toggleGrabacionMemoria() {
+        if (!estaGrabando) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                grabadoraMemoria = new MediaRecorder(stream);
+                fragmentosAudioMemoria = [];
+
+                grabadoraMemoria.ondataavailable = event => {
+                    if (event.data.size > 0) fragmentosAudioMemoria.push(event.data);
+                };
+
+                grabadoraMemoria.onstop = enviarAudioMemoria;
+                grabadoraMemoria.start();
+                estaGrabando = true;
+
+                document.getElementById('btn-grabar-memoria').classList.add('grabando');
+                document.getElementById('texto-mantener-pulsado').innerHTML = "🔴 Grabando... <b>Vuelva a pulsar para detener</b>";
+            } catch (error) {
+                alert("Necesita dar permisos de micrófono para realizar esta prueba.");
+            }
+        } else {
+            if (grabadoraMemoria && grabadoraMemoria.state === "recording") {
+                grabadoraMemoria.stop();
+                estaGrabando = false;
+
+                document.getElementById('btn-grabar-memoria').classList.remove('grabando');
+                document.getElementById('texto-mantener-pulsado').innerText = "Procesando audio, por favor espere...";
+                
+                document.getElementById('btn-grabar-memoria').disabled = true;
+                document.getElementById('spinner-whisper-memoria').classList.remove('d-none');
+            }
+        }
+    }
+
+    function enviarAudioMemoria() {
+        const audioBlob = new Blob(fragmentosAudioMemoria);
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'memoria.webm');
+
+        fetch('/api/transcribir-audio/', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Whisper detectó:", data.texto_transcrito); 
+            
+            document.getElementById('spinner-whisper-memoria').classList.add('d-none');
+            document.getElementById('texto-mantener-pulsado').innerText = "Voz procesada.";
+            
+            if (data.texto_transcrito && data.texto_transcrito.trim() !== "") {
+                // Evaluamos internamente pero NO se lo enseñamos al paciente
+                let aciertos = evaluarPalabrasMemoria(data.texto_transcrito.toLowerCase());
+                
+                if (rondaMemoriaActual === 1) datosMoCA.memoria_intento1 = aciertos;
+                if (rondaMemoriaActual === 2) datosMoCA.memoria_intento2 = aciertos;
+
+                console.log(`Ronda ${rondaMemoriaActual}: ${aciertos} aciertos guardados.`);
+
+                // Ocultar botón de grabar y mostrar botón de continuar
+                document.getElementById('btn-grabar-memoria').disabled = true;
+                document.getElementById('btn-avanzar-ronda').classList.remove('d-none');
+                
+                // Efecto visual amigable sin decirle qué ha fallado
+                document.getElementById('texto-mantener-pulsado').innerHTML = "<span class='text-success'><i class='bi bi-check-circle-fill'></i> Respuestas guardadas.</span> Puede continuar.";
+
+            } else {
+                alert("Whisper no ha detectado palabras claras. Por favor, vuelva a pulsar y hable más cerca del micrófono.");
+                document.getElementById('btn-grabar-memoria').disabled = false;
+                document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
+            }
+        })
+        .catch(error => {
+            console.error('Error Whisper:', error);
+            alert("Hubo un error de conexión al transcribir. Inténtelo de nuevo.");
+            document.getElementById('spinner-whisper-memoria').classList.add('d-none');
+            document.getElementById('btn-grabar-memoria').disabled = false;
+            document.getElementById('texto-mantener-pulsado').innerText = "Pulse una vez para empezar a hablar";
+        });
+    }
+
+    function evaluarPalabrasMemoria(textoHablado) {
+        // Limpieza profunda: quita acentos y signos de puntuación extraños
+        let textoLimpio = textoHablado.normalize("NFD").replace(/[\u0300-\u036f.,;!?]/g, "");
+        let aciertos = 0;
+        
+        // Iteramos sobre las claves del diccionario ("rostro", "seda"...)
+        for (const [palabraCorrecta, posiblesErrores] of Object.entries(diccionarioTolerancia)) {
+            // Buscamos si ALGUNO de los posibles errores fonéticos está en la frase
+            let encontrada = posiblesErrores.some(variacion => textoLimpio.includes(variacion));
+            if (encontrada) {
+                aciertos++;
+            }
+        }
+        return aciertos;
+    }
+
+    function avanzarRondaMemoria() {
+        document.getElementById('resultado-memoria').classList.add('d-none');
+        document.getElementById('texto-transcrito-memoria').innerText = "";
+        document.getElementById('btn-avanzar-ronda').classList.add('d-none');
+        document.getElementById('controles-micro-memoria').classList.add('d-none');
+
+        if (rondaMemoriaActual === 1) {
+            rondaMemoriaActual = 2;
+            document.getElementById('paso-5-juego').classList.add('d-none');
+            document.getElementById('paso-5-ronda2-instrucciones').classList.remove('d-none');
+        } else {
+            // ADIÓS AL ALERT: Mostramos la pantalla de recordatorio bonita
+            document.getElementById('paso-5-juego').classList.add('d-none');
+            document.getElementById('paso-5-completado').classList.remove('d-none');
+            leerTexto("Importante: Intente no olvidar estas palabras. Le volveré a preguntar por ellas al final de la evaluación.");
+        }
+    }
+
+    function finalizarPaso5() {
+        // Esta función se llama cuando el paciente le da a "Entendido" en la pantalla final del paso 5
+        window.speechSynthesis.cancel();
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        siguientePaso();
+    }
+
+    function iniciarRonda2Memoria() {
+        document.getElementById('paso-5-ronda2-instrucciones').classList.add('d-none');
+        comenzarEjercicio5(); 
     }
     
     // Permitir avanzar pulsando la tecla "Enter"
