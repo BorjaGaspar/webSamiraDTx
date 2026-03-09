@@ -758,8 +758,109 @@
                         </div>
                     </div>
 
-                    <div id="paso-7" class="paso-test d-none">
-                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">7. REPETICIÓN</div>
+                    <div id="paso-7" class="paso-test d-none animate__animated animate__fadeIn">
+
+                        <div id="paso-7-instrucciones" class="text-center py-3">
+                            <button
+                                onclick="leerTexto('A continuación, evaluaremos su lenguaje. Va a escuchar una frase. Preste mucha atención y, cuando termine, repítala en voz alta exactamente igual que la ha escuchado. Después, haremos lo mismo con una segunda frase.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">7. Lenguaje (Repetición)</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4" style="line-height: 1.6;">
+                                Va a escuchar una frase corta.<br><br>
+                                Preste mucha atención y, cuando termine, <strong>repítala en voz alta</strong>
+                                exactamente igual que la ha escuchado. Deberá hacerlo con dos frases diferentes.
+                            </div>
+                            <button onclick="comenzarRepeticionFrases()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
+                            </button>
+                        </div>
+
+                        <div id="paso-7-juego-frase1" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="fw-bold mb-4 text-dark">Escuche la primera frase:</h4>
+
+                            <audio id="audio-frase-1" src="{% static 'core/audio/frase_juan.mp3' %}"
+                                preload="auto"></audio>
+
+                            <button id="btn-play-frase1" onclick="reproducirAudioFrase(1)"
+                                class="btn btn-warning rounded-circle shadow p-4 mb-4">
+                                <i class="bi bi-play-fill text-dark" style="font-size: 3.5rem;"></i>
+                            </button>
+                            <p id="texto-estado-frase1" class="text-muted fs-5 fw-bold">Pulse para escuchar</p>
+
+                            <div id="btn-mostrar-micro-frase1" class="mt-3 d-none">
+                                <button onclick="activarMicrofonoFrase(1)"
+                                    class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm">
+                                    <i class="bi bi-mic"></i> Ya he escuchado la frase (Activar Micrófono)
+                                </button>
+                            </div>
+
+                            <div id="controles-micro-frase1" class="d-none mt-4 mx-auto" style="max-width: 500px;">
+                                <p class="text-primary fw-bold mb-3 fs-4">Repita la frase ahora:</p>
+                                <button id="btn-grabar-frase1" class="btn btn-danger rounded-circle shadow p-4 mb-3"
+                                    onclick="toggleGrabacionFrase(1)">
+                                    <i class="bi bi-mic-fill text-white" style="font-size: 3.5rem;"></i>
+                                </button>
+                                <p id="texto-mantener-pulsado-frase1" class="text-danger fs-5 fw-bold">Pulse una vez
+                                    para empezar a hablar</p>
+
+                                <div id="spinner-frase1" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status"
+                                        style="width: 3rem; height: 3rem;"></div>
+                                    <p class="text-muted mt-2 fw-bold">Guardando audio y analizando con IA...</p>
+                                </div>
+
+                                <button id="btn-siguiente-frase1" onclick="avanzarAFrase2()"
+                                    class="btn btn-primary btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
+                                    Siguiente Frase <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="paso-7-juego-frase2" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="fw-bold mb-4 text-dark">Escuche la segunda frase:</h4>
+
+                            <audio id="audio-frase-2" src="{% static 'core/audio/frase_gato.mp3' %}"
+                                preload="auto"></audio>
+
+                            <button id="btn-play-frase2" onclick="reproducirAudioFrase(2)"
+                                class="btn btn-warning rounded-circle shadow p-4 mb-4">
+                                <i class="bi bi-play-fill text-dark" style="font-size: 3.5rem;"></i>
+                            </button>
+                            <p id="texto-estado-frase2" class="text-muted fs-5 fw-bold">Pulse para escuchar</p>
+
+                            <div id="btn-mostrar-micro-frase2" class="mt-3 d-none">
+                                <button onclick="activarMicrofonoFrase(2)"
+                                    class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm">
+                                    <i class="bi bi-mic"></i> Ya he escuchado la frase (Activar Micrófono)
+                                </button>
+                            </div>
+
+                            <div id="controles-micro-frase2" class="d-none mt-4 mx-auto" style="max-width: 500px;">
+                                <p class="text-primary fw-bold mb-3 fs-4">Repita la frase ahora:</p>
+                                <button id="btn-grabar-frase2" class="btn btn-danger rounded-circle shadow p-4 mb-3"
+                                    onclick="toggleGrabacionFrase(2)">
+                                    <i class="bi bi-mic-fill text-white" style="font-size: 3.5rem;"></i>
+                                </button>
+                                <p id="texto-mantener-pulsado-frase2" class="text-danger fs-5 fw-bold">Pulse una vez
+                                    para empezar a hablar</p>
+
+                                <div id="spinner-frase2" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status"
+                                        style="width: 3rem; height: 3rem;"></div>
+                                    <p class="text-muted mt-2 fw-bold">Guardando audio y analizando con IA...</p>
+                                </div>
+
+                                <button id="btn-finalizar-frases" onclick="finalizarPaso7()"
+                                    class="btn btn-success btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
+                                    Finalizar Ejercicio <i class="bi bi-check-circle-fill ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div id="paso-8" class="paso-test d-none">
                         <div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div>
@@ -967,7 +1068,13 @@
         atencion_numeros_inv: 0,
         atencion_letras_errores: 0,
         atencion_letras_score: 0,
-        atencion_restas_score: 0
+        atencion_restas_score: 0,
+        lenguaje_rep_1: 0,
+        lenguaje_rep_2: 0,
+        transcripcion_frase1: "",
+        transcripcion_frase2: "",
+        audio_frase1_b64: null,
+        audio_frase2_b64: null
     };
 
     const nombresSecciones = [
@@ -1074,7 +1181,7 @@
             document.getElementById('contenedor-progreso').classList.remove('d-none');
 
             // CAMBIO 1: Ampliamos el rango para ocultar los botones de navegación hasta el paso 6
-            if (pasoActual >= 1 && pasoActual <= 6) {
+            if (pasoActual >= 1 && pasoActual <= 7) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
 
@@ -1088,6 +1195,10 @@
                     document.getElementById('paso-6-juego-letras').classList.add('d-none');
                     document.getElementById('paso-6-instrucciones-restas').classList.add('d-none');
                     document.getElementById('paso-6-juego-restas').classList.add('d-none');
+                } else if (pasoActual === 7) {
+                    document.getElementById('paso-7-instrucciones').classList.remove('d-none');
+                    document.getElementById('paso-7-juego-frase1').classList.add('d-none');
+                    document.getElementById('paso-7-juego-frase2').classList.add('d-none');
                 } else {
                     // Para los pasos del 1 al 5, mantenemos tu lógica automática
                     document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
@@ -1196,6 +1307,16 @@
 
             console.log("--- PUNTUACIÓN ATENCIÓN (PARCIAL) ---");
             console.log("Total Atención:", datosMoCA.score_atencion, "/ 6 puntos posibles.");
+        }
+        // PASO 7: Repetición de Frases
+        if (pasoActual === 7) {
+            console.log("--- RESUMEN REPETICIÓN FRASES ---");
+            console.log("Nota Frase 1 (Automática IA):", datosMoCA.lenguaje_rep_1);
+            console.log("Transcripción 1:", datosMoCA.transcripcion_frase1);
+            console.log("Nota Frase 2 (Automática IA):", datosMoCA.lenguaje_rep_2);
+            console.log("Transcripción 2:", datosMoCA.transcripcion_frase2);
+            console.log("¿Audio 1 guardado en B64?:", datosMoCA.audio_frase1_b64 !== null);
+            console.log("¿Audio 2 guardado en B64?:", datosMoCA.audio_frase2_b64 !== null);
         }
     }
 
@@ -2033,6 +2154,184 @@
         console.log("Puntos ganados:", puntosRestas);
 
         // ¡POR FIN! Terminamos el gigantesco paso 6 de Atención
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        siguientePaso();
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 7: LENGUAJE (REPETICIÓN DE FRASES)
+    // =========================================================
+
+    let grabadoraFrases;
+    let fragmentosAudioFrases = [];
+    let grabandoFrase = false;
+
+    // Función auxiliar para convertir Blob a Base64
+    function blobToBase64(blob) {
+        return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    function comenzarRepeticionFrases() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-7-instrucciones').classList.add('d-none');
+        document.getElementById('paso-7-juego-frase1').classList.remove('d-none');
+    }
+
+    function reproducirAudioFrase(numFrase) {
+        let audioEl = document.getElementById(`audio-frase-${numFrase}`);
+        let btnPlay = document.getElementById(`btn-play-frase${numFrase}`);
+        let txtEstado = document.getElementById(`texto-estado-frase${numFrase}`);
+        let btnManual = document.getElementById(`btn-mostrar-micro-frase${numFrase}`);
+
+        btnPlay.classList.add('d-none');
+        txtEstado.innerHTML = "<span class='text-primary spinner-grow spinner-grow-sm me-2'></span> Escuchando...";
+
+        let playPromise = audioEl.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Audio bloqueado:", error);
+                txtEstado.innerText = "Error reproduciendo audio.";
+                btnManual.classList.remove('d-none');
+            });
+        }
+
+        // Activación automática al terminar
+        audioEl.onended = function () {
+            txtEstado.innerText = "";
+            activarMicrofonoFrase(numFrase);
+        };
+
+        // Redundancia manual si falla el onended (a los 5 segundos)
+        setTimeout(() => {
+            if (document.getElementById(`controles-micro-frase${numFrase}`).classList.contains('d-none')) {
+                btnManual.classList.remove('d-none');
+                txtEstado.innerText = "";
+            }
+        }, 5000);
+    }
+
+    function activarMicrofonoFrase(numFrase) {
+        document.getElementById(`btn-mostrar-micro-frase${numFrase}`).classList.add('d-none');
+        document.getElementById(`controles-micro-frase${numFrase}`).classList.remove('d-none');
+    }
+
+    async function toggleGrabacionFrase(numFrase) {
+        let btnGrabar = document.getElementById(`btn-grabar-frase${numFrase}`);
+        let txtEstado = document.getElementById(`texto-mantener-pulsado-frase${numFrase}`);
+
+        if (!grabandoFrase) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                grabadoraFrases = new MediaRecorder(stream);
+                fragmentosAudioFrases = [];
+
+                grabadoraFrases.ondataavailable = event => {
+                    if (event.data.size > 0) fragmentosAudioFrases.push(event.data);
+                };
+
+                grabadoraFrases.onstop = () => procesarGrabacionFrase(numFrase);
+
+                grabadoraFrases.start();
+                grabandoFrase = true;
+
+                btnGrabar.classList.add('grabando');
+                txtEstado.innerHTML = "🔴 Grabando... <b>Vuelva a pulsar al terminar</b>";
+            } catch (error) {
+                alert("Necesita dar permisos de micrófono para realizar la prueba.");
+            }
+        } else {
+            if (grabadoraFrases && grabadoraFrases.state === "recording") {
+                grabadoraFrases.stop();
+                grabandoFrase = false;
+
+                btnGrabar.classList.remove('grabando');
+                btnGrabar.disabled = true;
+                txtEstado.innerText = "";
+                document.getElementById(`spinner-frase${numFrase}`).classList.remove('d-none');
+            }
+        }
+    }
+
+    async function procesarGrabacionFrase(numFrase) {
+        const audioBlob = new Blob(fragmentosAudioFrases, { type: 'audio/webm' });
+
+        // 1. Guardar en Base64 para el auditor (Médico)
+        const base64Audio = await blobToBase64(audioBlob);
+        if (numFrase === 1) datosMoCA.audio_frase1_b64 = base64Audio;
+        if (numFrase === 2) datosMoCA.audio_frase2_b64 = base64Audio;
+
+        // 2. Enviar a Whisper para Pre-evaluación IA
+        const formData = new FormData();
+        formData.append('audio', audioBlob, `frase${numFrase}.webm`);
+
+        fetch('/api/transcribir-audio/', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                let transcripcion = data.texto_transcrito || "";
+                if (numFrase === 1) datosMoCA.transcripcion_frase1 = transcripcion;
+                if (numFrase === 2) datosMoCA.transcripcion_frase2 = transcripcion;
+
+                // Puntuación Automática
+                let puntuacion = evaluarFraseClinica(transcripcion, numFrase);
+                if (numFrase === 1) datosMoCA.lenguaje_rep_1 = puntuacion;
+                if (numFrase === 2) datosMoCA.lenguaje_rep_2 = puntuacion;
+
+                // Mostrar resultados en consola para depuración
+                console.log(`--- [WHISPER] Resultado Frase ${numFrase} ---`);
+                console.log(`Texto entendido: "${transcripcion}"`);
+                console.log(`Puntos asignados: ${puntuacion}`);
+
+                // UI: Avanzar
+                document.getElementById(`spinner-frase${numFrase}`).classList.add('d-none');
+                if (numFrase === 1) {
+                    document.getElementById('btn-siguiente-frase1').classList.remove('d-none');
+                    document.getElementById('texto-mantener-pulsado-frase1').innerHTML = "<span class='text-success'><i class='bi bi-check-circle-fill'></i> Audio guardado.</span>";
+                } else {
+                    document.getElementById('btn-finalizar-frases').classList.remove('d-none');
+                    document.getElementById('texto-mantener-pulsado-frase2').innerHTML = "<span class='text-success'><i class='bi bi-check-circle-fill'></i> Audio guardado.</span>";
+                }
+            })
+            .catch(error => {
+                console.error('Error Whisper Frases:', error);
+                // Si Whisper falla, guardamos el Base64 de todos modos y damos 0 provisional.
+                // El médico lo corregirá al escuchar el Base64.
+                document.getElementById(`spinner-frase${numFrase}`).classList.add('d-none');
+                alert("No se pudo evaluar automáticamente, pero su audio ha sido guardado para revisión médica.");
+
+                if (numFrase === 1) document.getElementById('btn-siguiente-frase1').classList.remove('d-none');
+                if (numFrase === 2) document.getElementById('btn-finalizar-frases').classList.remove('d-none');
+            });
+    }
+
+    function evaluarFraseClinica(texto, numFrase) {
+        // Limpiamos texto para comparar (quita tildes, signos y pasa a minúsculas)
+        let textoLimpio = texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f.,;!?¿¡]/g, "").trim();
+
+        const frase1Oficial = "solo se que le toca a juan ayudar hoy";
+        const frase2Oficial = "el gato siempre se esconde debajo del sofa cuando hay perros en la habitacion";
+
+        // Se exige repetición exacta (según MoCA)
+        if (numFrase === 1 && textoLimpio === frase1Oficial) return 1;
+        if (numFrase === 2 && textoLimpio === frase2Oficial) return 1;
+
+        return 0; // Omisiones o sustituciones = 0 puntos.
+    }
+
+    function avanzarAFrase2() {
+        document.getElementById('paso-7-juego-frase1').classList.add('d-none');
+        document.getElementById('paso-7-juego-frase2').classList.remove('d-none');
+    }
+
+    function finalizarPaso7() {
         document.getElementById('controles-navegacion').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.add('d-flex');
         siguientePaso();
