@@ -862,9 +862,79 @@
                             </div>
                         </div>
                     </div>
-                    <div id="paso-8" class="paso-test d-none">
-                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">8. FLUIDEZ VERBAL</div>
+
+                    <div id="paso-8" class="paso-test d-none animate__animated animate__fadeIn">
+
+                        <div id="paso-8-instrucciones" class="text-center py-3">
+                            <button
+                                onclick="leerTexto('Ahora evaluaremos su fluidez verbal. Deberá decir el mayor número posible de palabras que comiencen por la letra F. Tendrá un minuto exacto. No se permiten nombres propios como Fernando, ni números, ni variaciones de la misma palabra como flor y florero. Pulse el botón azul cuando esté listo para ver la letra y empezar.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">8. Fluidez Verbal</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4 text-start mx-auto"
+                                style="line-height: 1.6; max-width: 600px;">
+                                <p>Deberá decir el <strong>mayor número posible de palabras</strong> que comiencen por
+                                    la letra que le mostraremos a continuación.</p>
+                                <p><i class="bi bi-stopwatch text-primary"></i> Tendrá <strong>60 segundos</strong>
+                                    exactos.</p>
+                                <div class="alert alert-warning border-warning shadow-sm mt-3">
+                                    <strong><i class="bi bi-exclamation-triangle-fill"></i> Reglas Importantes:</strong>
+                                    <ul class="mb-0 mt-2 text-start">
+                                        <li>NO valen nombres propios (ej. Fernando, Francia).</li>
+                                        <li>NO valen números (ej. catorce).</li>
+                                        <li>NO valen palabras de la misma familia (ej. flor, florero).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button onclick="prepararJuegoFluidez()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, estoy listo
+                            </button>
+                        </div>
+
+                        <div id="paso-8-juego" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="fw-bold mb-4 text-dark">Diga palabras que empiecen por:</h4>
+
+                            <div class="bg-warning text-dark border border-5 border-dark rounded-4 d-flex align-items-center justify-content-center mx-auto shadow-lg mb-5"
+                                style="width: 180px; height: 180px; font-size: 8rem; font-weight: 900;">
+                                F
+                            </div>
+
+                            <div id="controles-fluidez" class="mx-auto" style="max-width: 500px;">
+                                <button id="btn-empezar-hablar" onclick="iniciarGrabacionFluidez()"
+                                    class="btn btn-danger btn-lg w-100 rounded-pill py-3 shadow fw-bold fs-4 mb-3 d-none">
+                                    <i class="bi bi-mic-fill me-2"></i> Activar Micrófono y Empezar
+                                </button>
+
+                                <div id="zona-grabacion-fluidez" class="d-none">
+                                    <p class="text-danger fs-4 fw-bold mb-2">🔴 Grabando... ¡Hable ahora!</p>
+                                    <div class="progress mb-3 shadow-sm border border-secondary"
+                                        style="height: 30px; border-radius: 15px;">
+                                        <div id="barra-tiempo-fluidez"
+                                            class="progress-bar bg-danger progress-bar-striped progress-bar-animated fs-5 fw-bold"
+                                            role="progressbar" style="width: 100%;">60s</div>
+                                    </div>
+                                    <p class="text-muted small">La grabación se detendrá automáticamente.</p>
+                                </div>
+
+                                <div id="spinner-fluidez" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status"
+                                        style="width: 3rem; height: 3rem;"></div>
+                                    <p class="text-muted mt-2 fw-bold fs-5">Tiempo agotado.<br>Guardando y evaluando con
+                                        IA...</p>
+                                </div>
+
+                                <button id="btn-finalizar-fluidez" onclick="finalizarPaso8()"
+                                    class="btn btn-success btn-lg rounded-pill px-5 mt-4 fw-bold shadow-sm d-none">
+                                    Siguiente Ejercicio <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
+
                     <div id="paso-9" class="paso-test d-none">
                         <div class="p-5 bg-light rounded text-center my-4 border border-dashed">9. SIMILITUDES</div>
                     </div>
@@ -1074,7 +1144,10 @@
         transcripcion_frase1: "",
         transcripcion_frase2: "",
         audio_frase1_b64: null,
-        audio_frase2_b64: null
+        audio_frase2_b64: null,
+        lenguaje_fluidez_score: 0,
+        transcripcion_fluidez: "",
+        audio_fluidez_b64: null
     };
 
     const nombresSecciones = [
@@ -1181,7 +1254,7 @@
             document.getElementById('contenedor-progreso').classList.remove('d-none');
 
             // CAMBIO 1: Ampliamos el rango para ocultar los botones de navegación hasta el paso 6
-            if (pasoActual >= 1 && pasoActual <= 7) {
+            if (pasoActual >= 1 && pasoActual <= 8) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
 
@@ -1199,6 +1272,9 @@
                     document.getElementById('paso-7-instrucciones').classList.remove('d-none');
                     document.getElementById('paso-7-juego-frase1').classList.add('d-none');
                     document.getElementById('paso-7-juego-frase2').classList.add('d-none');
+                } else if (pasoActual === 8) {
+                    document.getElementById('paso-8-instrucciones').classList.remove('d-none');
+                    document.getElementById('paso-8-juego').classList.add('d-none');
                 } else {
                     // Para los pasos del 1 al 5, mantenemos tu lógica automática
                     document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
@@ -1317,6 +1393,17 @@
             console.log("Transcripción 2:", datosMoCA.transcripcion_frase2);
             console.log("¿Audio 1 guardado en B64?:", datosMoCA.audio_frase1_b64 !== null);
             console.log("¿Audio 2 guardado en B64?:", datosMoCA.audio_frase2_b64 !== null);
+        }
+        // PASO 8: Fluidez Verbal (Y SUMA DE LENGUAJE)
+        if (pasoActual === 8) {
+            // Sumamos los 3 puntos posibles de lenguaje (2 de repetición + 1 de fluidez)
+            datosMoCA.score_lenguaje = (datosMoCA.lenguaje_rep_1 || 0) +
+                (datosMoCA.lenguaje_rep_2 || 0) +
+                (datosMoCA.lenguaje_fluidez_score || 0);
+
+            console.log("--- PUNTUACIÓN LENGUAJE FINAL ---");
+            console.log("Total Lenguaje:", datosMoCA.score_lenguaje, "/ 3 puntos posibles.");
+            console.log("¿Audio Fluidez guardado en B64?:", datosMoCA.audio_fluidez_b64 !== null);
         }
     }
 
@@ -2332,6 +2419,141 @@
     }
 
     function finalizarPaso7() {
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        siguientePaso();
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 8: FLUIDEZ VERBAL (LETRA F)
+    // =========================================================
+
+    let grabadoraFluidez;
+    let fragmentosAudioFluidez = [];
+    let temporizadorFluidez;
+    let tiempoRestante = 60;
+
+    function prepararJuegoFluidez() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-8-instrucciones').classList.add('d-none');
+        document.getElementById('paso-8-juego').classList.remove('d-none');
+        
+        // Iniciar grabación automáticamente para evitar tiempo extra de pensamiento
+        iniciarGrabacionFluidez();
+    }
+
+    async function iniciarGrabacionFluidez() {
+        let btnEmpezar = document.getElementById('btn-empezar-hablar');
+        let zonaGrabacion = document.getElementById('zona-grabacion-fluidez');
+        let barraTiempo = document.getElementById('barra-tiempo-fluidez');
+
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            grabadoraFluidez = new MediaRecorder(stream);
+            fragmentosAudioFluidez = [];
+
+            grabadoraFluidez.ondataavailable = event => {
+                if (event.data.size > 0) fragmentosAudioFluidez.push(event.data);
+            };
+
+            grabadoraFluidez.onstop = () => procesarGrabacionFluidez();
+
+            // Iniciar grabación y UI
+            grabadoraFluidez.start();
+            btnEmpezar.classList.add('d-none');
+            zonaGrabacion.classList.remove('d-none');
+
+            tiempoRestante = 60;
+            barraTiempo.style.width = '100%';
+            barraTiempo.innerText = '60s';
+
+            // Temporizador exacto de 60 segundos
+            temporizadorFluidez = setInterval(() => {
+                tiempoRestante--;
+                let porcentaje = (tiempoRestante / 60) * 100;
+                barraTiempo.style.width = `${porcentaje}%`;
+                barraTiempo.innerText = `${tiempoRestante}s`;
+
+                if (tiempoRestante <= 0) {
+                    clearInterval(temporizadorFluidez);
+                    detenerGrabacionFluidez();
+                }
+            }, 1000);
+
+        } catch (error) {
+            alert("Necesita dar permisos de micrófono para realizar la prueba.");
+        }
+    }
+
+    function detenerGrabacionFluidez() {
+        if (grabadoraFluidez && grabadoraFluidez.state === "recording") {
+            grabadoraFluidez.stop();
+            document.getElementById('zona-grabacion-fluidez').classList.add('d-none');
+            document.getElementById('spinner-fluidez').classList.remove('d-none');
+        }
+    }
+
+    async function procesarGrabacionFluidez() {
+        const audioBlob = new Blob(fragmentosAudioFluidez, { type: 'audio/webm' });
+
+        // 1. Guardar en Base64 para el médico
+        datosMoCA.audio_fluidez_b64 = await blobToBase64(audioBlob);
+
+        // 2. Enviar a Whisper para Pre-evaluación IA
+        const formData = new FormData();
+        formData.append('audio', audioBlob, `fluidez_F.webm`);
+
+        fetch('/api/transcribir-audio/', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                let transcripcion = data.texto_transcrito || "";
+                datosMoCA.transcripcion_fluidez = transcripcion;
+
+                // Evaluamos las palabras (IA preliminar)
+                evaluarFluidezIA(transcripcion);
+
+                // Mostrar botón para avanzar
+                document.getElementById('spinner-fluidez').classList.add('d-none');
+                document.getElementById('btn-finalizar-fluidez').classList.remove('d-none');
+            })
+            .catch(error => {
+                console.error('Error Whisper Fluidez:', error);
+                alert("Error al transcribir, pero el audio se ha guardado para el médico.");
+                document.getElementById('spinner-fluidez').classList.add('d-none');
+                document.getElementById('btn-finalizar-fluidez').classList.remove('d-none');
+            });
+    }
+
+    function evaluarFluidezIA(texto) {
+        // Limpiamos texto y lo separamos en un array de palabras
+        let textoLimpio = texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f.,;!?¿¡]/g, "");
+        // Dividimos por espacios en blanco
+        let palabras = textoLimpio.split(/\s+/).filter(p => p.length > 0);
+
+        // Filtramos: Solo palabras que empiecen por "f" y que sean únicas (no repetidas)
+        let palabrasConF = new Set();
+        palabras.forEach(palabra => {
+            if (palabra.startsWith("f")) {
+                palabrasConF.add(palabra);
+            }
+        });
+
+        // NOTA CLÍNICA: La IA no puede saber si "fernando" es un nombre o "fui" un verbo.
+        // Asume como válidas todas las que empiecen por F, el médico validará el Base64.
+        let cantidadValidas = palabrasConF.size;
+        datosMoCA.lenguaje_fluidez_score = (cantidadValidas >= 11) ? 1 : 0;
+
+        console.log("--- RESULTADOS FLUIDEZ (PRE-EVALUACIÓN IA) ---");
+        console.log("Texto completo detectado:", texto);
+        console.log("Palabras únicas con 'F':", Array.from(palabrasConF));
+        console.log("Cantidad:", cantidadValidas);
+        console.log("Puntos asignados:", datosMoCA.lenguaje_fluidez_score, (cantidadValidas >= 11 ? "(Éxito >= 11)" : "(Fallo < 11)"));
+    }
+
+    function finalizarPaso8() {
         document.getElementById('controles-navegacion').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.add('d-flex');
         siguientePaso();
