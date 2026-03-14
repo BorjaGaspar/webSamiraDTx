@@ -935,13 +935,146 @@
                         </div>
                     </div>
 
-                    <div id="paso-9" class="paso-test d-none">
-                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">9. SIMILITUDES</div>
-                    </div>
-                    <div id="paso-10" class="paso-test d-none">
-                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">10. RECUERDO DIFERIDO
+                    <div id="paso-9" class="paso-test d-none animate__animated animate__fadeIn">
+
+                        <div id="paso-9-instrucciones" class="text-center py-3">
+                            <button
+                                onclick="leerTexto('Le diré dos palabras y me gustaría que usted me dijera a qué categoría pertenecen. Por ejemplo, si le digo: una naranja y un plátano, usted debería responder: frutas. Ahora le tocará a usted con otras palabras.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">9. Abstracción</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4 text-start mx-auto"
+                                style="line-height: 1.6; max-width: 600px;">
+                                <p>Le diré dos palabras y usted debe decirme <strong>qué tienen en común</strong> o a
+                                    qué categoría pertenecen.</p>
+                                <div class="bg-light p-3 rounded-3 border border-secondary mb-3">
+                                    <strong>Ejemplo:</strong><br>
+                                    Si le digo <em>"una naranja y un plátano"</em>...<br>
+                                    Usted debe responder: <strong>"Son frutas"</strong>.
+                                </div>
+                                <p>Puede responder hablando por el micrófono o escribiendo en la pantalla.</p>
+                            </div>
+                            <button onclick="comenzarAbstraccionTren()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
+                            </button>
+                        </div>
+
+                        <div id="paso-9-juego-tren" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="text-muted mb-2">¿Qué tienen en común...</h4>
+                            <h1 class="fw-bold text-dark mb-4" style="font-size: 3.5rem;">Un TREN y una BICICLETA?</h1>
+
+                            <div class="mx-auto bg-light p-4 rounded-4 shadow-sm border border-2 mt-4"
+                                style="max-width: 500px;">
+                                <button id="btn-grabar-tren" class="btn btn-danger rounded-circle shadow p-4 mb-3"
+                                    onclick="toggleGrabacionAbstraccion('tren')">
+                                    <i class="bi bi-mic-fill text-white" style="font-size: 2.5rem;"></i>
+                                </button>
+                                <p id="estado-mic-tren" class="text-danger fw-bold mb-3">Pulse para hablar</p>
+
+                                <div id="spinner-tren" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status"></div>
+                                    <p class="text-muted small">Procesando voz...</p>
+                                </div>
+
+                                <p class="text-muted fw-bold mb-2">O escriba su respuesta aquí:</p>
+                                <input type="text" id="input-texto-tren"
+                                    class="form-control form-control-lg text-center fs-4 fw-bold mb-4"
+                                    placeholder="Ej: Son...">
+
+                                <button onclick="confirmarAbstraccion('tren')"
+                                    class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm">
+                                    Confirmar Respuesta <i class="bi bi-check-lg ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="paso-9-juego-reloj" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="text-muted mb-2">Ahora, ¿qué tienen en común...</h4>
+                            <h1 class="fw-bold text-dark mb-4" style="font-size: 3.5rem;">Una REGLA y un RELOJ?</h1>
+
+                            <div class="mx-auto bg-light p-4 rounded-4 shadow-sm border border-2 mt-4"
+                                style="max-width: 500px;">
+                                <button id="btn-grabar-reloj" class="btn btn-danger rounded-circle shadow p-4 mb-3"
+                                    onclick="toggleGrabacionAbstraccion('reloj')">
+                                    <i class="bi bi-mic-fill text-white" style="font-size: 2.5rem;"></i>
+                                </button>
+                                <p id="estado-mic-reloj" class="text-danger fw-bold mb-3">Pulse para hablar</p>
+
+                                <div id="spinner-reloj" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status"></div>
+                                    <p class="text-muted small">Procesando voz...</p>
+                                </div>
+
+                                <p class="text-muted fw-bold mb-2">O escriba su respuesta aquí:</p>
+                                <input type="text" id="input-texto-reloj"
+                                    class="form-control form-control-lg text-center fs-4 fw-bold mb-4"
+                                    placeholder="Ej: Sirven para...">
+
+                                <button onclick="confirmarAbstraccion('reloj')"
+                                    class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm">
+                                    Terminar Ejercicio <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+
+                    <div id="paso-10" class="paso-test d-none animate__animated animate__fadeIn">
+
+                        <div id="paso-10-instrucciones" class="text-center py-3">
+                            <button
+                                onclick="leerTexto('Antes le he leído una serie de palabras y le he pedido que las recordase. Dígame ahora todas las palabras de las que se acuerde.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">10. Recuerdo Diferido</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4 text-start mx-auto"
+                                style="line-height: 1.6; max-width: 600px;">
+                                <p>Antes le he leído una serie de 5 palabras y le he pedido que las recordase.</p>
+                                <p>En la siguiente pantalla, active el micrófono y <strong>dígame todas las palabras de
+                                        las que se acuerde</strong>. No importa el orden.</p>
+                            </div>
+                            <button onclick="comenzarRecuerdo()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, estoy listo
+                            </button>
+                        </div>
+
+                        <div id="paso-10-juego" class="d-none animate__animated animate__fadeIn text-center">
+                            <h4 class="text-muted mb-2">Diga las palabras que recuerde</h4>
+                            <h2 class="fw-bold text-dark mb-4">¿Cuáles eran las 5 palabras?</h2>
+
+                            <div class="mx-auto bg-light p-4 rounded-4 shadow-sm border border-2 mt-4"
+                                style="max-width: 500px;">
+                                <p class="text-primary fw-bold mb-3 fs-5">Active el micrófono, hable y vuelva a pulsar
+                                    al terminar:</p>
+
+                                <button id="btn-grabar-recuerdo" class="btn btn-danger rounded-circle shadow p-4 mb-3"
+                                    onclick="toggleGrabacionRecuerdo()">
+                                    <i class="bi bi-mic-fill text-white" style="font-size: 3.5rem;"></i>
+                                </button>
+                                <p id="estado-mic-recuerdo" class="text-danger fw-bold mb-3 fs-5">Pulse una vez para
+                                    empezar a hablar</p>
+
+                                <div id="spinner-recuerdo" class="d-none my-3">
+                                    <div class="spinner-border text-primary" role="status"
+                                        style="width: 3rem; height: 3rem;"></div>
+                                    <p class="text-muted mt-2 fw-bold">Guardando audio y analizando con IA...</p>
+                                </div>
+
+                                <button id="btn-finalizar-recuerdo" onclick="finalizarPaso10()"
+                                    class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm d-none mt-3">
+                                    Finalizar Ejercicio <i class="bi bi-check-lg ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="paso-11" class="paso-test d-none">
                         <div class="p-5 bg-light rounded text-center my-4 border border-dashed">11. ORIENTACIÓN</div>
                     </div>
@@ -1147,7 +1280,17 @@
         audio_frase2_b64: null,
         lenguaje_fluidez_score: 0,
         transcripcion_fluidez: "",
-        audio_fluidez_b64: null
+        audio_fluidez_b64: null,
+        abstraccion_tren_score: 0,
+        abstraccion_reloj_score: 0,
+        abstraccion_tren_respuesta: "",
+        abstraccion_reloj_respuesta: "",
+        audio_tren_b64: null,
+        audio_reloj_b64: null,
+        score_abstraccion: 0,
+        score_recuerdo: 0,
+        transcripcion_recuerdo: "",
+        audio_recuerdo_b64: null
     };
 
     const nombresSecciones = [
@@ -1254,7 +1397,7 @@
             document.getElementById('contenedor-progreso').classList.remove('d-none');
 
             // CAMBIO 1: Ampliamos el rango para ocultar los botones de navegación hasta el paso 6
-            if (pasoActual >= 1 && pasoActual <= 8) {
+            if (pasoActual >= 1 && pasoActual <= 10) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
 
@@ -1275,6 +1418,13 @@
                 } else if (pasoActual === 8) {
                     document.getElementById('paso-8-instrucciones').classList.remove('d-none');
                     document.getElementById('paso-8-juego').classList.add('d-none');
+                } else if (pasoActual === 9) {
+                    document.getElementById('paso-9-instrucciones').classList.remove('d-none');
+                    document.getElementById('paso-9-juego-tren').classList.add('d-none');
+                    document.getElementById('paso-9-juego-reloj').classList.add('d-none');
+                } else if (pasoActual === 10) {
+                    document.getElementById('paso-10-instrucciones').classList.remove('d-none');
+                    document.getElementById('paso-10-juego').classList.add('d-none');
                 } else {
                     // Para los pasos del 1 al 5, mantenemos tu lógica automática
                     document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
@@ -1405,7 +1555,26 @@
             console.log("Total Lenguaje:", datosMoCA.score_lenguaje, "/ 3 puntos posibles.");
             console.log("¿Audio Fluidez guardado en B64?:", datosMoCA.audio_fluidez_b64 !== null);
         }
+
+        // PASO 9: Abstracción
+        if (pasoActual === 9) {
+            datosMoCA.score_abstraccion = (datosMoCA.abstraccion_tren_score || 0) +
+                (datosMoCA.abstraccion_reloj_score || 0);
+
+            console.log("--- PUNTUACIÓN ABSTRACCIÓN FINAL ---");
+            console.log("Respuesta Tren:", datosMoCA.abstraccion_tren_respuesta, "-> Puntos:", datosMoCA.abstraccion_tren_score);
+            console.log("Respuesta Reloj:", datosMoCA.abstraccion_reloj_respuesta, "-> Puntos:", datosMoCA.abstraccion_reloj_score);
+            console.log("Total Abstracción:", datosMoCA.score_abstraccion, "/ 2 puntos posibles.");
+        }
+        // PASO 10: Recuerdo Diferido
+        if (pasoActual === 10) {
+            console.log("--- PUNTUACIÓN RECUERDO DIFERIDO FINAL ---");
+            console.log("Transcripción Whisper:", datosMoCA.transcripcion_recuerdo);
+            console.log("Puntos IA (Espontáneos):", datosMoCA.score_recuerdo, "/ 5 puntos posibles.");
+            console.log("¿Audio guardado en B64?:", datosMoCA.audio_recuerdo_b64 !== null);
+        }
     }
+
 
 
     // =========================================================
@@ -2437,7 +2606,7 @@
         window.speechSynthesis.cancel();
         document.getElementById('paso-8-instrucciones').classList.add('d-none');
         document.getElementById('paso-8-juego').classList.remove('d-none');
-        
+
         // Iniciar grabación automáticamente para evitar tiempo extra de pensamiento
         iniciarGrabacionFluidez();
     }
@@ -2554,6 +2723,264 @@
     }
 
     function finalizarPaso8() {
+        document.getElementById('controles-navegacion').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-flex');
+        siguientePaso();
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 9: ABSTRACCIÓN (Tren/Bici y Regla/Reloj)
+    // =========================================================
+
+    let grabadoraAbstraccion;
+    let fragmentosAudioAbstraccion = [];
+    let grabandoAbstraccion = false;
+
+    function comenzarAbstraccionTren() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-9-instrucciones').classList.add('d-none');
+        document.getElementById('paso-9-juego-tren').classList.remove('d-none');
+
+        let utterance = new SpeechSynthesisUtterance("¿Qué tienen en común un tren y una bicicleta?");
+        utterance.lang = 'es-ES';
+        window.speechSynthesis.speak(utterance);
+    }
+
+    async function toggleGrabacionAbstraccion(fase) {
+        let btnGrabar = document.getElementById(`btn-grabar-${fase}`);
+        let txtEstado = document.getElementById(`estado-mic-${fase}`);
+
+        if (!grabandoAbstraccion) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                grabadoraAbstraccion = new MediaRecorder(stream);
+                fragmentosAudioAbstraccion = [];
+
+                grabadoraAbstraccion.ondataavailable = event => {
+                    if (event.data.size > 0) fragmentosAudioAbstraccion.push(event.data);
+                };
+
+                grabadoraAbstraccion.onstop = () => procesarAudioAbstraccion(fase);
+
+                grabadoraAbstraccion.start();
+                grabandoAbstraccion = true;
+
+                btnGrabar.classList.add('grabando');
+                txtEstado.innerHTML = "🔴 Grabando... <b>Pulse para detener</b>";
+            } catch (error) {
+                alert("Necesita dar permisos de micrófono.");
+            }
+        } else {
+            if (grabadoraAbstraccion && grabadoraAbstraccion.state === "recording") {
+                grabadoraAbstraccion.stop();
+                grabandoAbstraccion = false;
+
+                btnGrabar.classList.remove('grabando');
+                txtEstado.innerText = "Procesando...";
+                document.getElementById(`spinner-${fase}`).classList.remove('d-none');
+            }
+        }
+    }
+
+    async function procesarAudioAbstraccion(fase) {
+        const audioBlob = new Blob(fragmentosAudioAbstraccion, { type: 'audio/webm' });
+
+        // Guardar Base64 para el médico
+        const base64Audio = await blobToBase64(audioBlob);
+        if (fase === 'tren') datosMoCA.audio_tren_b64 = base64Audio;
+        if (fase === 'reloj') datosMoCA.audio_reloj_b64 = base64Audio;
+
+        // Enviar a Whisper
+        const formData = new FormData();
+        formData.append('audio', audioBlob, `abstraccion_${fase}.webm`);
+
+        fetch('/api/transcribir-audio/', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Ponemos lo que ha dicho en el input de texto para que lo revise
+                document.getElementById(`input-texto-${fase}`).value = data.texto_transcrito || "";
+                document.getElementById(`spinner-${fase}`).classList.add('d-none');
+                document.getElementById(`estado-mic-${fase}`).innerHTML = "<span class='text-success'><i class='bi bi-check'></i> Voz detectada. Puede editar el texto antes de confirmar.</span>";
+
+                console.log(`--- [WHISPER] Resultado Abstracción / Similitudes (${fase}) ---`);
+                console.log(`Texto entendido: "${data.texto_transcrito}"`);
+            })
+            .catch(error => {
+                document.getElementById(`spinner-${fase}`).classList.add('d-none');
+                document.getElementById(`estado-mic-${fase}`).innerText = "Error en la IA. Por favor, escriba la respuesta manualmente.";
+            });
+    }
+
+    function confirmarAbstraccion(fase) {
+        let inputTexto = document.getElementById(`input-texto-${fase}`).value.trim();
+
+        if (inputTexto === "") {
+            alert("Por favor, hable por el micrófono o escriba una respuesta antes de continuar.");
+            return;
+        }
+
+        // 1. Guardamos la respuesta final (sea tecleada o por voz)
+        if (fase === 'tren') datosMoCA.abstraccion_tren_respuesta = inputTexto;
+        if (fase === 'reloj') datosMoCA.abstraccion_reloj_respuesta = inputTexto;
+
+        // 2. Evaluamos la respuesta según protocolo clínico MoCA
+        let textoLimpio = inputTexto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f.,;!?]/g, "");
+        let puntos = 0;
+
+        if (fase === 'tren') {
+            // Válidas: transporte, viaje, vehiculo, locomocion
+            if (textoLimpio.includes("transporte") || textoLimpio.includes("viaja") || textoLimpio.includes("vehiculo") || textoLimpio.includes("locomocion")) {
+                puntos = 1;
+            }
+            // Invalidas explícitas: ruedas
+            if (textoLimpio === "tienen ruedas" || textoLimpio === "ruedas") {
+                puntos = 0;
+            }
+            datosMoCA.abstraccion_tren_score = puntos;
+            console.log(`Puntos asignados (TREN): ${puntos}`);
+
+            // Pasar a Reloj
+            document.getElementById('paso-9-juego-tren').classList.add('d-none');
+            document.getElementById('paso-9-juego-reloj').classList.remove('d-none');
+
+            let utterance = new SpeechSynthesisUtterance("Y ahora, ¿qué tienen en común una regla y un reloj?");
+            utterance.lang = 'es-ES';
+            window.speechSynthesis.speak(utterance);
+
+        } else if (fase === 'reloj') {
+            // Válidas: medir, medida, instrumento
+            if (textoLimpio.includes("medir") || textoLimpio.includes("medida") || textoLimpio.includes("instrumento") || textoLimpio.includes("medicion")) {
+                puntos = 1;
+            }
+            // Invalidas explícitas: numeros
+            if (textoLimpio === "tienen numeros" || textoLimpio === "numeros") {
+                puntos = 0;
+            }
+            datosMoCA.abstraccion_reloj_score = puntos;
+            console.log(`Puntos asignados (RELOJ): ${puntos}`);
+
+            // Finalizar Paso 9
+            document.getElementById('controles-navegacion').classList.remove('d-none');
+            document.getElementById('controles-navegacion').classList.add('d-flex');
+            siguientePaso();
+        }
+
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 10: RECUERDO DIFERIDO
+    // =========================================================
+
+    let grabadoraRecuerdo;
+    let fragmentosAudioRecuerdo = [];
+    let grabandoRecuerdo = false;
+
+    // Diccionario de tolerancia fonética (Mismo que el Ejercicio 5)
+    const diccionarioRecuerdo = {
+        "rostro": ["rostro", "ostro", "rastro", "vostro", "lostro"],
+        "seda": ["seda", "ceda", "se da", "ce da", "cena"],
+        "templo": ["templo", "ejemplo", "tiempo", "tiemplo"],
+        "clavel": ["clavel", "clave el", "clave", "clabel", "flavel"],
+        "rojo": ["rojo", "cojo", "ojo", "flojo", "roja"]
+    };
+
+    function comenzarRecuerdo() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-10-instrucciones').classList.add('d-none');
+        document.getElementById('paso-10-juego').classList.remove('d-none');
+    }
+
+    async function toggleGrabacionRecuerdo() {
+        let btnGrabar = document.getElementById('btn-grabar-recuerdo');
+        let txtEstado = document.getElementById('estado-mic-recuerdo');
+
+        if (!grabandoRecuerdo) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                grabadoraRecuerdo = new MediaRecorder(stream);
+                fragmentosAudioRecuerdo = [];
+
+                grabadoraRecuerdo.ondataavailable = event => {
+                    if (event.data.size > 0) fragmentosAudioRecuerdo.push(event.data);
+                };
+
+                grabadoraRecuerdo.onstop = () => procesarAudioRecuerdo();
+
+                grabadoraRecuerdo.start();
+                grabandoRecuerdo = true;
+
+                btnGrabar.classList.add('grabando');
+                txtEstado.innerHTML = "🔴 Grabando... <b>Vuelva a pulsar para detener</b>";
+            } catch (error) {
+                alert("Necesita dar permisos de micrófono para realizar la prueba.");
+            }
+        } else {
+            if (grabadoraRecuerdo && grabadoraRecuerdo.state === "recording") {
+                grabadoraRecuerdo.stop();
+                grabandoRecuerdo = false;
+
+                btnGrabar.classList.remove('grabando');
+                btnGrabar.disabled = true;
+                txtEstado.innerText = "Procesando...";
+                document.getElementById('spinner-recuerdo').classList.remove('d-none');
+            }
+        }
+    }
+
+    async function procesarAudioRecuerdo() {
+        const audioBlob = new Blob(fragmentosAudioRecuerdo, { type: 'audio/webm' });
+
+        // 1. Guardar en Base64 para auditoría médica
+        datosMoCA.audio_recuerdo_b64 = await blobToBase64(audioBlob);
+
+        // 2. Enviar a Whisper para Pre-evaluación IA
+        const formData = new FormData();
+        formData.append('audio', audioBlob, `recuerdo_diferido.webm`);
+
+        fetch('/api/transcribir-audio/', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                let transcripcion = data.texto_transcrito || "";
+                datosMoCA.transcripcion_recuerdo = transcripcion;
+
+                // Puntuación Automática IA Flexible
+                datosMoCA.score_recuerdo = evaluarPalabrasRecuerdo(transcripcion);
+
+                // UI: Avanzar
+                document.getElementById('spinner-recuerdo').classList.add('d-none');
+                document.getElementById('estado-mic-recuerdo').innerHTML = "<span class='text-success'><i class='bi bi-check-circle-fill'></i> Audio procesado.</span>";
+                document.getElementById('btn-finalizar-recuerdo').classList.remove('d-none');
+            })
+            .catch(error => {
+                console.error('Error Whisper Recuerdo:', error);
+                // Si falla Whisper, guardamos el Base64 igual
+                document.getElementById('spinner-recuerdo').classList.add('d-none');
+                document.getElementById('estado-mic-recuerdo').innerText = "Voz guardada (Revisión médica requerida).";
+                document.getElementById('btn-finalizar-recuerdo').classList.remove('d-none');
+            });
+    }
+
+    function evaluarPalabrasRecuerdo(textoHablado) {
+        let textoLimpio = textoHablado.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f.,;!?]/g, "");
+        let aciertos = 0;
+
+        // Evaluamos cuántas de las 5 encuentra, tolerando fallos de dicción/Whisper
+        for (const [palabraCorrecta, posiblesErrores] of Object.entries(diccionarioRecuerdo)) {
+            let encontrada = posiblesErrores.some(variacion => textoLimpio.includes(variacion));
+            if (encontrada) {
+                aciertos++;
+            }
+        }
+        return aciertos;
+    }
+
+    function finalizarPaso10() {
         document.getElementById('controles-navegacion').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.add('d-flex');
         siguientePaso();
