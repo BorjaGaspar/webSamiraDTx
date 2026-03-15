@@ -1075,16 +1075,131 @@
                         </div>
                     </div>
 
-                    <div id="paso-11" class="paso-test d-none">
-                        <div class="p-5 bg-light rounded text-center my-4 border border-dashed">11. ORIENTACIÓN</div>
+                    <div id="paso-11" class="paso-test d-none animate__animated animate__fadeIn">
+
+                        <div id="paso-11-instrucciones" class="text-center py-3">
+                            <button
+                                onclick="leerTexto('Para terminar, le voy a hacer unas preguntas sobre la fecha de hoy y el lugar en el que se encuentra.')"
+                                class="btn btn-light rounded-circle shadow-sm mb-4 btn-altavoz"
+                                style="width: 90px; height: 90px; border: 3px solid #e9ecef;">
+                                <i class="bi bi-volume-up-fill text-primary" style="font-size: 3rem;"></i>
+                            </button>
+                            <h2 class="fw-bold mb-3 text-dark">11. Orientación</h2>
+                            <div class="fs-5 text-muted mb-4 px-md-4 text-start mx-auto"
+                                style="line-height: 1.6; max-width: 600px;">
+                                <p>Para terminar la evaluación, le haremos un par de preguntas muy sencillas sobre el
+                                    <strong>tiempo</strong> y el <strong>espacio</strong>.
+                                </p>
+                                <p>Tómese su tiempo y responda con la mayor exactitud posible usando los menús y el
+                                    teclado que aparecerán a continuación.</p>
+                            </div>
+                            <button onclick="comenzarOrientacionTiempo()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm"
+                                style="font-size: 1.2rem;">
+                                <i class="bi bi-check-circle-fill me-2"></i> Entendido, empezar
+                            </button>
+                        </div>
+
+                        <div id="paso-11-juego-tiempo" class="d-none animate__animated animate__fadeIn text-center">
+                            <h2 class="fw-bold text-dark mb-4">Dígame la fecha exacta de hoy:</h2>
+
+                            <div class="mx-auto bg-light p-4 rounded-4 shadow-sm border border-2 mt-4 text-start"
+                                style="max-width: 500px;">
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-primary">1. Día de la semana:</label>
+                                    <select id="input-dia-semana" class="form-select form-select-lg fw-bold">
+                                        <option value="" selected disabled>Seleccione un día...</option>
+                                        <option value="1">Lunes</option>
+                                        <option value="2">Martes</option>
+                                        <option value="3">Miércoles</option>
+                                        <option value="4">Jueves</option>
+                                        <option value="5">Viernes</option>
+                                        <option value="6">Sábado</option>
+                                        <option value="0">Domingo</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-primary">2. Día del mes (Número):</label>
+                                    <input type="number" id="input-dia-mes" class="form-control form-control-lg fw-bold"
+                                        placeholder="Ej: 15" min="1" max="31">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-primary">3. Mes:</label>
+                                    <select id="input-mes" class="form-select form-select-lg fw-bold">
+                                        <option value="" selected disabled>Seleccione un mes...</option>
+                                        <option value="0">Enero</option>
+                                        <option value="1">Febrero</option>
+                                        <option value="2">Marzo</option>
+                                        <option value="3">Abril</option>
+                                        <option value="4">Mayo</option>
+                                        <option value="5">Junio</option>
+                                        <option value="6">Julio</option>
+                                        <option value="7">Agosto</option>
+                                        <option value="8">Septiembre</option>
+                                        <option value="9">Octubre</option>
+                                        <option value="10">Noviembre</option>
+                                        <option value="11">Diciembre</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-primary">4. Año:</label>
+                                    <input type="number" id="input-anio" class="form-control form-control-lg fw-bold"
+                                        placeholder="Ej: 2024">
+                                </div>
+
+                                <button onclick="validarTiempoYPasarEspacio()"
+                                    class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm">
+                                    Siguiente Pregunta <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="paso-11-juego-espacio" class="d-none animate__animated animate__fadeIn text-center">
+                            <h2 class="fw-bold text-dark mb-4">Dígame dónde nos encontramos:</h2>
+
+                            <div class="mx-auto bg-light p-4 rounded-4 shadow-sm border border-2 mt-4 text-start"
+                                style="max-width: 500px;">
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-primary">1. ¿Cómo se llama este lugar?</label>
+                                    <p class="text-muted small mb-2">(Ej: Mi casa, casa de mi hijo, Hospital Sanitas...)
+                                    </p>
+                                    <input type="text" id="input-lugar" class="form-control form-control-lg fw-bold"
+                                        placeholder="Escriba el lugar aquí...">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-primary">2. ¿En qué localidad/ciudad nos
+                                        encontramos?</label>
+                                    <input type="text" id="input-localidad" class="form-control form-control-lg fw-bold"
+                                        placeholder="Escriba la ciudad aquí...">
+                                </div>
+
+                                <button onclick="finalizarTestMoCA()"
+                                    class="btn btn-danger btn-lg w-100 rounded-pill fw-bold shadow-lg fs-4 mt-3">
+                                    FINALIZAR EVALUACIÓN <i class="bi bi-flag-fill ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="paso-12" class="paso-test d-none animate__animated animate__fadeIn text-center">
-                        <div class="spinner-border text-primary my-4" style="width: 4rem; height: 4rem;" role="status">
-                            <span class="visually-hidden">Procesando...</span>
+                    <div id="paso-12" class="paso-test d-none animate__animated animate__zoomIn text-center">
+                        <div class="p-5 bg-light rounded-4 shadow-lg my-5 border-0">
+                            <div class="display-1 mb-3">🎉</div>
+                            <h1 class="fw-bold text-success mb-3">¡Evaluación Completada!</h1>
+                            <h3 class="text-secondary mb-4">¡Lo ha hecho MUY BIEN! ¡Felicidades por terminar!</h3>
+                            <p class="fs-5 text-muted mb-5">Sus respuestas se han procesado correctamente y ya puede
+                                continuar con su programa estipulado.</p>
+
+                            <button onclick="enviarResultadosAlServidor()"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm fs-4">
+                                Continuar a Terapia <i class="bi bi-arrow-right-circle ms-2"></i>
+                            </button>
                         </div>
-                        <h3 class="fw-bold text-dark">Guardando Resultados...</h3>
-                        <p class="text-muted">El sistema está analizando tus respuestas.</p>
                     </div>
 
                     <div id="controles-navegacion" class="d-flex justify-content-between mt-5 pt-4 border-top d-none">
@@ -1290,7 +1405,16 @@
         score_abstraccion: 0,
         score_recuerdo: 0,
         transcripcion_recuerdo: "",
-        audio_recuerdo_b64: null
+        audio_recuerdo_b64: null,
+        orientacion_dia_semana: 0,
+        orientacion_dia_mes: 0,
+        orientacion_mes: 0,
+        orientacion_anio: 0,
+        orientacion_lugar: 0,
+        orientacion_localidad: 0,
+        score_orientacion: 0,
+        // VARIABLE FINAL:
+        score_total: 0
     };
 
     const nombresSecciones = [
@@ -1397,7 +1521,7 @@
             document.getElementById('contenedor-progreso').classList.remove('d-none');
 
             // CAMBIO 1: Ampliamos el rango para ocultar los botones de navegación hasta el paso 6
-            if (pasoActual >= 1 && pasoActual <= 10) {
+            if (pasoActual >= 1 && pasoActual <= 11) {
                 document.getElementById('controles-navegacion').classList.remove('d-flex');
                 document.getElementById('controles-navegacion').classList.add('d-none');
 
@@ -1425,6 +1549,10 @@
                 } else if (pasoActual === 10) {
                     document.getElementById('paso-10-instrucciones').classList.remove('d-none');
                     document.getElementById('paso-10-juego').classList.add('d-none');
+                } else if (pasoActual === 11) {
+                    document.getElementById('paso-11-instrucciones').classList.remove('d-none');
+                    document.getElementById('paso-11-juego-tiempo').classList.add('d-none');
+                    document.getElementById('paso-11-juego-espacio').classList.add('d-none');
                 } else {
                     // Para los pasos del 1 al 5, mantenemos tu lógica automática
                     document.getElementById(`paso-${pasoActual}-instrucciones`).classList.remove('d-none');
@@ -1572,6 +1700,23 @@
             console.log("Transcripción Whisper:", datosMoCA.transcripcion_recuerdo);
             console.log("Puntos IA (Espontáneos):", datosMoCA.score_recuerdo, "/ 5 puntos posibles.");
             console.log("¿Audio guardado en B64?:", datosMoCA.audio_recuerdo_b64 !== null);
+        }
+        // PASO 11: Orientación
+        if (pasoActual === 11) {
+            let ptsTiempo = (datosMoCA.orientacion_dia_semana || 0) +
+                (datosMoCA.orientacion_dia_mes || 0) +
+                (datosMoCA.orientacion_mes || 0) +
+                (datosMoCA.orientacion_anio || 0);
+
+            let ptsEspacio = (datosMoCA.orientacion_lugar || 0) +
+                (datosMoCA.orientacion_localidad || 0);
+
+            datosMoCA.score_orientacion = ptsTiempo + ptsEspacio;
+
+            console.log("--- PUNTUACIÓN ORIENTACIÓN FINAL ---");
+            console.log("Puntos Sub-apartado 1 (Tiempo):", ptsTiempo, "/ 4 puntos posibles.");
+            console.log("Puntos Sub-apartado 2 (Espacio):", ptsEspacio, "/ 2 puntos posibles.");
+            console.log("Total Orientación:", datosMoCA.score_orientacion, "/ 6 puntos posibles.");
         }
     }
 
@@ -2984,6 +3129,91 @@
         document.getElementById('controles-navegacion').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.add('d-flex');
         siguientePaso();
+    }
+
+    // =========================================================
+    // LÓGICA DEL JUEGO 11: ORIENTACIÓN (Tiempo y Espacio)
+    // =========================================================
+
+    // VARIABLES MOCK (Simulando datos de registro del paciente desde Django)
+    // TODO: Sustituir en Fase 2 por variables inyectadas desde backend ej: "{{ user.perfil.ciudad }}"
+    const MOCK_LUGAR_ESPERADO = "casa";
+    const MOCK_LOCALIDAD_ESPERADA = "bilbao";
+
+    function comenzarOrientacionTiempo() {
+        window.speechSynthesis.cancel();
+        document.getElementById('paso-11-instrucciones').classList.add('d-none');
+        document.getElementById('paso-11-juego-tiempo').classList.remove('d-none');
+    }
+
+    function validarTiempoYPasarEspacio() {
+        let diaSemanaIn = document.getElementById('input-dia-semana').value;
+        let diaMesIn = parseInt(document.getElementById('input-dia-mes').value);
+        let mesIn = document.getElementById('input-mes').value;
+        let anioIn = parseInt(document.getElementById('input-anio').value);
+
+        if (diaSemanaIn === "" || isNaN(diaMesIn) || mesIn === "" || isNaN(anioIn)) {
+            alert("Por favor, rellene todos los campos de la fecha antes de continuar.");
+            return;
+        }
+
+        // Obtener fecha real del sistema
+        let fechaHoy = new Date();
+
+        // Evaluamos estrictamente (0 puntos si falla por 1 día)
+        datosMoCA.orientacion_dia_semana = (parseInt(diaSemanaIn) === fechaHoy.getDay()) ? 1 : 0;
+        datosMoCA.orientacion_dia_mes = (diaMesIn === fechaHoy.getDate()) ? 1 : 0;
+        datosMoCA.orientacion_mes = (parseInt(mesIn) === fechaHoy.getMonth()) ? 1 : 0;
+        datosMoCA.orientacion_anio = (anioIn === fechaHoy.getFullYear()) ? 1 : 0;
+
+        // Avanzamos a la pantalla de espacio
+        document.getElementById('paso-11-juego-tiempo').classList.add('d-none');
+        document.getElementById('paso-11-juego-espacio').classList.remove('d-none');
+    }
+
+    function finalizarTestMoCA() {
+        let lugarIn = document.getElementById('input-lugar').value.trim();
+        let localidadIn = document.getElementById('input-localidad').value.trim();
+
+        if (lugarIn === "" || localidadIn === "") {
+            alert("Por favor, introduzca el lugar y la localidad.");
+            return;
+        }
+
+        // Limpiar strings para evaluación automática
+        let lugarLimpio = lugarIn.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let localidadLimpia = localidadIn.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        // Evaluar contra las variables esperadas (Mock)
+        datosMoCA.orientacion_lugar = lugarLimpio.includes(MOCK_LUGAR_ESPERADO) ? 1 : 0;
+        datosMoCA.orientacion_localidad = localidadLimpia.includes(MOCK_LOCALIDAD_ESPERADA) ? 1 : 0;
+
+        // Validar Paso 11 para consolidar score de orientación
+        pasoActual = 11;
+        validarPasoActual();
+
+        // --- CÁLCULO FINAL MO CA ---
+        datosMoCA.score_total = datosMoCA.score_visuoespacial +
+            datosMoCA.score_identificacion +
+            datosMoCA.score_atencion +
+            datosMoCA.score_lenguaje +
+            datosMoCA.score_abstraccion +
+            datosMoCA.score_recuerdo +
+            datosMoCA.score_orientacion;
+
+        console.log("🌟 TEST MOCA FINALIZADO 🌟");
+        console.log("PUNTUACIÓN TOTAL PROVISIONAL MOCA SOBRE 30:", datosMoCA.score_total);
+        console.log("JSON LISTO PARA ENVIAR A DJANGO:", datosMoCA);
+
+        // Mostrar pantalla motivacional en vez de enviar directamente
+        document.getElementById('paso-11-juego-espacio').classList.add('d-none');
+        document.getElementById('paso-12').classList.remove('d-none');
+        document.getElementById('controles-navegacion').classList.add('d-none');
+
+        // Locutar mensaje final
+        let utterance = new SpeechSynthesisUtterance("¡Evaluación completada! Lo ha hecho muy bien. Pulse el botón para continuar a la terapia.");
+        utterance.lang = 'es-ES';
+        window.speechSynthesis.speak(utterance);
     }
 
 
