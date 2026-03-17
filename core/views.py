@@ -158,21 +158,25 @@ def juegos(request):
 def sala_evaluacion(request):
     perfil, created = PerfilPaciente.objects.get_or_create(usuario=request.user)
     if request.method == 'POST':
+        # ... (tu código POST que ya tienes se queda igual) ...
         nivel_elegido = int(request.POST.get('resultado_simulado'))
-        
-        # --- ASIGNACIÓN INICIAL MÚLTIPLE ---
-        # Al hacer el test, asignamos el mismo nivel a las 3 áreas para empezar
         perfil.nivel_asignado = nivel_elegido
         perfil.nivel_cognitivo = nivel_elegido
         perfil.nivel_lenguaje = nivel_elegido
         perfil.nivel_motor = nivel_elegido
-        
         perfil.puntuacion_cognitiva = nivel_elegido * 6 
         perfil.test_completado = True
         perfil.fecha_ultima_evaluacion = timezone.now()
         perfil.save()
         return redirect('dashboard')
-    return render(request, 'core/patients/evaluacion.html')
+        
+    # AQUÍ ESTÁ EL CAMBIO: Pasamos los datos al template
+    context = {
+        'anios_estudio': perfil.anios_estudio or 12, # Por defecto 12 si no puso nada
+        'lugar_habitual': perfil.lugar_habitual or "",
+        'ciudad_residencia': perfil.ciudad_residencia or ""
+    }
+    return render(request, 'core/patients/evaluacion.html', context)
 
 # --- JUEGOS DE LENGUAJE / MOCA ---
 @login_required

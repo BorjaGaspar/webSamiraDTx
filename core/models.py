@@ -13,6 +13,7 @@ class PerfilPaciente(models.Model):
     medico_asignado = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='pacientes_supervisados')
     lugar_habitual = models.CharField(max_length=100, blank=True, null=True, verbose_name="Lugar Habitual (Ej. Casa, Hospital)")
     ciudad_residencia = models.CharField(max_length=100, blank=True, null=True, verbose_name="Ciudad de Residencia")
+    anios_estudio = models.IntegerField(null=True, blank=True, verbose_name="Años de escolarización")
     
     # --- DATOS FÍSICOS ---
     edad = models.IntegerField(null=True, blank=True)
@@ -43,7 +44,6 @@ class PerfilPaciente(models.Model):
 
     # Puntuaciones MoCA
     puntuacion_total_moca = models.IntegerField(default=0, verbose_name="MoCA Total (0-30)")
-    puntuacion_cognitiva = models.IntegerField(default=0) # Campo extra que tenías
     
     # Desglose MoCA
     score_visuoespacial = models.IntegerField(default=0, verbose_name="Visuoespacial/Ejecutiva")
@@ -53,9 +53,6 @@ class PerfilPaciente(models.Model):
     score_abstraccion = models.IntegerField(default=0, verbose_name="Abstracción")
     score_recuerdo = models.IntegerField(default=0, verbose_name="Recuerdo Diferido")
     score_orientacion = models.IntegerField(default=0, verbose_name="Orientación")
-    
-    puntuacion_motora = models.IntegerField(default=0, verbose_name="Score Motor (0-100)")
-    
     # --- GAMIFICACIÓN ---
     racha_dias = models.IntegerField(default=0)
     dias_totales = models.IntegerField(default=0)

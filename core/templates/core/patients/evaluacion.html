@@ -1187,8 +1187,9 @@
                         </div>
                     </div>
 
-                    <div id="paso-12" class="paso-test d-none animate__animated animate__zoomIn text-center">
-                        <div class="p-5 bg-light rounded-4 shadow-lg my-5 border-0">
+                    <div id="paso-12" class="paso-test d-none animate__animated animate__zoomIn text-center mt-4">
+                        <div class="p-4 p-md-5 bg-light rounded-4 shadow-lg my-3 border-0 mx-auto"
+                            style="max-width: 650px;">
                             <div class="display-1 mb-3">🎉</div>
                             <h1 class="fw-bold text-success mb-3">¡Evaluación Completada!</h1>
                             <h3 class="text-secondary mb-4">¡Lo ha hecho MUY BIEN! ¡Felicidades por terminar!</h3>
@@ -3135,10 +3136,10 @@
     // LÓGICA DEL JUEGO 11: ORIENTACIÓN (Tiempo y Espacio)
     // =========================================================
 
-    // VARIABLES MOCK (Simulando datos de registro del paciente desde Django)
-    // TODO: Sustituir en Fase 2 por variables inyectadas desde backend ej: "{{ user.perfil.ciudad }}"
-    const MOCK_LUGAR_ESPERADO = "casa";
-    const MOCK_LOCALIDAD_ESPERADA = "bilbao";
+    // Variables necesarias para el juego que se obtendrán desde el perfil del paciente (base de datos)
+    const LUGAR_ESPERADO = "{{ lugar_habitual|escapejs }}".toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const LOCALIDAD_ESPERADA = "{{ ciudad_residencia|escapejs }}".toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const ANIOS_ESTUDIO = parseInt("{{ anios_estudio|default:'12' }}");
 
     function comenzarOrientacionTiempo() {
         window.speechSynthesis.cancel();
@@ -3184,16 +3185,16 @@
         let lugarLimpio = lugarIn.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         let localidadLimpia = localidadIn.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-        // Evaluar contra las variables esperadas (Mock)
-        datosMoCA.orientacion_lugar = lugarLimpio.includes(MOCK_LUGAR_ESPERADO) ? 1 : 0;
-        datosMoCA.orientacion_localidad = localidadLimpia.includes(MOCK_LOCALIDAD_ESPERADA) ? 1 : 0;
+        // Evaluar contra las variables recogidasa de la base de datos
+        datosMoCA.orientacion_lugar = (LUGAR_ESPERADO !== "" && lugarLimpio.includes(LUGAR_ESPERADO)) ? 1 : 0;
+        datosMoCA.orientacion_localidad = (LOCALIDAD_ESPERADA !== "" && localidadLimpia.includes(LOCALIDAD_ESPERADA)) ? 1 : 0;
 
         // Validar Paso 11 para consolidar score de orientación
         pasoActual = 11;
         validarPasoActual();
 
         // --- CÁLCULO FINAL MO CA ---
-        datosMoCA.score_total = datosMoCA.score_visuoespacial +
+        let sumaTotal = datosMoCA.score_visuoespacial +
             datosMoCA.score_identificacion +
             datosMoCA.score_atencion +
             datosMoCA.score_lenguaje +
@@ -3201,12 +3202,27 @@
             datosMoCA.score_recuerdo +
             datosMoCA.score_orientacion;
 
+        // Comprobamos la escolarización usando la variable que inyectamos desde Django
+        if (ANIOS_ESTUDIO <= 12) {
+            sumaTotal += 1;
+            console.log("Se ha sumado 1 punto extra por tener 12 años o menos de estudios.");
+        }
+
+        // Nos aseguramos de que el máximo nunca supere los 30 puntos
+        if (sumaTotal > 30) {
+            sumaTotal = 30;
+        }
+
+        // Guardamos el resultado definitivo
+        datosMoCA.score_total = sumaTotal;
+
         console.log("🌟 TEST MOCA FINALIZADO 🌟");
         console.log("PUNTUACIÓN TOTAL PROVISIONAL MOCA SOBRE 30:", datosMoCA.score_total);
         console.log("JSON LISTO PARA ENVIAR A DJANGO:", datosMoCA);
 
         // Mostrar pantalla motivacional en vez de enviar directamente
-        document.getElementById('paso-11-juego-espacio').classList.add('d-none');
+        // Ocultamos todo el contenedor del paso 11 (no solo el juego interior) para evitar vacíos
+        document.getElementById('paso-11').classList.add('d-none');
         document.getElementById('paso-12').classList.remove('d-none');
         document.getElementById('controles-navegacion').classList.add('d-none');
 
