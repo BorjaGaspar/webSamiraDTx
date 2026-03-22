@@ -1,0 +1,298 @@
+{% extends 'core/layouts/base_medico.html' %}
+
+{% block content %}
+<style>
+    .text-purple {
+        color: #6610f2 !important;
+    }
+
+    .bg-purple {
+        background-color: #6610f2 !important;
+    }
+
+    .btn-purple {
+        background-color: #6610f2;
+        border-color: #6610f2;
+        color: white;
+    }
+
+    .btn-purple:hover {
+        background-color: #520dc2;
+        border-color: #520dc2;
+        color: white;
+    }
+
+    .bg-soft-purple {
+        background-color: #fbf9ff;
+    }
+
+    /* Estilo para que los audios se vean limpios */
+    audio {
+        height: 40px;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    /* Estilo para los dibujos del paciente */
+    .dibujo-paciente {
+        max-height: 250px;
+        object-fit: contain;
+        background-color: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 12px;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a href="{% url 'historial_moca' paciente.pk %}"
+                class="text-decoration-none text-muted fw-bold mb-2 d-inline-block">
+                <i class="bi bi-arrow-left me-1"></i> Volver al historial
+            </a>
+            <h2 class="fw-bold text-dark mb-0">Auditoría Clínica: <span class="text-purple">{{ paciente.usuario.first_name }}</span></h2>
+            <p class="text-muted mb-0"><i class="bi bi-calendar-event me-1"></i> Prueba realizada el {{ evaluacion.fecha_evaluacion|date:"d M Y, H:i" }}</p>
+        </div>
+
+        <div class="text-end">
+            <div class="badge bg-light text-dark border p-3 rounded-4 shadow-sm text-center">
+                <span class="d-block text-muted small fw-bold mb-1">PUNTUACIÓN ACTUAL (IA)</span>
+                <span class="fs-2 fw-bold text-purple">{{ evaluacion.score_total }}</span><span
+                    class="fs-5 text-muted">/30</span>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div
+                        class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-pen me-2 text-purple"></i>1. Visuoespacial / Ejecutiva
+                        </h5>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="fw-bold text-muted small mb-0">NOTA:</label>
+                            <input type="number" name="score_visuoespacial" class="form-control text-center fw-bold"
+                                style="width: 80px;" min="0" max="5" value="{{ evaluacion.score_visuoespacial }}">
+                            <span class="text-muted small">/ 5</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 bg-soft-purple">
+                        <div class="row g-4">
+                            <div class="col-md-6 text-center">
+                                <h6 class="fw-bold text-muted mb-3">Dibujo del Cubo</h6>
+                                {% if evaluacion.dibujo_cubo_b64 %}
+                                <img src="{{ evaluacion.dibujo_cubo_b64 }}"
+                                    class="img-fluid dibujo-paciente w-100 p-2 shadow-sm" alt="Dibujo Cubo">
+                                {% else %}
+                                <div class="p-5 border rounded-4 bg-light text-muted"><i
+                                        class="bi bi-image-alt fs-1 d-block mb-2"></i>No hay imagen</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h6 class="fw-bold text-muted mb-3">Dibujo del Reloj</h6>
+                                {% if evaluacion.dibujo_reloj_b64 %}
+                                <img src="{{ evaluacion.dibujo_reloj_b64 }}"
+                                    class="img-fluid dibujo-paciente w-100 p-2 shadow-sm" alt="Dibujo Reloj">
+                                {% else %}
+                                <div class="p-5 border rounded-4 bg-light text-muted"><i
+                                        class="bi bi-image-alt fs-1 d-block mb-2"></i>No hay imagen</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div
+                        class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-mic me-2 text-purple"></i>2. Evaluación de Lenguaje
+                        </h5>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="fw-bold text-muted small mb-0">NOTA:</label>
+                            <input type="number" name="score_lenguaje" class="form-control text-center fw-bold"
+                                style="width: 80px;" min="0" max="3" value="{{ evaluacion.score_lenguaje }}">
+                            <span class="text-muted small">/ 3</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+
+                        <div class="p-3 border rounded-4 mb-3 bg-light">
+                            <h6 class="fw-bold mb-3">Repetición Frase 1: <span class="text-muted fw-normal">"El gato se
+                                    esconde bajo el sofá cuando los perros entran en la sala"</span></h6>
+                            <div class="row align-items-center g-3">
+                                <div class="col-md-5">
+                                    {% if evaluacion.audio_frase1_b64 %}
+                                    <audio controls class="w-100 shadow-sm">
+                                        <source src="{{ evaluacion.audio_frase1_b64 }}">
+                                    </audio>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Sin audio</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-7 border-start ps-4">
+                                    <span class="badge bg-purple mb-1">Transcripción Whisper IA</span>
+                                    <p class="mb-0 fw-bold font-monospace text-dark">{{ evaluacion.transcripcion_frase1|default:"No se detectó voz" }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 border rounded-4 mb-3 bg-light">
+                            <h6 class="fw-bold mb-3">Repetición Frase 2: <span class="text-muted fw-normal">"Espero que
+                                    él le entregue el mensaje una vez que ella se lo pida"</span></h6>
+                            <div class="row align-items-center g-3">
+                                <div class="col-md-5">
+                                    {% if evaluacion.audio_frase2_b64 %}
+                                    <audio controls class="w-100 shadow-sm">
+                                        <source src="{{ evaluacion.audio_frase2_b64 }}">
+                                    </audio>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Sin audio</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-7 border-start ps-4">
+                                    <span class="badge bg-purple mb-1">Transcripción Whisper IA</span>
+                                    <p class="mb-0 fw-bold font-monospace text-dark">{{ evaluacion.transcripcion_frase2|default:"No se detectó voz" }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 border rounded-4 bg-light">
+                            <h6 class="fw-bold mb-3">Fluidez Verbal: <span class="text-muted fw-normal">Palabras que
+                                    empiezan por 'F' en 1 minuto (Mín. 11 palabras)</span></h6>
+                            <div class="row align-items-center g-3">
+                                <div class="col-md-5">
+                                    {% if evaluacion.audio_fluidez_b64 %}
+                                    <audio controls class="w-100 shadow-sm">
+                                        <source src="{{ evaluacion.audio_fluidez_b64 }}">
+                                    </audio>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Sin audio</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-7 border-start ps-4">
+                                    <span class="badge bg-purple mb-1">Transcripción Whisper IA</span>
+                                    <p class="mb-0 fw-bold font-monospace text-dark">{{ evaluacion.transcripcion_fluidez|default:"No se detectó voz" }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div
+                        class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-brain me-2 text-purple"></i>3. Recuerdo Diferido</h5>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="fw-bold text-muted small mb-0">NOTA:</label>
+                            <input type="number" name="score_recuerdo" class="form-control text-center fw-bold"
+                                style="width: 80px;" min="0" max="5" value="{{ evaluacion.score_recuerdo }}">
+                            <span class="text-muted small">/ 5</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 bg-soft-purple">
+                        <h6 class="fw-bold mb-3">Palabras a recordar: <span class="text-muted fw-normal">Rostro, Seda,
+                                Templo, Clavel, Rojo</span></h6>
+                        <div class="row align-items-center bg-white p-3 border rounded-4 shadow-sm">
+                            <div class="col-md-5">
+                                {% if evaluacion.audio_recuerdo_b64 %}
+                                <audio controls class="w-100">
+                                    <source src="{{ evaluacion.audio_recuerdo_b64 }}">
+                                </audio>
+                                {% else %}
+                                <span class="badge bg-secondary">Sin audio</span>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-7 border-start ps-4">
+                                <span class="badge bg-purple mb-1">Transcripción Whisper IA</span>
+                                <p class="mb-0 fw-bold font-monospace text-dark fs-5">{{ evaluacion.transcripcion_recuerdo|default:"No se detectó voz" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-list-check me-2 text-purple"></i>4. Resto de Dominios
+                            (Corrección Rápida)</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-4">
+
+                            <div class="col-md-3">
+                                <div class="p-3 border rounded-3 bg-light h-100">
+                                    <label class="fw-bold mb-2 d-block">Identificación (Animales)</label>
+                                    <div class="input-group">
+                                        <input type="number" name="score_identificacion" class="form-control fw-bold"
+                                            min="0" max="3" value="{{ evaluacion.score_identificacion }}">
+                                        <span class="input-group-text bg-white text-muted">/ 3</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="p-3 border rounded-3 bg-light h-100">
+                                    <label class="fw-bold mb-2 d-block">Atención (Números/Letras)</label>
+                                    <div class="input-group">
+                                        <input type="number" name="score_atencion" class="form-control fw-bold" min="0"
+                                            max="6" value="{{ evaluacion.score_atencion }}">
+                                        <span class="input-group-text bg-white text-muted">/ 6</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="p-3 border rounded-3 bg-light h-100">
+                                    <label class="fw-bold mb-2 d-block">Abstracción (Similitudes)</label>
+                                    <div class="input-group">
+                                        <input type="number" name="score_abstraccion" class="form-control fw-bold"
+                                            min="0" max="2" value="{{ evaluacion.score_abstraccion }}">
+                                        <span class="input-group-text bg-white text-muted">/ 2</span>
+                                    </div>
+                                    <div class="mt-2 small text-muted font-monospace text-truncate"
+                                        title="{{ evaluacion.abstraccion_tren_respuesta }} | {{ evaluacion.abstraccion_reloj_respuesta }}">
+                                        IA detectó: {{ evaluacion.abstraccion_tren_respuesta|default:"--" }}...
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="p-3 border rounded-3 bg-light h-100">
+                                    <label class="fw-bold mb-2 d-block">Orientación (Fecha/Lugar)</label>
+                                    <div class="input-group">
+                                        <input type="number" name="score_orientacion" class="form-control fw-bold"
+                                            min="0" max="6" value="{{ evaluacion.score_orientacion }}">
+                                        <span class="input-group-text bg-white text-muted">/ 6</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-white p-4 border rounded-4 shadow-sm text-end mb-5 sticky-bottom"
+            style="bottom: 20px; z-index: 1000;">
+            <span class="text-muted me-3">Al validar, se actualizará el nivel de terapia del paciente
+                automáticamente.</span>
+            <button type="submit" class="btn btn-purple btn-lg px-5 rounded-pill shadow fw-bold">
+                <i class="bi bi-shield-check me-2"></i> Validar Evaluación y Guardar
+            </button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

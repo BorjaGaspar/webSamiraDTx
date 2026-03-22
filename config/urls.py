@@ -44,4 +44,6 @@ urlpatterns = [
     path('evaluacion/', views.sala_evaluacion, name='sala_evaluacion'),
     path('forzar-evaluacion/<int:pk>/', views.forzar_evaluacion, name='forzar_evaluacion'),
     path('medico/dashboard/', views.dashboard_medico, name='dashboard_medico'),
+    path('paciente/<int:pk>/moca/', views.historial_moca, name='historial_moca'),
+    path('auditoria-moca/<int:pk_evaluacion>/', views.auditoria_moca, name='auditoria_moca'),
 ]
