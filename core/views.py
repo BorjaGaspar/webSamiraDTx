@@ -138,6 +138,93 @@ def detalle_paciente(request, pk):
     return render(request, 'core/patients/detalle_paciente.html', context)
 
 @login_required
+def historial_moca(request, pk):
+    perfil_paciente = get_object_or_404(PerfilPaciente, pk=pk)
+    
+    # Obtenemos todas las evaluaciones. Ya vienen ordenadas de más nueva a más vieja 
+    # gracias al "ordering = ['-fecha_evaluacion']" de tu models.py
+    evaluaciones = perfil_paciente.evaluaciones_moca.all()
+    
+    context = {
+        'paciente': perfil_paciente,
+        'evaluaciones': evaluaciones,
+    }
+    return render(request, 'core/patients/lista_evaluaciones_moca.html', context)
+
+@login_required
+def auditoria_moca(request, pk_evaluacion):
+    # Obtenemos la evaluación concreta que el médico quiere revisar
+    evaluacion = get_object_or_404(EvaluacionMoCA, pk=pk_evaluacion)
+    paciente = evaluacion.paciente
+
+    if request.method == 'POST':
+        # 1. Recogemos las puntuaciones que el médico ha validado/corregido en el formulario
+        # (Si el médico no toca un campo, se queda con la nota que le dio la IA)
+        evaluacion.score_visuoespacial = int(request.POST.get('score_visuoespacial', evaluacion.score_visuoespacial))
+        evaluacion.score_identificacion = int(request.POST.get('score_identificacion', evaluacion.score_identificacion))
+        evaluacion.score_atencion = int(request.POST.get('score_atencion', evaluacion.score_atencion))
+        evaluacion.score_lenguaje = int(request.POST.get('score_lenguaje', evaluacion.score_lenguaje))
+        evaluacion.score_abstraccion = int(request.POST.get('score_abstraccion', evaluacion.score_abstraccion))
+        evaluacion.score_recuerdo = int(request.POST.get('score_recuerdo', evaluacion.score_recuerdo))
+        evaluacion.score_orientacion = int(request.POST.get('score_orientacion', evaluacion.score_orientacion))
+
+        # 2. Recalculamos la nota final oficial
+        evaluacion.score_total = (
+            evaluacion.score_visuoespacial + evaluacion.score_identificacion +
+            evaluacion.score_atencion + evaluacion.score_lenguaje +
+            evaluacion.score_abstraccion + evaluacion.score_recuerdo +
+            evaluacion.score_orientacion
+        )
+
+        # 3. Marcamos la prueba como revisada y guardamos
+        evaluacion.revisada_por_medico = True
+        evaluacion.save()
+
+        # 4. ACTUALIZACIÓN DEL PERFIL (Niveles de Terapia)
+        # Comprobamos si esta evaluación es la última que ha hecho el paciente
+        ultima_evaluacion = paciente.evaluaciones_moca.first()
+        
+        if ultima_evaluacion == evaluacion:
+            # Actualizamos las notas globales del paciente
+            paciente.puntuacion_total_moca = evaluacion.score_total
+            paciente.score_visuoespacial = evaluacion.score_visuoespacial
+            paciente.score_identificacion = evaluacion.score_identificacion
+            paciente.score_atencion = evaluacion.score_atencion
+            paciente.score_lenguaje = evaluacion.score_lenguaje
+            paciente.score_abstraccion = evaluacion.score_abstraccion
+            paciente.score_recuerdo = evaluacion.score_recuerdo
+            paciente.score_orientacion = evaluacion.score_orientacion
+            
+            # Recalculamos los niveles con tu lógica original
+            if evaluacion.score_total >= 26:
+                paciente.nivel_cognitivo = 5
+            elif evaluacion.score_total >= 24:
+                paciente.nivel_cognitivo = 4
+            elif evaluacion.score_total >= 18:
+                paciente.nivel_cognitivo = 3
+            elif evaluacion.score_total >= 10:
+                paciente.nivel_cognitivo = 2
+            else:
+                paciente.nivel_cognitivo = 1
+                
+            if evaluacion.score_lenguaje == 0:
+                paciente.nivel_lenguaje = 1
+            else:
+                paciente.nivel_lenguaje = paciente.nivel_cognitivo
+
+            paciente.nivel_asignado = paciente.nivel_cognitivo
+            paciente.save()
+
+        messages.success(request, "Evaluación validada correctamente. Los niveles del paciente han sido ajustados.")
+        return redirect('historial_moca', pk=paciente.pk)
+
+    context = {
+        'evaluacion': evaluacion,
+        'paciente': paciente
+    }
+    return render(request, 'core/patients/auditoria_moca.html', context)
+
+@login_required
 def forzar_evaluacion(request, pk):
     perfil = get_object_or_404(PerfilPaciente, pk=pk)
     perfil.test_completado = False

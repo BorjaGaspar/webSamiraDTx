@@ -61,6 +61,12 @@ class PerfilPaciente(models.Model):
     
     telefono = models.CharField(max_length=15, blank=True, null=True)
 
+    #Enseñar a la tabla PerfilPaciente a que mire en EvaluacionMOCA si el medico ha revisado ya o no el test MOca
+    @property
+    def tiene_moca_pendiente(self):
+        # Busca si este paciente tiene alguna evaluación donde revisada_por_medico sea False
+        return self.evaluaciones_moca.filter(revisada_por_medico=False).exists()
+
     def __str__(self):
         return f"{self.usuario.username} ({'Médico' if self.es_medico else 'Paciente'})"
 
@@ -110,6 +116,7 @@ class NotaEspecialista(models.Model):
 class EvaluacionMoCA(models.Model):
     paciente = models.ForeignKey(PerfilPaciente, on_delete=models.CASCADE, related_name='evaluaciones_moca')
     fecha_evaluacion = models.DateTimeField(default=timezone.now, verbose_name="Fecha de realización")
+    revisada_por_medico = models.BooleanField(default=False, verbose_name="Revisada por el Médico")
 
     # --- PUNTUACIONES PRINCIPALES (Los 7 dominios) ---
     score_visuoespacial = models.IntegerField(default=0)

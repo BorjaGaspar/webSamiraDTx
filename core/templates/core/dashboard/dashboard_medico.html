@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="container py-5">
-    
+
     <div class="row mb-4 align-items-end">
         <div class="col-md-8">
             <h6 class="text-uppercase text-primary fw-bold mb-1">
@@ -51,7 +51,8 @@
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h6 class="text-muted text-uppercase small fw-bold mb-1">Ejercicios Realizados</h6>
-                            <h2 class="mb-0 fw-bold text-success">15 <span class="fs-6 text-muted fw-normal">/ semana</span></h2>
+                            <h2 class="mb-0 fw-bold text-success">15 <span class="fs-6 text-muted fw-normal">/
+                                    semana</span></h2>
                         </div>
                         <div class="text-success bg-success-subtle rounded-circle p-3">
                             <i class="bi bi-activity fs-4"></i>
@@ -99,7 +100,8 @@
                     <tr>
                         <td class="ps-4">
                             <div class="d-flex align-items-center">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-weight: bold;">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                                    style="width: 40px; height: 40px; font-weight: bold;">
                                     {{ paciente.usuario.username|slice:":2"|upper }}
                                 </div>
                                 <div>
@@ -108,15 +110,31 @@
                                 </div>
                             </div>
                         </td>
-                        
-                        <td><span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">Activo</span></td>
-                        
+
+                        <td>
+                            {% if paciente.tiene_moca_pendiente %}
+                            <span
+                                class="badge bg-warning text-dark border border-warning rounded-pill shadow-sm fw-bold px-3 py-2">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i> MoCA Pendiente
+                            </span>
+                            {% else %}
+                            <span
+                                class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2">
+                                <i class="bi bi-check-circle-fill me-1"></i> Al día
+                            </span>
+                            {% endif %}
+                        </td>
+
                         <td>
                             {% if paciente.nivel_asignado == 1 %} <span class="badge bg-danger">Nivel 1 - Severo</span>
-                            {% elif paciente.nivel_asignado == 2 %} <span class="badge bg-warning text-dark">Nivel 2 - Moderado</span>
-                            {% elif paciente.nivel_asignado == 3 %} <span class="badge bg-info text-dark">Nivel 3 - Leve</span>
-                            {% elif paciente.nivel_asignado == 4 %} <span class="badge bg-primary">Nivel 4 - Límite</span>
-                            {% elif paciente.nivel_asignado == 5 %} <span class="badge bg-success">Nivel 5 - Normal</span>
+                            {% elif paciente.nivel_asignado == 2 %} <span class="badge bg-warning text-dark">Nivel 2 -
+                                Moderado</span>
+                            {% elif paciente.nivel_asignado == 3 %} <span class="badge bg-info text-dark">Nivel 3 -
+                                Leve</span>
+                            {% elif paciente.nivel_asignado == 4 %} <span class="badge bg-primary">Nivel 4 -
+                                Límite</span>
+                            {% elif paciente.nivel_asignado == 5 %} <span class="badge bg-success">Nivel 5 -
+                                Normal</span>
                             {% else %} <span class="badge bg-secondary">Sin Evaluar</span>
                             {% endif %}
                         </td>
@@ -129,16 +147,16 @@
                                 <strong>{{ paciente.puntos }}</strong>
                             </div>
                         </td>
-                        
+
                         <td>
                             <div class="d-flex gap-2">
-                                <a href="{% url 'detalle_paciente' pk=paciente.pk %}" class="btn btn-sm btn-outline-primary" title="Ver Ficha Completa">
+                                <a href="{% url 'detalle_paciente' pk=paciente.pk %}"
+                                    class="btn btn-sm btn-outline-primary" title="Ver Ficha Completa">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                
-                                <button onclick="confirmarReevaluacion('{% url 'forzar_evaluacion' pk=paciente.pk %}')" 
-                                   class="btn btn-sm btn-outline-warning text-dark" 
-                                   title="Forzar Re-evaluación">
+
+                                <button onclick="confirmarReevaluacion('{% url 'forzar_evaluacion' pk=paciente.pk %}')"
+                                    class="btn btn-sm btn-outline-warning text-dark" title="Forzar Re-evaluación">
                                     <i class="bi bi-arrow-repeat"></i>
                                 </button>
                             </div>

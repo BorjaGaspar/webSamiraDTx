@@ -15,8 +15,8 @@ Proyecto para la gestión y visualización de datos de wearables, desarrollado e
 
 
 ```bash
-git clone [https://github.com/BorjaGaspar/Prueba_1.git](https://github.com/BorjaGaspar/Prueba_1.git)
-cd Prueba_1
+git clone [https://github.com/BorjaGaspar/webSamiraDTx.git](https://github.com/BorjaGaspar/webSamiraDTx.git)
+cd webSamiraDTx
 ```
 ### 2. Opción A: Ejecución con Docker
 
