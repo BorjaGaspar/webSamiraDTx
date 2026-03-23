@@ -156,3 +156,27 @@ class EvaluacionMoCA(models.Model):
 
     def __str__(self):
         return f"MoCA | {self.paciente.usuario.username} | Puntuación: {self.score_total}/30 | {self.fecha_evaluacion.strftime('%d/%m/%Y')}"
+
+# ================================================================
+# TABLA 5: BUZÓN CLÍNICO (NOTIFICACIONES)
+# ================================================================
+class NotificacionBuzon(models.Model):
+    TIPO_REMITENTE = [
+        ('SISTEMA', 'Sistema SamiraDTx'),
+        ('MEDICO', 'Especialista Médico'),
+    ]
+    paciente = models.ForeignKey(PerfilPaciente, on_delete=models.CASCADE, related_name='notificaciones')
+    remitente = models.CharField(max_length=20, choices=TIPO_REMITENTE, default='SISTEMA')
+    # Guardamos qué médico escribió la nota (si es que fue un médico y no el sistema)
+    medico_autor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    mensaje = models.TextField(verbose_name="Contenido del mensaje")
+    fecha = models.DateTimeField(default=timezone.now)
+    leida = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-fecha'] # Las más nuevas arriba
+
+    def __str__(self):
+        return f"Notificación para {self.paciente.usuario.username} - {self.remitente}"
+
+    

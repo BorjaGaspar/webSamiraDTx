@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from .forms import RegistroUsuarioForm
-from .models import PerfilPaciente, SesionDeJuego, NotaEspecialista, EvaluacionMoCA
+from .models import PerfilPaciente, SesionDeJuego, NotaEspecialista, EvaluacionMoCA, NotificacionBuzon
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -76,6 +76,24 @@ def resumen_paciente(request):
     perfil, created = PerfilPaciente.objects.get_or_create(usuario=request.user)
     context = {'perfil': perfil}
     return render(request, 'core/dashboard/dashboard.html', context)
+
+@login_required
+def buzon_paciente(request):
+    # Obtenemos el perfil del paciente logueado
+    perfil = get_object_or_404(PerfilPaciente, usuario=request.user)
+    
+    # Traemos todos sus mensajes (ya vienen ordenados de más nuevo a más viejo por el models.py)
+    notificaciones = perfil.notificaciones.all()
+    
+    # Si hay mensajes sin leer, los marcamos como leídos automáticamente al entrar
+    mensajes_sin_leer = notificaciones.filter(leida=False)
+    if mensajes_sin_leer.exists():
+        mensajes_sin_leer.update(leida=True)
+        
+    context = {
+        'notificaciones': notificaciones,
+    }
+    return render(request, 'core/dashboard/buzon_paciente.html', context)
 
 # =========================================================
 # ZONA PRIVADA (MÉDICO)
@@ -215,6 +233,19 @@ def auditoria_moca(request, pk_evaluacion):
             paciente.nivel_asignado = paciente.nivel_cognitivo
             paciente.save()
 
+            mensaje_notificacion = (
+                f"El especialista ha revisado y validado tu última evaluación cognitiva. "
+                f"Tu nivel de dificultad ha sido ajustado: Cognitivo (Nivel {paciente.nivel_cognitivo}), "
+                f"Lenguaje (Nivel {paciente.nivel_lenguaje}). ¡Sigue así!"
+            )
+            NotificacionBuzon.objects.create(
+                paciente=paciente,
+                remitente='SISTEMA',
+                mensaje=mensaje_notificacion
+            )
+        
+        
+
         messages.success(request, "Evaluación validada correctamente. Los niveles del paciente han sido ajustados.")
         return redirect('historial_moca', pk=paciente.pk)
 
@@ -232,6 +263,39 @@ def forzar_evaluacion(request, pk):
     perfil.save()
     messages.success(request, f"Se ha solicitado re-evaluación para {perfil.usuario.username}.")
     return redirect('dashboard_medico')
+
+@login_required
+def buzon_paciente_medico(request, pk):
+    # Asegurarnos de que el usuario es médico
+    medico_perfil = get_object_or_404(PerfilPaciente, usuario=request.user)
+    if not medico_perfil.es_medico:
+        return redirect('dashboard')
+
+    # Obtener el paciente en cuestión
+    paciente_perfil = get_object_or_404(PerfilPaciente, pk=pk)
+    
+    # Si el médico envía un mensaje nuevo
+    if request.method == 'POST':
+        texto_mensaje = request.POST.get('mensaje', '').strip()
+        if texto_mensaje:
+            NotificacionBuzon.objects.create(
+                paciente=paciente_perfil,
+                remitente='MEDICO',
+                medico_autor=request.user,
+                mensaje=texto_mensaje,
+                leida=False # El paciente no lo ha leído aún
+            )
+            messages.success(request, "Mensaje enviado al paciente correctamente.")
+            return redirect('buzon_paciente_medico', pk=pk)
+
+    # Traer el historial de mensajes
+    notificaciones = paciente_perfil.notificaciones.all()
+
+    context = {
+        'paciente': paciente_perfil,
+        'notificaciones': notificaciones,
+    }
+    return render(request, 'core/dashboard/buzon_medico.html', context)
 
 # =========================================================
 # SISTEMA DE JUEGOS (RUTAS ACTUALIZADAS A TUS CARPETAS)

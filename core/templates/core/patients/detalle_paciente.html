@@ -85,9 +85,17 @@
                         </span>
 
                         <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm">
-                            <i class="bi bi-activity me-1 text-muted"></i> Ictus: <span class="text-muted">{{
-                                paciente.lado_afectado|default:"No especif." }}</span>
+                            <i class="bi bi-activity me-1 text-muted"></i> Ictus: <span class="text-muted">{{ paciente.lado_afectado|default:"No especif." }}</span>
                         </span>
+                        {% if paciente.test_completado %}
+                            <span class="badge text-white border px-3 py-2 fw-bold shadow-sm" style="background-color: #6610f2;">
+                                <i class="bi bi-brain me-1"></i> MoCA Oficial: {{ paciente.puntuacion_total_moca }} / 30
+                            </span>
+                        {% else %}
+                            <span class="badge bg-light text-muted border px-3 py-2 fw-normal shadow-sm">
+                                <i class="bi bi-brain me-1"></i> MoCA Oficial: Sin registrar
+                            </span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -209,6 +217,34 @@
                 class="btn btn-light btn-lg rounded-pill fw-bold text-purple shadow px-4 py-3"
                 style="transition: transform 0.2s;">
                 Ver Historial Completo <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4 rounded-4 overflow-hidden text-white" 
+    style="background: linear-gradient(135deg, #4c08b0 0%, #7622f4 100%);">
+    <div class="card-body p-4 p-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
+        
+        <div class="d-flex align-items-center gap-4">
+            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center text-purple shadow-sm"
+                style="width: 70px; height: 70px; font-size: 2rem;">
+                <i class="bi bi-mailbox2"></i>
+            </div>
+            
+            <div>
+                <h3 class="fw-bold mb-1">Buzón de Mensajes y Alertas</h3>
+                <p class="mb-0 text-white-50" style="font-size: 1.1rem;">
+                    Envía mensajes directos al paciente y revisa las alertas automáticas del sistema.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center text-md-end" style="min-width: 250px;">
+            <a href="{% url 'buzon_paciente_medico' paciente.pk %}" 
+                class="btn btn-light btn-lg rounded-pill fw-bold text-purple shadow-sm px-4 py-3 w-100"
+                style="transition: transform 0.2s; border-color: transparent;">
+                Ver y Enviar Mensajes <i class="bi bi-chat-text-fill ms-2"></i>
             </a>
         </div>
     </div>

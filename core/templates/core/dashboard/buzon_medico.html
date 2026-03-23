@@ -1,0 +1,126 @@
+{% extends 'core/layouts/base_medico.html' %}
+
+{% block content %}
+<style>
+    .text-purple { color: #6610f2 !important; }
+    .bg-purple { background-color: #6610f2 !important; }
+    .btn-purple { background-color: #6610f2; border-color: #6610f2; color: white; }
+    .btn-purple:hover { background-color: #520dc2; border-color: #520dc2; color: white; }
+    
+    .chat-container { max-width: 800px; margin: 0 auto; }
+    
+    /* Burbuja del Sistema (Robot) */
+    .msg-sistema {
+        background-color: #f8f9fa;
+        border-left: 5px solid #adb5bd;
+        border-radius: 0 15px 15px 15px;
+    }
+    
+    /* Burbuja del Médico (Destacada en morado suave) */
+    .msg-medico {
+        background-color: #fbf9ff;
+        border-left: 5px solid #6610f2;
+        border-radius: 0 15px 15px 15px;
+    }
+    
+    .avatar-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        border-radius: 50%;
+    }
+
+    /* Caja para escribir pegada abajo */
+    .chat-input-area {
+        position: sticky;
+        bottom: 20px;
+        background: white;
+        z-index: 100;
+        box-shadow: 0 -10px 20px rgba(255,255,255,0.9);
+    }
+</style>
+
+<div class="container py-4 chat-container position-relative">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom bg-white sticky-top pt-3" style="z-index: 100;">
+        <div class="d-flex align-items-center">
+            <a href="{% url 'detalle_paciente' paciente.pk %}" class="btn btn-light rounded-circle me-3">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <div>
+                <h3 class="fw-bold mb-0 text-dark">Buzón de <span class="text-purple">{{ paciente.usuario.first_name|default:paciente.usuario.username }}</span></h3>
+                <p class="text-muted mb-0 small">Historial de alertas y mensajes directos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column gap-4 mb-5 pb-5">
+        {% for nota in notificaciones %}
+            
+            {% if nota.remitente == 'SISTEMA' %}
+            <div class="d-flex gap-3">
+                <div class="avatar-icon bg-secondary text-white shadow-sm flex-shrink-0">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <div class="msg-sistema p-3 p-md-4 shadow-sm w-100 border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-secondary small text-uppercase"><i class="bi bi-cpu me-1"></i> Alerta Automática del Sistema</span>
+                        <span class="text-muted small">{{ nota.fecha|date:"d M Y, H:i" }}</span>
+                    </div>
+                    <p class="mb-0 text-dark" style="line-height: 1.6; font-size: 1.05rem;">{{ nota.mensaje }}</p>
+                </div>
+            </div>
+
+            {% elif nota.remitente == 'MEDICO' %}
+            <div class="d-flex gap-3">
+                <div class="avatar-icon bg-purple text-white shadow-sm flex-shrink-0">
+                    <i class="bi bi-person-badge"></i>
+                </div>
+                <div class="msg-medico p-3 p-md-4 shadow-sm w-100 border border-purple-subtle">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-purple small text-uppercase">
+                            <i class="bi bi-reply-fill me-1"></i> Tú enviaste esto
+                        </span>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-muted small">{{ nota.fecha|date:"d M Y, H:i" }}</span>
+                            {% if nota.leida %}
+                                <i class="bi bi-check2-all text-success" title="Leído por el paciente"></i>
+                            {% else %}
+                                <i class="bi bi-check2 text-muted" title="Entregado"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="mb-0 text-dark" style="line-height: 1.6; font-size: 1.05rem;">{{ nota.mensaje }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+        {% empty %}
+            <div class="text-center py-5 mt-4 bg-light rounded-4 shadow-sm border border-dashed">
+                <i class="bi bi-chat-dots text-muted opacity-50" style="font-size: 4rem;"></i>
+                <h5 class="fw-bold mt-3 text-dark">Sin mensajes</h5>
+                <p class="text-muted">Aún no hay notificaciones ni mensajes en el historial de este paciente.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="chat-input-area p-4 rounded-4 border shadow">
+        <form method="POST">
+            {% csrf_token %}
+            <label class="fw-bold text-purple small mb-2"><i class="bi bi-pen me-1"></i> ENVIAR NUEVO MENSAJE AL PACIENTE</label>
+            <div class="input-group">
+                <textarea name="mensaje" class="form-control bg-light border-0 shadow-none" 
+                    placeholder="Escribe instrucciones, ánimos o recomendaciones para el paciente..." 
+                    style="resize: none; height: 60px;" required></textarea>
+                <button type="submit" class="btn btn-purple px-4 fw-bold shadow-sm">
+                    Enviar <i class="bi bi-send-fill ms-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

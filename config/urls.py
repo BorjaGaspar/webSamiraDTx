@@ -34,8 +34,10 @@ urlpatterns = [
     path('api/guardar-progreso/', views.guardar_progreso, name='guardar_progreso'),
     path('terapia/prueba-voz/', views.jugar_prueba_voz, name='jugar_prueba_voz'),
     path('terapia/identificacion-elsa/', views.jugar_identificacion_elsa_unity, name='jugar_identificacion_elsa_unity'),
+    path('buzon/', views.buzon_paciente, name='buzon_paciente'),
      # URL de la API que recibe el audio y usa Whisper (MUY IMPORTANTE)
     path('api/transcribir-audio/', views.transcribir_audio, name='transcribir_audio'),
+
 
     
     # PANEL MÉDICO 
@@ -46,4 +48,5 @@ urlpatterns = [
     path('medico/dashboard/', views.dashboard_medico, name='dashboard_medico'),
     path('paciente/<int:pk>/moca/', views.historial_moca, name='historial_moca'),
     path('auditoria-moca/<int:pk_evaluacion>/', views.auditoria_moca, name='auditoria_moca'),
+    path('medico/paciente/<int:pk>/buzon/', views.buzon_paciente_medico, name='buzon_paciente_medico'),
 ]
