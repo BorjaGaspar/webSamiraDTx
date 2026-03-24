@@ -2,14 +2,16 @@
 
 {% block content %}
 <style>
-    .text-purple { color: #6610f2 !important; }
-    .bg-purple { background-color: #6610f2 !important; }
-    .btn-purple { background-color: #6610f2; border-color: #6610f2; color: white; }
-    .btn-purple:hover { background-color: #520dc2; border-color: #520dc2; color: white; }
-    .bg-soft-purple { background-color: #fbf9ff; }
+    .text-purple { color: #0B172A !important; }
+    .bg-purple { background-color: #0B172A !important; }
+    .btn-purple { background-color: #0B172A; border-color: #0B172A; color: white; }
+    .btn-purple:hover { background-color: #040A14; border-color: #040A14; color: white; }
+    .bg-soft-purple { background-color: #f1f5f9; }
+    .bg-dark-blue { background-color: #1A365D !important; }
+    .border-purple-subtle { border-color: #cbd5e1 !important; }
 
     /* Estilos para el acordeón personalizado */
-    .accordion-item { border: none !important; }
+    .accordion-item { border: none !important; margin-bottom: 1rem; border-radius: 1rem !important; overflow: hidden; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075); }
     .accordion-button {
         background-color: white !important;
         color: #212529 !important;
@@ -17,9 +19,9 @@
         padding: 1.25rem 1.5rem;
     }
     .accordion-button:not(.collapsed) {
-        color: #6610f2 !important;
-        background-color: #fbf9ff !important;
-        border-bottom: 1px solid #e0cffc;
+        color: #0B172A !important;
+        background-color: #f1f5f9 !important;
+        border-bottom: 1px solid #cbd5e1;
     }
     .accordion-button::after { background-size: 1.2rem; }
 
@@ -40,6 +42,15 @@
         display: inline-flex;
         align-items: center;
         gap: 15px;
+    }
+
+    .ia-badge {
+        background-color: #e9ecef;
+        color: #495057;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        border: 1px solid #ced4da;
     }
 </style>
 
@@ -62,18 +73,18 @@
     <form method="POST" action="">
         {% csrf_token %}
 
-        <div class="accordion shadow-sm rounded-4 mb-5" id="mocaAccordion">
+        <div class="d-flex flex-column gap-3">
 
-            <div class="accordion-item rounded-4 mb-3 overflow-hidden shadow-sm">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div class="accordion" id="acc1">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hOne">
+                    <button class="accordion-button fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cOne" aria-expanded="true" aria-controls="cOne">
                         <i class="bi bi-pen-fill me-3 text-purple"></i> 1. Visuoespacial / Ejecutiva
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#mocaAccordion">
+                <div id="cOne" class="accordion-collapse collapse show" aria-labelledby="hOne" data-bs-parent="#acc1">
                     <div class="accordion-body bg-soft-purple p-4">
-                        
-                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-purple-subtle">
+                        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-purple-subtle">
                             <span class="text-muted fw-bold">Revisa los trazos y asigna la nota global del dominio:</span>
                             <div class="nota-input-box shadow-sm">
                                 <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
@@ -84,44 +95,187 @@
                             </div>
                         </div>
 
-                        <div class="alert mb-4 py-2 border rounded-3" style="background-color: #f0e6ff; border-color: #d8bffa; color: #4c08b0;">
-                            <i class="bi bi-info-circle-fill me-2"></i><strong>Aclaración sobre los 5 puntos:</strong> 
-                            El punto del <strong>Ejercicio 1 (Alternancia conceptual / TMT) ya está pre-asignado</strong> por el sistema. Evalúa aquí la Copia del Cubo (1 pt) y el Reloj (3 pts).
+                        <div class="p-4 mb-4 rounded-4 shadow-sm border bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong class="badge bg-dark-blue text-white me-2">EJERCICIO 1</strong>
+                                    <i class="bi bi-diagram-3-fill mx-1 text-dark"></i><strong class="text-dark">Alternancia conceptual:</strong> <span class="text-dark">Puntuación calculada automáticamente.</span>
+                                </div>
+                                <span class="ia-badge fw-bold bg-white text-dark border">IA: {{ evaluacion.score_tmt }} / 1</span>
+                            </div>
                         </div>
 
-                        <div class="row g-4">
-                            <div class="col-md-6 text-center">
-                                <h6 class="fw-bold text-dark mb-3"><i class="bi bi-box me-2"></i>Copia del Cubo (1 pt)</h6>
+                        <div class="p-4 mb-4 rounded-4 shadow-sm border bg-white">
+                            <div class="text-start mb-3">
+                                <strong class="badge bg-dark-blue text-white me-2">EJERCICIO 2</strong>
+                                <i class="bi bi-box mx-1 text-dark"></i><strong class="text-dark">Capacidades visuoconstructivas (Cubo)</strong> <span class="text-muted fw-normal">(1 pt)</span>
+                            </div>
+                            <div class="text-center">
                                 {% if evaluacion.dibujo_cubo_b64 %}
-                                    <img src="{{ evaluacion.dibujo_cubo_b64 }}" class="img-fluid dibujo-paciente w-100 p-2 shadow-sm" alt="Cubo">
+                                    <img src="{{ evaluacion.dibujo_cubo_b64 }}" class="img-fluid dibujo-paciente bg-light p-3 shadow-sm border" alt="Cubo" style="max-height: 250px; border-radius: 12px; border-style: dashed !important;">
                                 {% else %}
-                                    <div class="p-4 border rounded-4 bg-white text-muted"><i class="bi bi-image-alt fs-2 d-block mb-2"></i>Sin imagen</div>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <h6 class="fw-bold text-dark mb-3"><i class="bi bi-clock me-2"></i>Dibujo del Reloj (3 pts)</h6>
-                                {% if evaluacion.dibujo_reloj_b64 %}
-                                    <img src="{{ evaluacion.dibujo_reloj_b64 }}" class="img-fluid dibujo-paciente w-100 p-2 shadow-sm" alt="Reloj">
-                                {% else %}
-                                    <div class="p-4 border rounded-4 bg-white text-muted"><i class="bi bi-image-alt fs-2 d-block mb-2"></i>Sin imagen</div>
+                                    <div class="p-4 border rounded-3 bg-light text-muted"><i class="bi bi-image-alt fs-2 d-block mb-2"></i>Sin imagen</div>
                                 {% endif %}
                             </div>
                         </div>
 
+                        <div class="p-4 mb-3 rounded-4 shadow-sm border bg-white">
+                            <div class="text-start mb-3">
+                                <strong class="badge bg-dark-blue text-white me-2">EJERCICIO 3</strong>
+                                <i class="bi bi-clock mx-1 text-dark"></i><strong class="text-dark">Capacidades visuoconstructivas (Reloj)</strong> <span class="text-muted fw-normal">(3 pts)</span>
+                            </div>
+                            <div class="text-center">
+                                {% if evaluacion.dibujo_reloj_b64 %}
+                                    <img src="{{ evaluacion.dibujo_reloj_b64 }}" class="img-fluid dibujo-paciente bg-light p-3 shadow-sm border" alt="Reloj" style="max-height: 250px; border-radius: 12px; border-style: dashed !important;">
+                                {% else %}
+                                    <div class="p-4 border rounded-3 bg-light text-muted"><i class="bi bi-image-alt fs-2 d-block mb-2"></i>Sin imagen</div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            </div>
 
-            <div class="accordion-item rounded-4 mb-3 overflow-hidden shadow-sm">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <i class="bi bi-mic-fill me-3 text-purple"></i> 2. Lenguaje y Fluidez
+            <div class="accordion" id="acc2">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hTwo">
+                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cTwo" aria-expanded="false" aria-controls="cTwo">
+                        <i class="bi bi-image me-3 text-purple"></i> 2. Identificación de Animales
                     </button>
                 </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mocaAccordion">
+                <div id="cTwo" class="accordion-collapse collapse" aria-labelledby="hTwo" data-bs-parent="#acc2">
+                    <div class="accordion-body p-4 bg-light">
+                        <div class="mb-3"><span class="badge bg-dark-blue text-white fs-6">EJERCICIO 4: Identificación</span></div>
+                        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary-subtle">
+                            <span class="text-muted fw-bold">Valida los 3 animales nombrados:</span>
+                            <div class="nota-input-box shadow-sm">
+                                <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
+                                <div class="input-group" style="width: 120px;">
+                                    <input type="number" name="score_identificacion" class="form-control text-center fw-bold fs-5" min="0" max="3" value="{{ evaluacion.score_identificacion }}">
+                                    <span class="input-group-text bg-light">/ 3</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm text-center">
+                                    <h6 class="text-muted small fw-bold mb-2">Animal 1 (León)</h6>
+                                    <p class="mb-0 fs-5 fw-bold text-dark text-capitalize">{{ evaluacion.respuesta_animal_1|default:"--" }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm text-center">
+                                    <h6 class="text-muted small fw-bold mb-2">Animal 2 (Rinoceronte)</h6>
+                                    <p class="mb-0 fs-5 fw-bold text-dark text-capitalize">{{ evaluacion.respuesta_animal_2|default:"--" }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm text-center">
+                                    <h6 class="text-muted small fw-bold mb-2">Animal 3 (Camello)</h6>
+                                    <p class="mb-0 fs-5 fw-bold text-dark text-capitalize">{{ evaluacion.respuesta_animal_3|default:"--" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="accordion" id="acc3">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hThree">
+                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cThree" aria-expanded="false" aria-controls="cThree">
+                        <i class="bi bi-exclamation-triangle-fill me-3 text-purple"></i> 3. Atención y Cálculo
+                    </button>
+                </h2>
+                <div id="cThree" class="accordion-collapse collapse" aria-labelledby="hThree" data-bs-parent="#acc3">
                     <div class="accordion-body bg-soft-purple p-4">
-                        
                         <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-purple-subtle">
+                            <span class="text-muted fw-bold">Desglose de memoria a corto plazo, dígitos y restas:</span>
+                            <div class="nota-input-box shadow-sm">
+                                <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
+                                <div class="input-group" style="width: 120px;">
+                                    <input type="number" name="score_atencion" class="form-control text-center fw-bold fs-5" min="0" max="6" value="{{ evaluacion.score_atencion }}">
+                                    <span class="input-group-text bg-light">/ 6</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+                                    <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 5</span></div>
+                                    <h6 class="fw-bold border-bottom pb-2 mb-3">Memoria <span class="text-muted fw-normal small">(No puntúa)</span></h6>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-dark">Intento 1:</span>
+                                        <span class="badge bg-light text-dark border">{{ evaluacion.memoria_intento1 }} / 5 palabras</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-dark">Intento 2:</span>
+                                        <span class="badge bg-light text-dark border">{{ evaluacion.memoria_intento2 }} / 5 palabras</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+                                    <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 6</span></div>
+                                    <h6 class="fw-bold border-bottom pb-2 mb-3">Atención: Serie de números <span class="text-muted fw-normal small">(2 pts)</span></h6>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-dark">Orden Directo:</span>
+                                        <span class="ia-badge">IA: {{ evaluacion.atencion_numeros_dir }} / 1</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark">Orden Inverso:</span>
+                                        <span class="ia-badge">IA: {{ evaluacion.atencion_numeros_inv }} / 1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+                                    <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 6</span></div>
+                                    <h6 class="fw-bold border-bottom pb-2 mb-3">Atención: Vigilancia Letra 'A' <span class="text-muted fw-normal small">(1 pt)</span></h6>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-dark">Errores cometidos:</span>
+                                        <span class="badge bg-danger rounded-pill">{{ evaluacion.atencion_letras_errores }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark">Puntuación Letras:</span>
+                                        <span class="ia-badge">IA: {{ evaluacion.atencion_letras_score }} / 1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+                                    <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 6</span></div>
+                                    <h6 class="fw-bold border-bottom pb-2 mb-3">Atención: Serie del 7 <span class="text-muted fw-normal small">(3 pts)</span></h6>
+                                    <p class="text-muted small mb-2">Desde 100: 93, 86, 79, 72, 65.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-dark fw-bold">Puntuación Restas:</span>
+                                        <span class="ia-badge border-purple-subtle bg-soft-purple text-purple fw-bold fs-6">IA: {{ evaluacion.atencion_restas_score }} / 3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="accordion" id="acc4">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hFour">
+                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cFour" aria-expanded="false" aria-controls="cFour">
+                        <i class="bi bi-mic-fill me-3 text-purple"></i> 4. Lenguaje y Fluidez
+                    </button>
+                </h2>
+                <div id="cFour" class="accordion-collapse collapse" aria-labelledby="hFour" data-bs-parent="#acc4">
+                    <div class="accordion-body p-4 bg-light">
+                        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary-subtle">
                             <span class="text-muted fw-bold">Escucha los audios, compara con la IA y asigna la nota:</span>
                             <div class="nota-input-box shadow-sm">
                                 <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
@@ -133,9 +287,11 @@
                         </div>
 
                         <div class="d-flex flex-column gap-3">
-                            <div class="p-3 border rounded-4 bg-white shadow-sm">
-                                <h6 class="fw-bold mb-2">Repetición 1 (1 pt): <span class="text-muted fw-normal">"El gato se esconde bajo el sofá cuando los perros entran en la sala"</span></h6>
-                                <div class="row align-items-center">
+                            <div class="p-3 border rounded-4 bg-white shadow-sm position-relative">
+                                <span class="position-absolute top-0 end-0 mt-3 me-3 ia-badge">IA: {{ evaluacion.lenguaje_rep_1 }} / 1</span>
+                                <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 7</span></div>
+                                <h6 class="fw-bold mb-2 w-75">Repetición de frases (1): <span class="text-muted fw-normal">"El gato se esconde bajo el sofá cuando los perros entran en la sala"</span></h6>
+                                <div class="row align-items-center mt-3">
                                     <div class="col-md-5">
                                         {% if evaluacion.audio_frase1_b64 %}<audio controls class="w-100"><source src="{{ evaluacion.audio_frase1_b64 }}"></audio>{% else %}<span class="badge bg-light text-muted border">Sin audio</span>{% endif %}
                                     </div>
@@ -146,9 +302,11 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 border rounded-4 bg-white shadow-sm">
-                                <h6 class="fw-bold mb-2">Repetición 2 (1 pt): <span class="text-muted fw-normal">"Espero que él le entregue el mensaje una vez que ella se lo pida"</span></h6>
-                                <div class="row align-items-center">
+                            <div class="p-3 border rounded-4 bg-white shadow-sm position-relative">
+                                <span class="position-absolute top-0 end-0 mt-3 me-3 ia-badge">IA: {{ evaluacion.lenguaje_rep_2 }} / 1</span>
+                                <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 7</span></div>
+                                <h6 class="fw-bold mb-2 w-75">Repetición de frases (2): <span class="text-muted fw-normal">"Espero que él le entregue el mensaje una vez que ella se lo pida"</span></h6>
+                                <div class="row align-items-center mt-3">
                                     <div class="col-md-5">
                                         {% if evaluacion.audio_frase2_b64 %}<audio controls class="w-100"><source src="{{ evaluacion.audio_frase2_b64 }}"></audio>{% else %}<span class="badge bg-light text-muted border">Sin audio</span>{% endif %}
                                     </div>
@@ -159,9 +317,11 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 border rounded-4 bg-white shadow-sm">
-                                <h6 class="fw-bold mb-2">Fluidez Verbal (1 pt): <span class="text-muted fw-normal">Palabras por 'F' en 1 min (Mínimo 11)</span></h6>
-                                <div class="row align-items-center">
+                            <div class="p-3 border rounded-4 bg-white shadow-sm position-relative">
+                                <span class="position-absolute top-0 end-0 mt-3 me-3 ia-badge">IA: {{ evaluacion.lenguaje_fluidez_score }} / 1</span>
+                                <div class="mb-2"><span class="badge bg-dark-blue text-white">EJERCICIO 8</span></div>
+                                <h6 class="fw-bold mb-2 w-75">Fluidez verbal: <span class="text-muted fw-normal">Palabras por 'F' en 1 min (Mínimo 11)</span></h6>
+                                <div class="row align-items-center mt-3">
                                     <div class="col-md-5">
                                         {% if evaluacion.audio_fluidez_b64 %}<audio controls class="w-100"><source src="{{ evaluacion.audio_fluidez_b64 }}"></audio>{% else %}<span class="badge bg-light text-muted border">Sin audio</span>{% endif %}
                                     </div>
@@ -172,21 +332,69 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+            </div>
 
-            <div class="accordion-item rounded-4 mb-3 overflow-hidden shadow-sm">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <i class="bi bi-brain me-3 text-purple"></i> 3. Recuerdo Diferido
+            <div class="accordion" id="acc5">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hFive">
+                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cFive" aria-expanded="false" aria-controls="cFive">
+                        <i class="bi bi-intersect me-3 text-purple"></i> 5. Abstracción
                     </button>
                 </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#mocaAccordion">
+                <div id="cFive" class="accordion-collapse collapse" aria-labelledby="hFive" data-bs-parent="#acc5">
                     <div class="accordion-body bg-soft-purple p-4">
-                        
                         <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-purple-subtle">
+                            <span class="text-muted fw-bold">Valida las similitudes identificadas por el paciente:</span>
+                            <div class="nota-input-box shadow-sm">
+                                <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
+                                <div class="input-group" style="width: 120px;">
+                                    <input type="number" name="score_abstraccion" class="form-control text-center fw-bold fs-5" min="0" max="2" value="{{ evaluacion.score_abstraccion }}">
+                                    <span class="input-group-text bg-light">/ 2</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3"><span class="badge bg-dark-blue text-white fs-6">EJERCICIO 9: Abstracción</span></div>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm h-100 position-relative">
+                                    <span class="position-absolute top-0 end-0 mt-3 me-3 ia-badge">IA: {{ evaluacion.abstraccion_tren_score }} / 1</span>
+                                    <h6 class="fw-bold mb-1">Tren / Bicicleta</h6>
+                                    <p class="text-purple small mb-3">(Vehículos / Medios de transporte)</p>
+                                    <div class="bg-light p-2 rounded border small font-monospace text-dark">
+                                        <span class="text-muted fw-bold me-1">IA Detectó:</span> {{ evaluacion.abstraccion_tren_respuesta|default:"Sin respuesta" }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white border rounded-4 shadow-sm h-100 position-relative">
+                                    <span class="position-absolute top-0 end-0 mt-3 me-3 ia-badge">IA: {{ evaluacion.abstraccion_reloj_score }} / 1</span>
+                                    <h6 class="fw-bold mb-1">Reloj / Regla</h6>
+                                    <p class="text-purple small mb-3">(Instrumentos de medición)</p>
+                                    <div class="bg-light p-2 rounded border small font-monospace text-dark">
+                                        <span class="text-muted fw-bold me-1">IA Detectó:</span> {{ evaluacion.abstraccion_reloj_respuesta|default:"Sin respuesta" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="accordion" id="acc6">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hSix">
+                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cSix" aria-expanded="false" aria-controls="cSix">
+                        <i class="bi bi-brain me-3 text-purple"></i> 6. Recuerdo Diferido
+                    </button>
+                </h2>
+                <div id="cSix" class="accordion-collapse collapse" aria-labelledby="hSix" data-bs-parent="#acc6">
+                    <div class="accordion-body p-4 bg-light">
+                        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary-subtle">
                             <span class="text-muted fw-bold">1 punto por cada palabra recordada sin pistas:</span>
                             <div class="nota-input-box shadow-sm">
                                 <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
@@ -197,6 +405,7 @@
                             </div>
                         </div>
 
+                        <div class="mb-3"><span class="badge bg-dark-blue text-white fs-6">EJERCICIO 10: Recuerdo diferido</span></div>
                         <div class="bg-white p-4 rounded-4 shadow-sm border">
                             <h6 class="fw-bold mb-3 text-dark">Palabras objetivo: <span class="text-purple mx-2">Rostro</span>|<span class="text-purple mx-2">Seda</span>|<span class="text-purple mx-2">Templo</span>|<span class="text-purple mx-2">Clavel</span>|<span class="text-purple mx-2">Rojo</span></h6>
                             <div class="row align-items-center mt-3">
@@ -209,95 +418,47 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+            </div>
 
-            <div class="accordion-item rounded-4 overflow-hidden shadow-sm">
-                <h2 class="accordion-header" id="headingFour">
-                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <i class="bi bi-list-check me-3 text-purple"></i> 4. Resto de Dominios
+            <div class="accordion" id="acc7">
+            <div class="accordion-item m-0">
+                <h2 class="accordion-header" id="hSeven">
+                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#cSeven" aria-expanded="false" aria-controls="cSeven">
+                        <i class="bi bi-compass me-3 text-purple"></i> 7. Orientación
                     </button>
                 </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#mocaAccordion">
-                    <div class="accordion-body p-4 bg-light">
-                        
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="p-4 border rounded-4 bg-white shadow-sm d-flex justify-content-between align-items-center h-100">
-                                    <div>
-                                        <h6 class="fw-bold mb-1">Identificación Animales</h6>
-                                        <p class="text-muted small mb-0">León, Rinoceronte, Camello</p>
-                                    </div>
-                                    <div class="input-group" style="width: 100px;">
-                                        <input type="number" name="score_identificacion" class="form-control fw-bold" min="0" max="3" value="{{ evaluacion.score_identificacion }}">
-                                        <span class="input-group-text bg-light">/ 3</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="p-4 border rounded-4 bg-white shadow-sm d-flex justify-content-between align-items-center h-100">
-                                    <div>
-                                        <h6 class="fw-bold mb-1">Atención y Cálculo</h6>
-                                        <p class="text-muted small mb-0">Números, letras y restas de 7</p>
-                                    </div>
-                                    <div class="input-group" style="width: 100px;">
-                                        <input type="number" name="score_atencion" class="form-control fw-bold" min="0" max="6" value="{{ evaluacion.score_atencion }}">
-                                        <span class="input-group-text bg-light">/ 6</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="p-4 border rounded-4 bg-white shadow-sm h-100">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <h6 class="fw-bold mb-0">Abstracción</h6>
-                                        <div class="input-group" style="width: 100px;">
-                                            <input type="number" name="score_abstraccion" class="form-control fw-bold" min="0" max="2" value="{{ evaluacion.score_abstraccion }}">
-                                            <span class="input-group-text bg-light">/ 2</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-muted small mb-3" style="line-height: 1.2;">
-                                        Tren/Bici <strong class="text-purple">(Vehículos / Medios de transporte)</strong><br>
-                                        Reloj/Regla <strong class="text-purple">(Instrumentos de medición)</strong>
-                                    </p>
-        
-                                    <div class="bg-light p-3 rounded small font-monospace text-dark border">
-                                        <div class="mb-2 text-wrap">
-                                            <span class="text-muted fw-bold">Tren/Bici:</span> 
-                                            {{ evaluacion.abstraccion_tren_respuesta|default:"Sin respuesta" }}
-                                        </div>
-                                        <div class="text-wrap">
-                                            <span class="text-muted fw-bold">Reloj/Regla:</span> 
-                                            {{ evaluacion.abstraccion_reloj_respuesta|default:"Sin respuesta" }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="p-4 border rounded-4 bg-white shadow-sm d-flex justify-content-between align-items-center h-100">
-                                    <div>
-                                        <h6 class="fw-bold mb-1">Orientación</h6>
-                                        <p class="text-muted small mb-0">Fecha, mes, año, día, lugar, ciudad</p>
-                                    </div>
-                                    <div class="input-group" style="width: 100px;">
-                                        <input type="number" name="score_orientacion" class="form-control fw-bold" min="0" max="6" value="{{ evaluacion.score_orientacion }}">
-                                        <span class="input-group-text bg-light">/ 6</span>
-                                    </div>
+                <div id="cSeven" class="accordion-collapse collapse" aria-labelledby="hSeven" data-bs-parent="#acc7">
+                    <div class="accordion-body bg-soft-purple p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-purple-subtle">
+                            <span class="text-muted fw-bold">Valida los 6 puntos de orientación (tiempo y espacio):</span>
+                            <div class="nota-input-box shadow-sm">
+                                <label class="fw-bold text-purple mb-0">NOTA DOMINIO:</label>
+                                <div class="input-group" style="width: 120px;">
+                                    <input type="number" name="score_orientacion" class="form-control text-center fw-bold fs-5" min="0" max="6" value="{{ evaluacion.score_orientacion }}">
+                                    <span class="input-group-text bg-light">/ 6</span>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="mb-3"><span class="badge bg-dark-blue text-white fs-6">EJERCICIO 11: Orientación</span></div>
+                        <div class="row g-3">
+                            <div class="col-6 col-md-4"><div class="p-3 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center"><span class="text-dark fw-bold small">Día Sem.</span><span class="ia-badge">IA: {{ evaluacion.orientacion_dia_semana }}</span></div></div>
+                            <div class="col-6 col-md-4"><div class="p-3 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center"><span class="text-dark fw-bold small">Día Mes</span><span class="ia-badge">IA: {{ evaluacion.orientacion_dia_mes }}</span></div></div>
+                            <div class="col-6 col-md-4"><div class="p-3 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center"><span class="text-dark fw-bold small">Mes</span><span class="ia-badge">IA: {{ evaluacion.orientacion_mes }}</span></div></div>
+                            <div class="col-6 col-md-4"><div class="p-3 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center"><span class="text-dark fw-bold small">Año</span><span class="ia-badge">IA: {{ evaluacion.orientacion_anio }}</span></div></div>
+                            
+                            <div class="col-6 col-md-4"><div class="p-3 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center"><span class="text-dark fw-bold small">Lugar</span><span class="ia-badge">IA: {{ evaluacion.orientacion_lugar }}</span></div></div>
+                            <div class="col-6 col-md-4"><div class="p-3 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center"><span class="text-dark fw-bold small">Localidad</span><span class="ia-badge">IA: {{ evaluacion.orientacion_localidad }}</span></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            </div>
 
-        </div>
-
-        <div class="bg-white p-4 border rounded-4 shadow-sm text-center text-md-end mb-5 sticky-bottom" style="bottom: 20px; z-index: 1000;">
+        </div> <div class="bg-white p-4 border rounded-4 shadow-sm text-center text-md-end mb-5 sticky-bottom" style="bottom: 20px; z-index: 1000;">
             <span class="text-muted me-3 d-none d-md-inline">Al validar, se actualizará el nivel de terapia del paciente.</span>
             <button type="submit" class="btn btn-purple btn-lg px-5 rounded-pill shadow fw-bold">
                 <i class="bi bi-shield-check me-2"></i> Validar Auditoría Clínica

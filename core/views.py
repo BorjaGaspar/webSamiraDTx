@@ -637,6 +637,30 @@ def guardar_moca(request):
                 abstraccion_reloj_respuesta=datos.get('abstraccion_reloj_respuesta'),
                 transcripcion_recuerdo=datos.get('transcripcion_recuerdo'),
 
+                # Nuevos Datos Granulares Extraídos del JSON
+                score_tmt=datos.get('score_visuoespacial', 0),
+                respuesta_animal_1=datos.get('respuesta_animal_1'),
+                respuesta_animal_2=datos.get('respuesta_animal_2'),
+                respuesta_animal_3=datos.get('respuesta_animal_3'),
+                memoria_intento1=datos.get('memoria_intento1', 0),
+                memoria_intento2=datos.get('memoria_intento2', 0),
+                atencion_numeros_dir=datos.get('atencion_numeros_dir', 0),
+                atencion_numeros_inv=datos.get('atencion_numeros_inv', 0),
+                atencion_letras_errores=datos.get('atencion_letras_errores', 0),
+                atencion_letras_score=datos.get('atencion_letras_score', 0),
+                atencion_restas_score=datos.get('atencion_restas_score', 0),
+                lenguaje_rep_1=datos.get('lenguaje_rep_1', 0),
+                lenguaje_rep_2=datos.get('lenguaje_rep_2', 0),
+                lenguaje_fluidez_score=datos.get('lenguaje_fluidez_score', 0),
+                abstraccion_tren_score=datos.get('abstraccion_tren_score', 0),
+                abstraccion_reloj_score=datos.get('abstraccion_reloj_score', 0),
+                orientacion_dia_semana=datos.get('orientacion_dia_semana', 0),
+                orientacion_dia_mes=datos.get('orientacion_dia_mes', 0),
+                orientacion_mes=datos.get('orientacion_mes', 0),
+                orientacion_anio=datos.get('orientacion_anio', 0),
+                orientacion_lugar=datos.get('orientacion_lugar', 0),
+                orientacion_localidad=datos.get('orientacion_localidad', 0),
+
                 # JSON de respaldo
                 datos_completos_raw=datos
             )

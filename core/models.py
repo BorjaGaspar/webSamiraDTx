@@ -153,6 +153,34 @@ class EvaluacionMoCA(models.Model):
     abstraccion_reloj_respuesta = models.TextField(blank=True, null=True)
     transcripcion_recuerdo = models.TextField(blank=True, null=True)
 
+    # --- SUBPUNTUACIONES GRANULARES (Añadidas para el médico) ---
+    score_tmt = models.IntegerField(default=0, verbose_name="Visoespacial: TMT")
+    respuesta_animal_1 = models.CharField(max_length=50, blank=True, null=True, verbose_name="Animal 1")
+    respuesta_animal_2 = models.CharField(max_length=50, blank=True, null=True, verbose_name="Animal 2")
+    respuesta_animal_3 = models.CharField(max_length=50, blank=True, null=True, verbose_name="Animal 3")
+    
+    memoria_intento1 = models.IntegerField(default=0, verbose_name="Memoria: Intento 1 (0-5)")
+    memoria_intento2 = models.IntegerField(default=0, verbose_name="Memoria: Intento 2 (0-5)")
+    atencion_numeros_dir = models.IntegerField(default=0, verbose_name="Atención: Números Directos")
+    atencion_numeros_inv = models.IntegerField(default=0, verbose_name="Atención: Números Inversos")
+    atencion_letras_errores = models.IntegerField(default=0, verbose_name="Atención: Errores en Letras")
+    atencion_letras_score = models.IntegerField(default=0, verbose_name="Atención: Nota Letras (0-1)")
+    atencion_restas_score = models.IntegerField(default=0, verbose_name="Atención: Restas de 7 (0-3)")
+    
+    lenguaje_rep_1 = models.IntegerField(default=0, verbose_name="Lenguaje: Repetición Frase 1")
+    lenguaje_rep_2 = models.IntegerField(default=0, verbose_name="Lenguaje: Repetición Frase 2")
+    lenguaje_fluidez_score = models.IntegerField(default=0, verbose_name="Lenguaje: Fluidez Verbal")
+    
+    abstraccion_tren_score = models.IntegerField(default=0, verbose_name="Abstracción: Tren/Bici")
+    abstraccion_reloj_score = models.IntegerField(default=0, verbose_name="Abstracción: Reloj/Regla")
+    
+    orientacion_dia_semana = models.IntegerField(default=0, verbose_name="Orientación: Día Semana")
+    orientacion_dia_mes = models.IntegerField(default=0, verbose_name="Orientación: Día Mes")
+    orientacion_mes = models.IntegerField(default=0, verbose_name="Orientación: Mes")
+    orientacion_anio = models.IntegerField(default=0, verbose_name="Orientación: Año")
+    orientacion_lugar = models.IntegerField(default=0, verbose_name="Orientación: Lugar")
+    orientacion_localidad = models.IntegerField(default=0, verbose_name="Orientación: Localidad")
+
     # --- RESPALDO DE SEGURIDAD (RAW DATA) ---
     # Aquí guardaremos el objeto JavaScript íntegro para conservar los sub-intentos y tiempos
     datos_completos_raw = models.JSONField(blank=True, null=True, verbose_name="JSON Íntegro del Frontend")

@@ -1989,6 +1989,11 @@
     function siguienteAnimal() {
         let textoEscrito = document.getElementById('input-animal').value.trim();
         respuestasPaciente.push(textoEscrito);
+        
+        // Guardamos explícitamente la respuesta individual para la nueva Base de Datos
+        if (animalActualIndex === 0) datosMoCA.respuesta_animal_1 = textoEscrito;
+        if (animalActualIndex === 1) datosMoCA.respuesta_animal_2 = textoEscrito;
+        if (animalActualIndex === 2) datosMoCA.respuesta_animal_3 = textoEscrito;
 
         if (animalActualIndex < listaAnimales.length - 1) {
             animalActualIndex++;
