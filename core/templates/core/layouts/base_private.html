@@ -54,8 +54,20 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'buzon_paciente' %}active{% endif %}" href="{% url 'buzon_paciente' %}">
-                            <i class="bi bi-envelope-paper me-2"></i> Buzón Clínico
+                        <a class="nav-link d-flex justify-content-between align-items-center {% if request.resolver_match.url_name == 'buzon_paciente' %}active{% endif %}" href="{% url 'buzon_paciente' %}">
+                            <div>
+                                <i class="bi bi-envelope-paper me-2"></i> Buzón Clínico
+                            </div>
+                            
+                            {% if request.user.perfil.notificaciones_sin_leer > 0 %}
+                                <span class="badge bg-danger rounded-pill shadow-sm" style="font-size: 0.75rem;">
+                                    {{ request.user.perfil.notificaciones_sin_leer }}
+                                </span>
+                            {% elif request.user.perfilpaciente.notificaciones_sin_leer > 0 %}
+                                <span class="badge bg-danger rounded-pill shadow-sm" style="font-size: 0.75rem;">
+                                    {{ request.user.perfilpaciente.notificaciones_sin_leer }}
+                                </span>
+                            {% endif %}
                         </a>
                     </li>
 

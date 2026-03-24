@@ -70,6 +70,12 @@ class PerfilPaciente(models.Model):
     def __str__(self):
         return f"{self.usuario.username} ({'Médico' if self.es_medico else 'Paciente'})"
 
+    # Contar las notificaciones sin leer que tiene el paciente en el buzón
+    @property
+    def notificaciones_sin_leer(self):
+        # Cuenta cuántas notificaciones de este paciente están sin leer
+        return self.notificaciones.filter(leida=False).count()
+
 
 # ================================================================
 # TABLA 2: HISTORIAL DE SESIONES

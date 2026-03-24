@@ -464,15 +464,29 @@ def evaluar_ajuste_dinamico(perfil, nombre_juego):
             
         perfil.save()
         
-        # Registrar en el Historial Clínico
+        # Registrar en el Historial Clínico (Para el Médico) y Buzón (Para el Paciente)
         try:
+            # 1. Nota técnica para el médico
             NotaEspecialista.objects.create(
                 paciente=perfil,
                 medico=perfil.medico_asignado,
                 texto=mensaje_nota
             )
+            
+            # 2. Notificación amigable para el buzón del paciente
+            if nuevo_nivel > nivel_actual:
+                texto_paciente = f"¡Enhorabuena! Has demostrado un gran dominio en los ejercicios del área {dominio}. El sistema ha subido tu dificultad al Nivel {nuevo_nivel} para que sigas mejorando. ¡Sigue así!"
+            else:
+                texto_paciente = f"El sistema ha ajustado la dificultad de tus ejercicios del área {dominio} al Nivel {nuevo_nivel} para adaptarnos a tu ritmo. ¡Lo estás haciendo genial, sigue adelante!"
+                
+            NotificacionBuzon.objects.create(
+                paciente=perfil,
+                remitente='SISTEMA',
+                mensaje=texto_paciente
+            )
+            
         except Exception as e:
-            print("Error creando la nota DDA:", e)
+            print("Error creando la nota DDA o notificación:", e)
 
 @csrf_exempt
 def guardar_progreso(request):
