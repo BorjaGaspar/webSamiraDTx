@@ -1,313 +1,279 @@
 {% extends 'core/layouts/base_medico.html' %}
 
 {% block content %}
-<style>
-    .text-purple {
-        color: #6610f2 !important;
-    }
+<div class="mb-6">
+    <a href="{% url 'dashboard_medico' %}" class="text-slate-500 hover:text-indigo-700 transition-colors font-semibold text-sm flex items-center gap-2 m-0 text-decoration-none w-fit">
+        <span class="material-symbols-outlined text-sm">arrow_back</span> Volver al panel
+    </a>
+</div>
 
-    .bg-purple {
-        background-color: #6610f2 !important;
-    }
-
-    .btn-purple {
-        background-color: #6610f2;
-        border-color: #6610f2;
-        color: white;
-    }
-
-    .btn-purple:hover {
-        background-color: #520dc2;
-        border-color: #520dc2;
-        color: white;
-    }
-
-    .btn-outline-purple {
-        color: #6610f2;
-        border-color: #6610f2;
-    }
-
-    .btn-outline-purple:hover {
-        background-color: #6610f2;
-        color: white;
-    }
-
-    .border-top-purple {
-        border-top: 3px solid #a370f7 !important;
-    }
-
-    .bg-soft-purple {
-        background-color: #fbf9ff;
-    }
-</style>
-
-<div class="card border-0 shadow-sm mb-4 overflow-hidden rounded-4">
-    <div class="card-body p-4 p-md-5 bg-soft-purple">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-4">
-
-            <div class="d-flex align-items-center align-items-md-start">
-                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-4 shadow-sm"
-                    style="width: 80px; height: 80px; font-size: 2rem;">
-                    {{ paciente.usuario.username|slice:":2"|upper }}
-                </div>
-                <div>
-                    <h2 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">{{ paciente.usuario.username }}
-                    </h2>
-                    <p class="text-muted mb-3 small">
-                        <i class="bi bi-envelope me-1 text-primary"></i> {{ paciente.usuario.email }}
-                        {% if paciente.telefono %} <span class="mx-2 text-muted">|</span> <i
-                            class="bi bi-telephone me-1 text-primary"></i> {{ paciente.telefono }} {% endif %}
-                    </p>
-
-                    <div class="d-flex gap-2 flex-wrap">
-                        {% if paciente.nivel_asignado == 1 %}
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm"><i
-                                class="bi bi-circle-fill text-danger me-2 small"></i>Global: Severo</span>
-                        {% elif paciente.nivel_asignado == 2 %}
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm"><i
-                                class="bi bi-circle-fill text-warning me-2 small"></i>Global: Moderado</span>
-                        {% elif paciente.nivel_asignado == 3 %}
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm"><i
-                                class="bi bi-circle-fill text-info me-2 small"></i>Global: Leve</span>
-                        {% elif paciente.nivel_asignado == 4 %}
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm"><i
-                                class="bi bi-circle-fill text-primary me-2 small"></i>Global: Límite</span>
-                        {% elif paciente.nivel_asignado == 5 %}
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm"><i
-                                class="bi bi-circle-fill text-success me-2 small"></i>Global: Normal</span>
-                        {% else %}
-                        <span class="badge bg-white text-muted border px-3 py-2 fw-normal shadow-sm"><i
-                                class="bi bi-circle-fill text-secondary me-2 small"></i>Sin Evaluar</span>
-                        {% endif %}
-
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm">
-                            <i class="bi bi-cake2 me-1 text-muted"></i> {{ paciente.edad|default:"--" }} años
-                        </span>
-
-                        <span class="badge bg-white text-dark border px-3 py-2 fw-normal shadow-sm">
-                            <i class="bi bi-activity me-1 text-muted"></i> Ictus: <span class="text-muted">{{ paciente.lado_afectado|default:"No especif." }}</span>
-                        </span>
-                        {% if paciente.test_completado %}
-                            <span class="badge text-white border px-3 py-2 fw-bold shadow-sm" style="background-color: #6610f2;">
-                                <i class="bi bi-brain me-1"></i> MoCA Oficial: {{ paciente.puntuacion_total_moca }} / 30
-                            </span>
-                        {% else %}
-                            <span class="badge bg-light text-muted border px-3 py-2 fw-normal shadow-sm">
-                                <i class="bi bi-brain me-1"></i> MoCA Oficial: Sin registrar
-                            </span>
-                        {% endif %}
-                    </div>
-                </div>
+<!-- LATEST ASSESSMENT BANNERS -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+    <!-- MoCA Banner -->
+    <div class="lg:col-span-2 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-700 p-8 flex flex-col md:flex-row items-center justify-between text-white shadow-2xl">
+        <div class="relative z-10 space-y-3">
+            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest">Evaluaciones Cognitivas</span>
+            
+            <h3 class="text-3xl font-headline font-extrabold mb-0">MoCA Oficial: {% if paciente.test_completado %}{{ paciente.puntuacion_total_moca }} / 30{% else %}Sin registrar{% endif %}</h3>
+            <p class="text-indigo-100/80 text-sm max-w-md m-0">Auditoría clínica, análisis de audios y trazos a mano alzada del paciente para evaluación detallada.</p>
+            
+            {% if paciente.tiene_moca_pendiente %}
+            <div class="mt-2 text-warning font-bold text-xs flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">warning</span> Evaluaciones pendientes de revisión
             </div>
+            {% endif %}
 
-            <div class="d-flex flex-column gap-2" style="min-width: 220px;">
-                <a href="{% url 'dashboard_medico' %}" class="btn btn-light border text-muted w-100 text-start fw-bold">
-                    <i class="bi bi-arrow-left me-2"></i> Volver al panel
-                </a>
-                <a href="{% url 'analisis_paciente' paciente.id %}"
-                    class="btn btn-purple w-100 text-start shadow-sm fw-bold rounded-pill">
-                    <i class="bi bi-graph-up-arrow me-2"></i> Análisis por Ejercicios
-                </a>
-                <button class="btn btn-outline-purple w-100 text-start fw-bold rounded-pill border-2">
-                    <i class="bi bi-file-earmark-pdf me-2"></i> Informe Médico
-                </button>
+            <a href="{% url 'historial_moca' paciente.pk %}" class="mt-5 inline-block px-6 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-bold hover:bg-white/20 transition-all text-white text-decoration-none">
+                Ver Historial Completo
+            </a>
+        </div>
+        
+        <div class="relative z-10 opacity-30 mt-6 md:mt-0">
+            <span class="material-symbols-outlined text-9xl leading-none" style="font-variation-settings: 'FILL' 1;">neurology</span>
+        </div>
+        
+        <!-- Decorative Orbs -->
+        <div class="absolute -top-10 -right-10 w-48 h-48 bg-primary-container opacity-20 blur-3xl rounded-full"></div>
+        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-white opacity-10 blur-2xl rounded-full"></div>
+    </div>
+
+    <!-- Messaging Banner -->
+    <div class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-on-tertiary-container via-on-tertiary-fixed-variant to-tertiary-container p-8 flex flex-col justify-between text-white shadow-lg">
+        <div class="relative z-10">
+            <div class="flex justify-between items-start">
+                <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">forum</span>
+            </div>
+            <h4 class="mt-4 text-2xl font-headline font-bold mb-0">Mensajes y Alertas</h4>
+            <p class="text-white/70 text-sm mt-1 mb-0">Envía notificaciones o revisa alertas del sistema para el paciente.</p>
+        </div>
+        
+        <a href="{% url 'buzon_paciente_medico' paciente.pk %}" class="relative z-10 mt-6 w-full py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-sm font-bold text-center hover:bg-white/20 transition-all text-white text-decoration-none">
+            Abrir Buzón
+        </a>
+        
+        <div class="absolute -bottom-8 -right-8 w-24 h-24 bg-white opacity-5 blur-xl rounded-full"></div>
+    </div>
+</div>
+
+<!-- TOP PATIENT CARD -->
+<div class="bg-surface-container-low rounded-[2.5rem] p-8 border border-white/40 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+    <div class="flex items-center gap-6">
+        <div class="h-24 w-24 min-w-[6rem] rounded-3xl overflow-hidden shadow-lg ring-4 ring-white/50 bg-indigo-100 flex items-center justify-center text-indigo-900 font-bold text-4xl">
+            {{ paciente.usuario.username.0|upper }}
+        </div>
+        <div>
+            <h2 class="text-indigo-950 font-headline font-extrabold text-3xl mb-0">{{ paciente.usuario.username }}</h2>
+            <p class="text-slate-500 text-xs font-medium uppercase tracking-widest mt-1 mb-3">ID: {{ paciente.pk }} | {{ paciente.usuario.email }} {% if paciente.telefono %}| {{ paciente.telefono }}{% endif %}</p>
+            
+            <div class="flex flex-wrap gap-2">
+                <!-- Nivel Global Tag -->
+                {% if paciente.nivel_asignado == 1 %}
+                    <span class="px-3 py-1 bg-red-100 text-red-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">Global: Severo</span>
+                {% elif paciente.nivel_asignado == 2 %}
+                    <span class="px-3 py-1 bg-orange-100 text-orange-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">Global: Moderado</span>
+                {% elif paciente.nivel_asignado == 3 %}
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">Global: Leve</span>
+                {% elif paciente.nivel_asignado == 4 %}
+                    <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">Global: Límite</span>
+                {% elif paciente.nivel_asignado == 5 %}
+                    <span class="px-3 py-1 bg-green-100 text-green-800 text-[10px] font-bold rounded-full uppercase tracking-tighter">Global: Normal</span>
+                {% else %}
+                    <span class="px-3 py-1 bg-slate-200 text-slate-700 text-[10px] font-bold rounded-full uppercase tracking-tighter">Sin Evaluar</span>
+                {% endif %}
+                
+                <span class="px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-900 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+                    Edad: {{ paciente.edad|default:"--" }} años
+                </span>
+                <span class="px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-900 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+                    Ictus: {{ paciente.lado_afectado|default:"No especif." }}
+                </span>
             </div>
         </div>
+    </div>
+    
+    <div class="flex flex-col sm:flex-row md:flex-col gap-3 w-full md:w-auto mt-4 md:mt-0">
+        <a href="{% url 'analisis_paciente' paciente.id %}" class="px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-all text-center text-decoration-none">
+            Análisis por Ejercicios
+        </a>
+        <button class="px-6 py-2.5 bg-white border border-outline-variant/30 text-primary-container rounded-xl font-bold text-sm hover:bg-slate-50 transition-all text-center">
+            Informe Médico
+        </button>
+    </div>
+</div>
 
-        <hr class="text-muted opacity-25 my-5">
+<!-- STATS BENTO GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="bg-surface-container-low rounded-[2rem] p-8 flex flex-col border border-white/40 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="h-12 w-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-primary-container">
+                <span class="material-symbols-outlined emoji-icon">social_leaderboard</span>
+            </div>
+            <h5 class="font-headline font-bold text-indigo-950 mb-0">Marcador</h5>
+        </div>
+        <div class="flex flex-col justify-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Puntos Globales</span>
+            <div class="text-4xl font-headline font-extrabold text-indigo-950">{{ paciente.puntos_totales }} <span class="text-sm font-medium text-slate-400">pts</span></div>
+        </div>
+    </div>
 
-        <h6 class="fw-bold mb-3 text-dark"><i class="bi bi-sliders me-2 text-purple"></i>Configuración de Terapia</h6>
-        <form method="POST" class="bg-white border rounded-4 p-4 shadow-sm">
-            {% csrf_token %}
-            <input type="hidden" name="actualizar_niveles" value="true">
+    <div class="bg-surface-container-low rounded-[2rem] p-8 flex flex-col border border-white/40 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="h-12 w-12 rounded-2xl bg-orange-100 flex items-center justify-center text-orange-600">
+                <span class="material-symbols-outlined emoji-icon">local_fire_department</span>
+            </div>
+            <h5 class="font-headline font-bold text-indigo-950 mb-0">Adherencia</h5>
+        </div>
+        <div class="flex flex-col justify-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Días de Racha</span>
+            <div class="text-4xl font-headline font-extrabold text-indigo-950">{{ paciente.racha_dias }} <span class="text-sm font-medium text-slate-400">días</span></div>
+        </div>
+    </div>
+    
+    <div class="bg-surface-container-low rounded-[2rem] p-8 flex flex-col border border-white/40 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="h-12 w-12 rounded-2xl bg-green-100 flex items-center justify-center text-green-700">
+                <span class="material-symbols-outlined emoji-icon">play_shapes</span>
+            </div>
+            <h5 class="font-headline font-bold text-indigo-950 mb-0">Evolución</h5>
+        </div>
+        <div class="flex flex-col justify-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Sesiones Totales</span>
+            <div class="text-4xl font-headline font-extrabold text-indigo-950">{{ paciente.dias_totales }}</div>
+        </div>
+    </div>
+    
+    <div class="bg-surface-container-low rounded-[2rem] p-8 flex flex-col border border-white/40 shadow-sm">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="h-12 w-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-700">
+                <span class="material-symbols-outlined emoji-icon">timer</span>
+            </div>
+            <h5 class="font-headline font-bold text-indigo-950 mb-0">Tiempos</h5>
+        </div>
+        <div class="flex flex-col justify-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Tiempo Medio/Sesión</span>
+            <div class="text-4xl font-headline font-extrabold text-indigo-950">15 <span class="text-sm font-medium text-slate-400">min</span></div>
+        </div>
+    </div>
+</div>
 
-            <div class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="form-label text-purple small fw-bold mb-2">NIVEL COGNITIVO</label>
-                    <select name="nivel_cognitivo" class="form-select bg-light border-0 py-2 fw-bold text-dark">
+<!-- CONFIG SECTION -->
+<div class="bg-white rounded-[2.5rem] p-8 lg:p-10 border border-outline-variant/20 shadow-sm mb-10">
+    <div class="flex flex-col lg:flex-row justify-between lg:items-center mb-8 gap-4">
+        <div>
+            <h2 class="text-xl font-headline font-extrabold text-indigo-950 mb-0">Configuración de Terapia</h2>
+            <p class="text-slate-500 text-sm mt-1 mb-0">Ajusta manualmente los parámetros de dificultad base.</p>
+        </div>
+    </div>
+    
+    <form method="POST" class="w-full">
+        {% csrf_token %}
+        <input type="hidden" name="actualizar_niveles" value="true">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+            <!-- Cognitivo -->
+            <div class="flex flex-col">
+                <label class="text-[10px] font-bold text-primary-container uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[1rem]">psychology</span> Cognitivo
+                </label>
+                <div class="relative">
+                    <select name="nivel_cognitivo" class="w-full appearance-none bg-surface-container-low border-0 text-indigo-950 font-bold rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container cursor-pointer m-0">
                         {% for i in "12345" %}
                         <option value="{{ i }}" {% if paciente.nivel_cognitivo|stringformat:"i" == i %}selected{% endif %}>Nivel {{ i }}</option>
                         {% endfor %}
                     </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label class="form-label text-purple small fw-bold mb-2">NIVEL LENGUAJE</label>
-                    <select name="nivel_lenguaje" class="form-select bg-light border-0 py-2 fw-bold text-dark">
-                        {% for i in "12345" %}
-                        <option value="{{ i }}" {% if paciente.nivel_lenguaje|stringformat:"i" == i %}selected{% endif %}>
-                            Nivel {{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label class="form-label text-purple small fw-bold mb-2">NIVEL MOTOR</label>
-                    <select name="nivel_motor" class="form-select bg-light border-0 py-2 fw-bold text-dark">
-                        {% for i in "12345" %}
-                        <option value="{{ i }}" {% if paciente.nivel_motor|stringformat:"i" == i %}selected{% endif %}>
-                            Nivel {{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-purple w-100 py-2 shadow-sm fw-bold rounded-pill">
-                        <i class="bi bi-check2-circle me-2"></i> Guardar Cambios
-                    </button>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
-
-<div class="row g-3 mb-5">
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm p-4 h-100 rounded-4 bg-white border-top-purple">
-            <i class="bi bi-trophy-fill text-purple fs-4 mb-3"></i>
-            <h6 class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing: 0.5px;">Puntuación Global
-            </h6>
-            <h2 class="fw-bold text-dark mb-0">{{ paciente.puntos_totales }} <span
-                    class="fs-6 text-muted fw-normal">pts</span></h2>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm p-4 h-100 rounded-4 bg-white border-top-purple">
-            <i class="bi bi-calendar-check-fill text-purple fs-4 mb-3"></i>
-            <h6 class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing: 0.5px;">Adherencia</h6>
-            <h2 class="fw-bold text-dark mb-0">{{ paciente.racha_dias }} <span
-                    class="fs-6 text-muted fw-normal">días</span></h2>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm p-4 h-100 rounded-4 bg-white border-top-purple">
-            <i class="bi bi-collection-play-fill text-purple fs-4 mb-3"></i>
-            <h6 class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing: 0.5px;">Sesiones Totales
-            </h6>
-            <h2 class="fw-bold text-dark mb-0">{{ paciente.dias_totales }}</h2>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm p-4 h-100 rounded-4 bg-white border-top-purple">
-            <i class="bi bi-stopwatch-fill text-purple fs-4 mb-3"></i>
-            <h6 class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing: 0.5px;">Tiempo Medio/Sesión
-            </h6>
-            <h2 class="fw-bold text-dark mb-0">15 <span class="fs-6 text-muted fw-normal">min</span></h2>
-        </div>
-    </div>
-</div>
-
-<div class="card border-0 shadow-sm mb-4 rounded-4 overflow-hidden text-white"
-    style="background: linear-gradient(135deg, #6610f2 0%, #8b40fe 100%);">
-    <div class="card-body p-4 p-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
-        <div>
-            <span class="badge bg-white text-purple mb-2 fw-bold px-3 py-2 rounded-pill shadow-sm">Nueva Función</span>
-            <h3 class="fw-bold mb-1"><i class="bi bi-brain me-2"></i>Evaluaciones Cognitivas (MoCA)</h3>
-            <p class="mb-0 text-white-50" style="font-size: 1.1rem;">Auditoría clínica, análisis de audios y trazos a
-                mano alzada.</p>
-        </div>
-
-        <div class="text-center text-md-end">
-            {% if paciente.tiene_moca_pendiente %}
-            <div class="mb-2 text-warning fw-bold small"><i class="bi bi-exclamation-triangle-fill me-1"></i>
-                Evaluaciones pendientes de revisión</div>
-            {% endif %}
-
-            <a href="{% url 'historial_moca' paciente.pk %}"
-                class="btn btn-light btn-lg rounded-pill fw-bold text-purple shadow px-4 py-3"
-                style="transition: transform 0.2s;">
-                Ver Historial Completo <i class="bi bi-arrow-right ms-2"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="card border-0 shadow-sm mb-4 rounded-4 overflow-hidden text-white" 
-    style="background: linear-gradient(135deg, #4c08b0 0%, #7622f4 100%);">
-    <div class="card-body p-4 p-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
-        
-        <div class="d-flex align-items-center gap-4">
-            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center text-purple shadow-sm"
-                style="width: 70px; height: 70px; font-size: 2rem;">
-                <i class="bi bi-mailbox2"></i>
+            <!-- Lenguaje -->
+            <div class="flex flex-col">
+                <label class="text-[10px] font-bold text-primary-container uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[1rem]">record_voice_over</span> Lenguaje
+                </label>
+                <div class="relative">
+                    <select name="nivel_lenguaje" class="w-full appearance-none bg-surface-container-low border-0 text-indigo-950 font-bold rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container cursor-pointer m-0">
+                        {% for i in "12345" %}
+                        <option value="{{ i }}" {% if paciente.nivel_lenguaje|stringformat:"i" == i %}selected{% endif %}>Nivel {{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+                </div>
             </div>
-            
+            <!-- Motor -->
+            <div class="flex flex-col">
+                <label class="text-[10px] font-bold text-primary-container uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[1rem]">directions_run</span> Motor
+                </label>
+                <div class="relative">
+                    <select name="nivel_motor" class="w-full appearance-none bg-surface-container-low border-0 text-indigo-950 font-bold rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container cursor-pointer m-0">
+                        {% for i in "12345" %}
+                        <option value="{{ i }}" {% if paciente.nivel_motor|stringformat:"i" == i %}selected{% endif %}>Nivel {{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+                </div>
+            </div>
+            <!-- Submit -->
             <div>
-                <h3 class="fw-bold mb-1">Buzón de Mensajes y Alertas</h3>
-                <p class="mb-0 text-white-50" style="font-size: 1.1rem;">
-                    Envía mensajes directos al paciente y revisa las alertas automáticas del sistema.
-                </p>
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-bold text-sm shadow-md hover:-translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 border-0">
+                    <span class="material-symbols-outlined text-[1.1rem]">save</span>
+                    Guardar Cambios
+                </button>
             </div>
         </div>
-
-        <div class="text-center text-md-end" style="min-width: 250px;">
-            <a href="{% url 'buzon_paciente_medico' paciente.pk %}" 
-                class="btn btn-light btn-lg rounded-pill fw-bold text-purple shadow-sm px-4 py-3 w-100"
-                style="transition: transform 0.2s; border-color: transparent;">
-                Ver y Enviar Mensajes <i class="bi bi-chat-text-fill ms-2"></i>
-            </a>
-        </div>
-    </div>
+    </form>
 </div>
 
-<div class="card border-0 shadow-sm mb-5 rounded-4 overflow-hidden bg-white">
-    <div class="card-header bg-transparent py-4 px-4 border-bottom d-flex align-items-center">
-        <i class="bi bi-journal-medical fs-4 text-purple me-3"></i>
-        <h5 class="fw-bold text-dark mb-0" style="letter-spacing: -0.5px;">Historial y Evolución Clínica</h5>
-    </div>
-
-    <div class="card-body p-4 p-md-5 bg-soft-purple">
-
-        <div class="mb-5 bg-white p-4 rounded-4 shadow-sm border">
+<!-- CLINICAL NOTES SECTION -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-10">
+    <section>
+        <h3 class="text-xl font-headline font-bold text-indigo-950 mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-indigo-900 inline-block rounded-full"></span> Notas Clínicas
+        </h3>
+        
+        <div class="bg-surface-container-low rounded-[2rem] p-8 border border-white/40 shadow-sm mb-6">
             <form method="POST">
                 {% csrf_token %}
-                <label for="floatingTextarea" class="text-purple fw-bold small mb-2">NUEVA OBSERVACIÓN</label>
-                <div class="form-floating mb-3">
-                    <textarea name="texto_nota" class="form-control bg-light border-0 shadow-none"
-                        placeholder="Escribir observación..." id="floatingTextarea" style="height: 120px; resize: none;"
-                        required></textarea>
-                    <label for="floatingTextarea" class="text-muted">Escribir progreso, incidencia o
-                        recordatorio...</label>
-                </div>
-                <div class="text-end">
-                    <button type="submit" name="guardar_nota"
-                        class="btn btn-purple px-4 shadow-sm rounded-pill fw-bold">
-                        <i class="bi bi-send-fill me-2"></i> Publicar Nota
+                <label class="text-[10px] font-bold text-primary-container uppercase tracking-widest mb-3 block">Nueva Observación</label>
+                <textarea name="texto_nota" class="w-full bg-white border-0 text-sm text-indigo-950 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-container m-0 shadow-sm" placeholder="Escribir progreso, incidencia o recordatorio..." style="height: 100px; resize: none;" required></textarea>
+                <div class="text-right mt-3">
+                    <button type="submit" name="guardar_nota" class="px-5 py-2 bg-indigo-900 text-white rounded-lg font-bold text-xs shadow-sm shadow-indigo-900/20 hover:bg-indigo-800 transition-all border-0">
+                        Publicar Nota
                     </button>
                 </div>
             </form>
         </div>
-
-        <div class="mt-4 ps-md-3 border-start border-2 border-purple-subtle" style="border-color: #e0cffc !important;">
+    </section>
+    
+    <section>
+        <h3 class="text-xl font-headline font-bold text-indigo-950 mb-6 flex items-center gap-3 opacity-0 xl:opacity-100 hidden xl:flex">
+            <span class="w-8 h-1 bg-transparent inline-block"></span> Historial
+        </h3>
+        
+        <div class="space-y-0 shadow-sm rounded-3xl overflow-hidden border border-outline-variant/20">
             {% for nota in notas %}
-            <div class="card border-0 shadow-sm mb-4 rounded-4 bg-white ms-3 position-relative">
-                <div class="position-absolute top-0 start-0 translate-middle bg-purple rounded-circle border border-4 border-white"
-                    style="width: 16px; height: 16px; margin-left: -1px; margin-top: 25px;"></div>
-
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <h6 class="fw-bold text-purple mb-0">
-                            <i class="bi bi-person-badge-fill me-2"></i> Dr/a. {{ nota.medico.last_name|default:nota.medico.username }}
-                        </h6>
-                        <span class="badge bg-light text-secondary border rounded-pill px-3">
-                            <i class="bi bi-clock me-1"></i> {{ nota.fecha|date:"d M Y, H:i" }}
-                        </span>
+                <div class="flex flex-col py-5 px-6 
+                    {% if forloop.counter|divisibleby:2 %} bg-surface {% else %} bg-surface-container-low {% endif %} 
+                    {% if forloop.first %} rounded-t-3xl {% endif %} 
+                    {% if forloop.last %} rounded-b-3xl {% endif %}
+                ">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-sm font-bold text-indigo-950 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[1.1rem] text-primary-container">person</span> 
+                            Dr/a. {{ nota.medico.last_name|default:nota.medico.username }}
+                        </div>
+                        <span class="px-3 py-1 bg-white border border-outline-variant/30 text-slate-500 text-[10px] font-bold rounded-full uppercase">{{ nota.fecha|date:"d M Y, H:i" }}</span>
                     </div>
-                    <p class="mb-0 text-dark" style="white-space: pre-wrap; line-height: 1.6;">{{ nota.texto }}</p>
+                    <div class="text-sm text-slate-600 pl-6 leading-relaxed" style="white-space: pre-wrap;">{{ nota.texto }}</div>
                 </div>
-            </div>
             {% empty %}
-            <div class="text-center py-5 ms-3">
-                <div class="bg-white rounded-circle shadow-sm d-inline-flex justify-content-center align-items-center mb-3"
-                    style="width: 80px; height: 80px;">
-                    <i class="bi bi-clipboard-x text-purple" style="font-size: 2rem;"></i>
+                <div class="flex flex-col items-center justify-center py-12 px-6 bg-surface-container-low rounded-3xl">
+                    <span class="material-symbols-outlined text-4xl text-slate-300 mb-3">clinical_notes</span>
+                    <p class="text-sm font-medium text-slate-500 m-0">Aún no hay notas registradas para este paciente.</p>
                 </div>
-                <h6 class="fw-bold text-dark mb-1">Historial Vacío</h6>
-                <p class="text-muted small">Aún no hay notas clínicas registradas para este paciente.</p>
-            </div>
             {% endfor %}
         </div>
-
-    </div>
+    </section>
 </div>
+
+<!-- Bottom Spacing -->
+<div class="h-16"></div>
 {% endblock %}

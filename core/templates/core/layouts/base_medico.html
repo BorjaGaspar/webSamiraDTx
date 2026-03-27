@@ -1,90 +1,207 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html class="light" lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>{% block title %}Panel Especialista | SamiraDTx{% endblock %}</title>
+
+    <!-- BOOTSTRAP 5.3 (Mantiene funcionalidades previas y layout interno grid/cards) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        // CLAVE: preflight en false para que Tailwind no elimine los márgenes bases y el normalize tipográfico de Bootstrap
+        corePlugins: {
+            preflight: false,
+        },
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#c6c5d4",
+              "surface-variant": "#e1e2e5",
+              "error": "#ba1a1a",
+              "surface-dim": "#d9dadd",
+              "primary-fixed": "#e0e0ff",
+              "surface-container-low": "#f2f3f6",
+              "outline": "#767683",
+              "surface-container-highest": "#e1e2e5",
+              "on-primary-container": "#8690ee",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#e17c5a",
+              "inverse-primary": "#bdc2ff",
+              "surface-container": "#edeef1",
+              "on-secondary-fixed": "#151839",
+              "tertiary": "#380b00",
+              "on-surface": "#191c1e",
+              "surface-container-high": "#e7e8eb",
+              "on-background": "#191c1e",
+              "inverse-on-surface": "#f0f1f4",
+              "surface": "#f8f9fc",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed-variant": "#7b2e12",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#454652",
+              "primary": "#000666",
+              "secondary-fixed-dim": "#c1c3ed",
+              "surface-bright": "#f8f9fc",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-surface": "#2e3133",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#414467",
+              "primary-container": "#1a237e",
+              "surface-tint": "#4c56af",
+              "on-primary": "#ffffff",
+              "secondary": "#585c80",
+              "secondary-container": "#d2d4ff",
+              "on-error": "#ffffff",
+              "on-primary-fixed-variant": "#343d96",
+              "secondary-fixed": "#e0e0ff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "primary-fixed-dim": "#bdc2ff",
+              "background": "#f8f9fc",
+              "on-secondary-container": "#575b7f",
+              "on-tertiary-fixed": "#390c00",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#000767",
+              "tertiary-container": "#5c1800"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
     <style>
-        body { background-color: #f8f9fa; }
-        .sidebar { min-height: 100vh; background: white; border-right: 1px solid #dee2e6; }
-        .nav-link { color: #495057; margin-bottom: 5px; display: flex; align-items: center; }
-        /* Hover Azul para médicos */
-        .nav-link:hover { background-color: #e9ecef; color: #0d6efd; border-radius: 5px; }
-        .nav-link.active { background-color: #0d6efd; color: white; border-radius: 5px; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fc; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .crystal-glass {
+            background: rgba(26, 35, 126, 0.04);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Reset manuales para botones Tailwind (puesto que preflight está desactivado) */
+        button { border: none; background: transparent; cursor: pointer; }
+        a { text-decoration: none; color: inherit; }
+        a:hover { text-decoration: none; color: inherit; }
+        p { margin-bottom: 0; } /* Tailwind util classes controlarán los márgenes ahora */
     </style>
 </head>
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="{% url 'dashboard_medico' %}">SamiraDTx <span class="badge bg-white text-primary small">Clínico</span></a>
-            
-            <div class="d-flex align-items-center text-white">
-                <div class="text-end me-3">
-                    <div class="fw-bold">{{ user.username }}</div>
-                    <div style="font-size: 0.75rem; opacity: 0.8;">Profesional Sanitario</div>
+<body class="bg-surface text-on-surface antialiased">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 w-full z-[1050] flex justify-between items-center px-8 h-20 bg-white/10 dark:bg-slate-900/10 backdrop-blur-3xl shadow-[0_12px_40px_rgba(26,35,126,0.06)] border-b border-white/20 font-manrope antialiased tracking-tight">
+        <div class="flex items-center space-x-6">
+            <a href="{% url 'dashboard_medico' %}">
+                <span class="text-2xl font-bold bg-gradient-to-r from-indigo-900 to-indigo-700 bg-clip-text text-transparent dark:from-indigo-200 dark:to-indigo-400">SamiraDTx</span>
+            </a>
+            <span class="bg-white px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm border border-outline-variant/20 tracking-widest uppercase">Clínico</span>
+        </div>
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-4">
+                <button class="p-2 rounded-xl hover:bg-indigo-50/50 transition-all group">
+                    <span class="material-symbols-outlined text-primary-container group-hover:scale-110 transition-transform" data-icon="notifications">notifications</span>
+                </button>
+                <div class="h-8 w-[1px] bg-outline-variant/30"></div>
+                <div class="flex items-center space-x-3 cursor-pointer group">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm font-bold text-primary-container leading-none mb-1 mt-0">Dr/a. {{ user.username|title }}</p>
+                        <p class="text-[10px] text-outline font-medium mb-0">Médico Especialista</p>
+                    </div>
+                    <div class="w-10 h-10 rounded-full border-2 border-primary-fixed overflow-hidden bg-indigo-100 flex items-center justify-center">
+                        <span class="text-indigo-900 font-bold fs-5">{{ user.username.0|upper }}</span>
+                    </div>
                 </div>
-                <i class="bi bi-person-badge fs-4 me-3"></i>
                 
-                <form action="{% url 'logout' %}" method="post" class="d-flex">
+                <form action="{% url 'logout' %}" method="post" class="m-0 p-0 d-inline-flex" style="display: flex; align-items: center;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-sm btn-outline-light border-0">
-                        <i class="bi bi-box-arrow-right fs-5"></i>
+                    <button type="submit" class="p-2 rounded-xl hover:bg-error/5 text-error transition-all group m-0" title="Cerrar Sesión">
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="logout">logout</span>
                     </button>
                 </form>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 sidebar p-3 d-none d-md-block">
-                <h6 class="text-uppercase text-muted small fw-bold mt-2 mb-3">Gestión Clínica</h6>
+    <!-- SideNavBar -->
+    <aside class="fixed left-0 top-0 h-full flex flex-col p-6 space-y-8 bg-slate-50 dark:bg-slate-950 w-72 border-r border-indigo-100/10 font-manrope font-medium text-sm pt-28 z-[1040]">
+        <div class="space-y-2">
+            <h3 class="px-4 text-[11px] font-bold text-outline uppercase tracking-[0.2em] mb-4">Gestión Clínica</h3>
+            <nav class="space-y-1">
+                <!-- Panel de Control -->
+                <a class="flex items-center space-x-3 rounded-xl px-4 py-3 group transition-all {% if request.resolver_match.url_name == 'dashboard_medico' %}text-indigo-900 bg-white shadow-sm dark:bg-indigo-900/40 dark:text-indigo-100{% else %}text-indigo-900/70 hover:translate-x-1 hover:bg-indigo-50 dark:text-indigo-400/70 dark:hover:bg-indigo-900/20{% endif %}" href="{% url 'dashboard_medico' %}">
+                    <span class="material-symbols-outlined {% if request.resolver_match.url_name != 'dashboard_medico' %}group-hover:text-primary-container{% endif %}" data-icon="dashboard" {% if request.resolver_match.url_name == 'dashboard_medico' %}style="font-variation-settings: 'FILL' 1;"{% endif %}>dashboard</span>
+                    <span class="flex-1">Panel de Control</span>
+                    {% if request.resolver_match.url_name == 'dashboard_medico' %}
+                        <div class="w-1.5 h-1.5 rounded-full bg-primary-container"></div>
+                    {% endif %}
+                </a>
                 
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard_medico' %}active{% endif %}" href="{% url 'dashboard_medico' %}">
-                            <i class="bi bi-speedometer2 me-2"></i> Panel de Control
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-people-fill me-2"></i> Mis Pacientes
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-file-earmark-medical me-2"></i> Informes
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-3">
-                        <h6 class="text-uppercase text-muted small fw-bold px-2 mt-2">Sistema</h6>
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-gear me-2"></i> Configuración
-                        </a>
-                    </li>
-                </ul>
+                <a class="flex items-center space-x-3 text-indigo-900/70 dark:text-indigo-400/70 px-4 py-3 hover:translate-x-1 transition-transform hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl group" href="#">
+                    <span class="material-symbols-outlined group-hover:text-primary-container" data-icon="group">group</span>
+                    <span>Mis Pacientes</span>
+                </a>
                 
-                <div class="mt-5 px-3">
-                     <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm w-100">
-                        <i class="bi bi-globe me-2"></i> Web Pública
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-10 p-4">
-                {% block content %}
-                {% endblock %}
-            </div>
+                <a class="flex items-center space-x-3 text-indigo-900/70 dark:text-indigo-400/70 px-4 py-3 hover:translate-x-1 transition-transform hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl group" href="#">
+                    <span class="material-symbols-outlined group-hover:text-primary-container" data-icon="description">description</span>
+                    <span>Informes</span>
+                </a>
+            </nav>
         </div>
+        
+        <div class="space-y-2">
+            <h3 class="px-4 text-[11px] font-bold text-outline uppercase tracking-[0.2em] mb-4">Sistema</h3>
+            <nav class="space-y-1">
+                <a class="flex items-center space-x-3 text-indigo-900/70 dark:text-indigo-400/70 px-4 py-3 hover:translate-x-1 transition-transform hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl group" href="#">
+                    <span class="material-symbols-outlined group-hover:text-primary-container" data-icon="settings">settings</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto pt-6 border-t border-outline-variant/10">
+            <a href="{% url 'home' %}" class="w-full flex items-center justify-center space-x-2 bg-primary-container text-white rounded-xl py-4 font-bold shadow-lg shadow-indigo-900/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                <span class="material-symbols-outlined text-sm text-white" data-icon="public">public</span>
+                <span class="text-white">Web Pública</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Canvas -->
+    <main class="ml-72 pt-20 min-h-screen">
+        <div class="p-8 max-w-[1400px] mx-auto mt-4"> <!-- Padding interior seguro -->
+            {% block content %}
+            <!-- Aquí se inyectan las vistas de Django hijas manteniendo su layout Grid de Bootstrap -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Contextual FAB (Botón de añadir genérico) -->
+    <div class="fixed bottom-10 right-10 z-[1060]">
+        <button class="w-16 h-16 rounded-full bg-primary-container text-white shadow-2xl shadow-indigo-900/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all crystal-glass border-0">
+            <span class="material-symbols-outlined text-3xl text-white" data-icon="add">add</span>
+        </button>
     </div>
 
+    <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

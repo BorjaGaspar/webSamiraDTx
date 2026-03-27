@@ -3,96 +3,212 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>{% block title %}Panel de Control | SamiraDTx{% endblock %}</title>
+    
+    <!-- Bootstrap para funcionalidades y grid de las vistas hijas -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    <!-- Tailwind para el layout envolvente de paciente -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          corePlugins: {
+            preflight: false, // CRÍTICO: No romper Bootstrap en las plantillas hijas
+          },
+          theme: {
+            extend: {
+              colors: {
+                "a11y-bg": "#F8F9FA", // Fondo crema/off-white (para no causar deslumbramiento)
+                "a11y-text": "#333333", // Gris carbón oscuro (no gris claro, contraste perfecto)
+                "a11y-accent": "#FFD700", // Amarillo alto contraste para foco/hover
+                "a11y-btn-bg": "#1A1A1A", // Negro suave clínico para botones principales
+                "a11y-border": "#000000", // Negro puro para delimitar objetos masivos
+              },
+              fontFamily: {
+                "lexend": ["Lexend", "sans-serif"],
+              },
+            },
+          },
+        }
+    </script>
     <style>
-        body { background-color: #f0f2f5; }
-        .sidebar { min-height: 100vh; background: white; border-right: 1px solid #dee2e6; }
-        .nav-link { color: #495057; margin-bottom: 5px; display: flex; align-items: center; }
-        .nav-link:hover { background-color: #e9ecef; color: #198754; border-radius: 5px; }
-        .nav-link.active { background-color: #198754; color: white; border-radius: 5px; }
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #F8F9FA !important;
+            color: #333333 !important;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+            font-size: 32px;
+        }
+        /* Enlaces del sidebar: Alto contraste y áreas de clic masivas */
+        .a11y-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            color: #333333;
+            font-weight: 800;
+            font-size: 1.25rem;
+            border-radius: 1rem;
+            border: 4px solid transparent;
+            transition: all 0.2s;
+            text-decoration: none;
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+        }
+        .a11y-nav-link:hover, .a11y-nav-link:focus {
+            background-color: #FFD700;
+            color: #000000;
+            border-color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+        .a11y-nav-link.active {
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+            border-color: #000000;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .a11y-nav-link.active .material-symbols-outlined { color: #FFD700; }
+        .a11y-nav-link:hover .material-symbols-outlined { color: #1A1A1A; transform: scale(1.1); transition: transform 0.2s; }
+        
+        /* Botones de acción masivos y oscuros (Regla 7:1) */
+        .a11y-btn-primary {
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 1.25rem;
+            border: 4px solid #000000;
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .a11y-btn-primary:hover, .a11y-btn-primary:focus {
+            background-color: #FFD700;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            text-decoration: none;
+        }
     </style>
 </head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="{% url 'resumen_paciente' %}">SamiraDTx <span class="badge bg-white text-success small">Privado</span></a>
-            
-            <div class="d-flex align-items-center text-white">
-                <i class="bi bi-person-circle me-2"></i>
-                <span class="me-3">{{ user.username }}</span>
-                
-                <form action="{% url 'logout' %}" method="post" class="d-flex">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-sm btn-outline-light">Salir</button>
-                </form>
+<body class="bg-a11y-bg text-a11y-text min-h-screen pb-24 lg:pb-0">
+    
+    <!-- TopAppBar -->
+    <header class="fixed top-0 w-full z-[1050] flex justify-between items-center px-6 md:px-10 h-28 bg-white border-b-4 border-a11y-border shadow-md">
+        <div class="flex items-center gap-5">
+            <div class="w-16 h-16 bg-a11y-accent border-4 border-a11y-border rounded-xl flex items-center justify-center shadow-sm">
+                <span class="material-symbols-outlined text-a11y-btn-bg text-4xl">neurology</span>
             </div>
+            <a href="{% url 'resumen_paciente' %}" class="text-4xl font-extrabold text-a11y-text tracking-tight no-underline hidden sm:block font-lexend">SamiraDTx</a>
         </div>
+        
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3 bg-a11y-bg px-5 py-3 rounded-xl border-4 border-a11y-border shadow-sm">
+                <span class="material-symbols-outlined text-a11y-text text-3xl">account_circle</span>
+                <span class="text-2xl font-bold font-lexend text-a11y-text hidden md:block">{{ user.username|title }}</span>
+            </div>
+            
+            <form action="{% url 'logout' %}" method="post" class="m-0">
+                {% csrf_token %}
+                <button type="submit" class="a11y-btn-primary px-5 py-3 text-xl">
+                    <span class="material-symbols-outlined text-3xl">logout</span>
+                    <span class="hidden lg:inline">Salir</span>
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <!-- SideNavBar (Desktop/Tablet) -->
+    {% block sidebar %}
+    <aside class="hidden lg:flex flex-col h-full w-80 fixed left-0 top-0 pt-36 pb-8 bg-white border-r-4 border-a11y-border z-[1040] shadow-xl px-6">
+        
+        <h2 class="font-lexend text-base font-extrabold text-[#555555] tracking-widest uppercase mb-6 px-4">Menu Principal</h2>
+        
+        <nav class="flex flex-col flex-grow">
+            <!-- Mi Resumen -->
+            <a class="a11y-nav-link {% if request.resolver_match.url_name == 'resumen_paciente' %}active{% endif %}" href="{% url 'resumen_paciente' %}">
+                <span class="material-symbols-outlined">home</span>
+                Mi Resumen
+            </a>
+            
+            <!-- Sala de Terapia (Acento lateral verde bosque para dar pista de acción correcta) -->
+            <a class="a11y-nav-link border-l-8 !border-l-[#1A4D2E] {% if request.resolver_match.url_name == 'juegos' %}active{% endif %}" href="{% url 'juegos' %}">
+                <span class="material-symbols-outlined {% if request.resolver_match.url_name != 'juegos' %}text-[#1A4D2E]{% endif %}">play_circle</span>
+                Sala de Terapia
+            </a>
+            
+            <!-- Buzón -->
+            <a class="a11y-nav-link flex justify-between items-center {% if request.resolver_match.url_name == 'buzon_paciente' %}active{% endif %}" href="{% url 'buzon_paciente' %}">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined">mail</span>
+                    Buzón Clínico
+                </div>
+                {% if request.user.perfil.notificaciones_sin_leer > 0 or request.user.perfilpaciente.notificaciones_sin_leer > 0 %}
+                    <span class="bg-[#ba1a1a] text-white border-2 border-white rounded-full px-3 py-1 text-base font-black shadow-sm">
+                        {{ request.user.perfil.notificaciones_sin_leer|default:request.user.perfilpaciente.notificaciones_sin_leer }}
+                    </span>
+                {% endif %}
+            </a>
+            
+            <!-- Accesibilidad Simulada -->
+            <a class="a11y-nav-link" href="#">
+                <span class="material-symbols-outlined">settings_accessibility</span>
+                Ajustar Visión
+            </a>
+        </nav>
+        
+        <div class="mt-auto border-t-4 border-slate-200 pt-8">
+            <a href="{% url 'home' %}" class="a11y-nav-link bg-slate-100 hover:bg-slate-200 !border-slate-400 !text-slate-800 shadow-none mb-0 w-full text-center flex justify-center text-lg">
+                <span class="material-symbols-outlined text-slate-700">arrow_back</span>
+                Web Pública
+            </a>
+        </div>
+    </aside>
+    {% endblock %}
+
+    <!-- Main Content Canvas -->
+    <main class="lg:ml-80 pt-36 pb-20 px-4 md:px-10 max-w-[1400px]">
+        <div class="{% block main_class %}{% endblock %}">
+            {% block content %}
+            <!-- Aquí se inyectan las vistas hijas (usando grid Bootstrap original) -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Bottom Nav Masivo (Solo Mobile) -->
+    <nav class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t-8 border-a11y-border flex justify-around p-3 z-[1050] shadow-[0_-10px_30px_rgba(0,0,0,0.15)] flex-nowrap overflow-x-auto gap-2">
+        <a href="{% url 'resumen_paciente' %}" class="flex flex-col items-center justify-center p-3 flex-1 rounded-2xl {% if request.resolver_match.url_name == 'resumen_paciente' %}bg-a11y-btn-bg text-white border-2 border-black{% else %}bg-slate-100 text-a11y-text hover:bg-a11y-accent border-2 border-transparent{% endif %} font-bold no-underline transition-all">
+            <span class="material-symbols-outlined text-4xl">home</span>
+        </a>
+        <a href="{% url 'juegos' %}" class="flex flex-col items-center justify-center p-3 flex-1 rounded-2xl {% if request.resolver_match.url_name == 'juegos' %}bg-a11y-btn-bg text-white border-2 border-black{% else %}bg-slate-100 text-[#1A4D2E] hover:bg-a11y-accent border-2 border-transparent{% endif %} font-bold no-underline transition-all">
+            <span class="material-symbols-outlined text-4xl">play_circle</span>
+        </a>
+        <a href="{% url 'buzon_paciente' %}" class="flex flex-col items-center justify-center p-3 flex-1 rounded-2xl relative {% if request.resolver_match.url_name == 'buzon_paciente' %}bg-a11y-btn-bg text-white border-2 border-black{% else %}bg-slate-100 text-a11y-text hover:bg-a11y-accent border-2 border-transparent{% endif %} font-bold no-underline transition-all">
+            <span class="material-symbols-outlined text-4xl">mail</span>
+            {% if request.user.perfil.notificaciones_sin_leer > 0 or request.user.perfilpaciente.notificaciones_sin_leer > 0 %}
+                <span class="absolute top-2 right-4 w-5 h-5 bg-[#ba1a1a] border-2 border-white rounded-full"></span>
+            {% endif %}
+        </a>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            
-            {% block sidebar %}
-            <div class="col-md-2 sidebar p-3 d-none d-md-block">
-                <h6 class="text-uppercase text-muted small fw-bold mt-2 mb-3">Menú Principal</h6>
-                
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'resumen_paciente' %}active{% endif %}" href="{% url 'resumen_paciente' %}">
-                            <i class="bi bi-house-heart-fill me-2"></i> Mi Resumen
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'juegos' %}active{% endif %}" href="{% url 'juegos' %}">
-                            <i class="bi bi-controller me-2"></i> Sala de Terapia
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link d-flex justify-content-between align-items-center {% if request.resolver_match.url_name == 'buzon_paciente' %}active{% endif %}" href="{% url 'buzon_paciente' %}">
-                            <div>
-                                <i class="bi bi-envelope-paper me-2"></i> Buzón Clínico
-                            </div>
-                            
-                            {% if request.user.perfil.notificaciones_sin_leer > 0 %}
-                                <span class="badge bg-danger rounded-pill shadow-sm" style="font-size: 0.75rem;">
-                                    {{ request.user.perfil.notificaciones_sin_leer }}
-                                </span>
-                            {% elif request.user.perfilpaciente.notificaciones_sin_leer > 0 %}
-                                <span class="badge bg-danger rounded-pill shadow-sm" style="font-size: 0.75rem;">
-                                    {{ request.user.perfilpaciente.notificaciones_sin_leer }}
-                                </span>
-                            {% endif %}
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-gear me-2"></i> Accesibilidad
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="mt-5">
-                    <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm w-100">
-                        <i class="bi bi-arrow-left"></i> Volver a Web Pública
-                    </a>
-                </div>
-            </div>
-            {% endblock %}
-
-            <div class="{% block main_class %}col-md-10 p-4{% endblock %}">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
-    </div>
-
+    <!-- Bootstrap JS Server para modales y dropdowns nativos si se usan -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
