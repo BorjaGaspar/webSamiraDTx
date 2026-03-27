@@ -332,11 +332,35 @@
 </div>
 
 <style>
+    /* Tipografía más grande y legible */
+    #pantalla-inicio h4, #pantalla-pilares h4 { font-size: 1.8rem; font-weight: 800 !important; }
+    .card-body h5 { font-size: 1.5rem; font-weight: 800 !important; }
+    .card-body p.small, .card-body .text-muted.small { font-size: 1.1rem !important; color: #495057 !important; } /* Aumentado tamaño y contraste del texto pequeño */
+    
+    /* Botones y elementos cliqueables más grandes */
+    .btn { font-size: 1.25rem !important; padding: 0.8rem 1.8rem !important; border-width: 2px !important; }
+    #titulo-seccion { font-size: 2.5rem !important; }
+
+    /* Indicadores de Hover Claros e Inequívocos */
     .cursor-pointer { cursor: pointer; }
-    .hover-elevate { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .hover-elevate:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; cursor: pointer; }
-    .transform-hover { transition: transform 0.2s; }
-    .transform-hover:hover { transform: scale(1.03); }
+    
+    .hover-elevate { transition: all 0.2s ease-in-out; }
+    .hover-elevate:hover { 
+        transform: translateY(-8px); 
+        box-shadow: 0 12px 28px rgba(0,0,0,0.15) !important; 
+        outline: 4px solid #1a1a1a; /* Contorno distintivo accesible */
+        outline-offset: 2px;
+        background-color: #fafafa !important;
+        cursor: pointer; 
+    }
+    
+    .transform-hover { transition: all 0.2s ease-in-out; }
+    .transform-hover:hover { 
+        transform: scale(1.04); 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+        outline: 4px solid #1a1a1a;
+        outline-offset: 2px;
+    }
 </style>
 
 <script>
